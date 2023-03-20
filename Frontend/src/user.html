@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-QxZ6DpxZSHyrPvEiyyLW8rbl6Wy1c6IgHihX1M6EiUCZgTcso/mTjG87HsW8QPCyD/ykev4PZoWwCkgglx/xw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <title>Create User</title>
+</head>
+<body class="background">
+<header class="header">
+    <div class="header-container">
+        <div class="header-nav-left">
+        </div>
+        <div class="header-nav-right">
+            <a class="header-nav_item" href="login.html">Log in</a>
+        </div>
+    </div>
+</header>
+
+<main class="main-content">
+    <div class="card">
+        <h2 class="card-title">Create User</h2>
+        <form class="card-content" id="create-user-form">
+            <div class="form-field">
+                <label for="create-username-field">Username</label>
+                <input type="text" required class="validated-field" id="create-username-field">
+            </div>
+            <div class="form-field">
+                <label for="create-email-field">Email</label>
+                <input type="email" required class="validated-field" id="create-email-field">
+            </div>
+            <div class="form-field">
+                <label for="create-password-field">Password</label>
+                <input type="password" required class="validated-field" id="create-password-field">
+            </div>
+            <div class="form-field social-login">
+                <button type="submit" class="btn btn-primary">Create User</button>
+
+            </div>
+        </form>
+    </div>
+    <div class="card" id="result">
+        <h2 class="card-title">Result:</h2>
+        <p id="result-info"></p>
+    </div>
+</main>
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-copyright">
+            Copyright &copy; 2023 User Management
+        </div>
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script type="module" src="./pages/CreateUserPage.js"></script>
+</body>
+</html>

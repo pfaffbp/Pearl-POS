@@ -1,6 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyPlugin = require("copy-webpack-plugin");
+const CopyPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
@@ -8,27 +8,40 @@ module.exports = {
     usedExports: true
   },
   entry: {
-    examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
+    CreateUserPage: path.resolve(__dirname, 'src', 'pages', 'CreateUserPage.js'),
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
   },
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: 'babel-loader',
+      },
+    ],
+  },
   devServer: {
     https: false,
     port: 8080,
-    open: true,
-    openPage: 'http://localhost:8080',
-    // diableHostChecks, otherwise we get an error about headers and the page won't render
-    disableHostCheck: true,
-    contentBase: 'packaging_additional_published_artifacts',
-    // overlay shows a full-screen overlay in the browser when there are compiler errors or warnings
-    overlay: true
+    open: {
+      target: 'http://localhost:8080/user.html',
+    },
+    allowedHosts: 'all',
+    static: {
+      directory: path.resolve(__dirname, 'src'),
+    },
+    client: {
+      overlay: true
+    },
   },
+
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
-      filename: 'index.html',
+      template: './src/user.html',
+      filename: 'user.html',
       inject: false
     }),
     new CopyPlugin({
@@ -41,4 +54,4 @@ module.exports = {
     }),
     new CleanWebpackPlugin()
   ]
-}
+};

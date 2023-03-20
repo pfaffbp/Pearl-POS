@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <title>Login</title>
+</head>
+<body class="background">
+<header class="header">
+    <div class="header-container">
+        <div class="header-nav-left">
+            <a class="header-nav_item header-nav_item--circle" href="">User Management</a>
+            <a class="header-nav_item header-nav_item--square header-nav_item--animated" href="user.html">Create Account</a>
+        </div>
+        <div class="header-nav-right">
+        </div>
+    </div>
+</header>
+
+
+
+<div class="card">
+    <h2>Login</h2>
+    <form class="card-content" id="login-form">
+        <p class="form-field">
+            <label>Email</label>
+            <label for="login-email-field"></label><input type="email" required class="validated-field" id="login-email-field">
+        </p>
+        <p class="form-field">
+            <label>Password</label>
+            <label for="login-password-field"></label><input type="password" required class="validated-field" id="login-password-field">
+        </p>
+        <div class="form-field social-login">
+            <a href="#" class="social-link facebook-link">
+                <i class="fab fa-facebook-f"></i>
+                <span>Facebook</span>
+            </a>
+            <a href="#" class="social-link twitter-link">
+                <i class="fab fa-twitter"></i>
+                <span>Twitter</span>
+            </a>
+            <a href="#" class="social-link google-link">
+                <i class="fab fa-google"></i>
+                <span>Google</span>
+            </a>
+        </div>
+
+
+        <button type="submit">Login</button>
+    </form>
+</div>
+
+<div class="card" id="result">
+    <p id="result-info"></p>
+</div>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script type="text/javascript" src="./pages/LoginPage.js"></script>
+</body>
+</html>
