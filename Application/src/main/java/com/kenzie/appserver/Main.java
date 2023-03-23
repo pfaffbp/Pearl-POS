@@ -2,11 +2,7 @@ package com.kenzie.appserver;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kenzie.appserver.controller.ProductController;
 import com.kenzie.appserver.controller.model.ProductCreateRequest;
-import com.kenzie.appserver.repositories.ProductRepository;
-import com.kenzie.appserver.repositories.model.ProductRecord;
-import com.kenzie.appserver.service.ProductService;
 import com.kenzie.appserver.service.model.Product;
 
 import java.io.IOException;
@@ -16,10 +12,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 
-import java.net.URI;
-import java.net.http.HttpRequest;
-import java.sql.SQLOutput;
-import java.util.Optional;
 import java.util.Scanner;
 
 
