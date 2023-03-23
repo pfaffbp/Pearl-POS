@@ -20,6 +20,7 @@ public class Main {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     public static void main(String[] args) throws Exception {
+        System.out.println("Hello World");
         boolean turnOffSwitch = true;
 
         while(turnOffSwitch){
