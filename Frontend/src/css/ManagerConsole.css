@@ -1,0 +1,233 @@
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.header{
+    background-color: #101010;
+    height: 6vh;
+    display: flex;
+}
+
+#icon-top-left{
+    height: 100%;
+    width: 4vw;
+}
+
+.header h1 {
+    display: flex;
+    color: whitesmoke;
+    position: absolute;
+    font-size: 36px;
+    margin-left: 5rem;
+    padding-top: 1.2rem;
+    font-family: Arial;
+}
+
+.add-product{
+    display: inline-block;
+    background-color: white;
+    border-style: solid;
+    border-color: rgb(77, 77, 77, 0.8);
+    border-width: 2px;
+    border-bottom: ghostwhite;
+    margin-left: 10vw;
+    width: 80%;
+    height: 100vh
+}
+
+.add-product label {
+    display: grid;
+    padding-left: 10%;
+    padding-top: 5%;
+    font-size: 18px;
+
+}
+
+#product-name{
+    width: 62.5%;
+    margin-left: 20%;
+    height: 30px;
+    border-color: cornflowerblue;
+    border-radius: 4px;
+    font-size: 18px;
+    text-align: center;
+}
+
+#product-category{
+    width: 100%;
+    line-height: 123px;
+    margin-top: 5px;
+    margin-left: 40%;
+    height: 30px;
+    border-color: cornflowerblue;
+    border-radius: 4px;
+    font-size: 18px;
+    text-align: left;
+    color: dodgerblue;
+}
+
+.product-label-price{
+    margin-left: 60px;
+    margin-bottom: 5px;
+}
+
+.product-label-category{
+    text-decoration: 10px;
+    margin-left: 90px;
+    margin-top: 30px;
+
+}
+
+.product-label-color{
+    margin-top: 30px;
+    margin-left: 60px;
+}
+
+.product-label-description{
+    margin-top: 10px;
+    margin-left: 60px;
+}
+
+.product-label-name{
+    margin-left: 60px;
+    margin-bottom: 5px;
+}
+
+#product-price{
+    width: 15%;
+    line-height: 22px;
+    margin-top: 5px;
+    margin-left: 20%;
+    height: 26px;
+    border-color: cornflowerblue;
+    border-radius: 4px;
+    font-size: 18px;
+    text-align: left;
+    color: dodgerblue;
+}
+
+.product-label-quantity{
+    margin-left: 132px;
+    margin-top: 30px;
+}
+
+#quantity{
+    width: 15%;
+    line-height: 22px;
+    margin-top: 5px;
+    margin-left: 50%;
+    height: 26px;
+    border-color: cornflowerblue;
+    border-radius: 4px;
+    font-size: 18px;
+    text-align: left;
+    color: dodgerblue;
+}
+
+#product-color{
+    width: 62.5%;
+    margin-top: 5px;
+    margin-left: 20%;
+    height: 30px;
+    border-color: cornflowerblue;
+    border-radius: 4px;
+    font-size: 18px;
+    text-align: center;
+}
+
+#product-description{
+    width: 62.5%;
+    margin-top: 5px;
+    margin-left: 20%;
+    height: 200px;
+    border-color: cornflowerblue;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.add-product-inline{
+    display: inline-block;
+    border-style: solid;
+    margin-left: 5%;
+    margin-top: 5%;
+    background-color:white;
+    border-color: rgba(77, 77, 77, 0.8);
+    border-right-color: rgba(0,0,0,0);
+    border-width: 3px;
+    border-radius: 1px;
+    width: 40%;
+    height: 65vh;
+}
+
+#display-inline{
+ display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.image-box{
+    background-color: white;
+    position: absolute;
+    display: inline-block;
+    border-style: solid;
+    margin-top: 4%;
+    border-color: rgba(77, 77, 77, 0.8);
+    border-left: rgba(0,0,0,0);
+    border-width: 3px;
+    border-radius: 1px;
+    width: 40%;
+    height: 65vh;
+}
+
+.image-box div{
+    margin-left: 30px;
+    margin-top: 10px;
+    display: inline-flex;
+    border-style: dashed;
+    border-radius: 12px;
+    border-color: rgba(77, 77, 77, 0.5);
+    width: 200px;
+    height: 200px;
+    background-color: lightgrey;
+}
+.image-box h2 {
+    margin-top: 25%;
+    margin-left: 5%;
+    font-size: 16px;
+    color: dodgerblue;
+}
+
+#image{
+    margin-top: 50px;
+    margin-left: 50px;
+    opacity: 0.2;
+}
+
+.image-box p {
+    vertical-align: center;
+    text-align: center;
+    margin-right: 100px;
+    font-size: 12px;
+    position: relative;
+    margin-top: 75%;
+    right: 35%;
+}
+
+#display-inline div {
+    width: 100%;
+}
+
+#submit-product{
+    background-color: #2d2dc7;
+    font-family: Counter-Strike;
+    padding: 10px 15px 10px 15px;
+    border-radius: 10px;
+    color: white;
+    font-size: 20px;
+    margin-top: 100px;
+    margin-left: 30px;
+
+}
