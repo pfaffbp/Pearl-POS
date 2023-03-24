@@ -9,6 +9,7 @@ module.exports = {
   },
   entry: {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
    // examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
     inventoryLevelsPage: path.resolve(__dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
@@ -22,6 +23,10 @@ module.exports = {
    // examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
     inventoryLevelsPage: path.resolve(__dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
 >>>>>>> 25c0d46 (first push getting an error when trying to run the boot run def)
+=======
+    examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
+    commentPage: path.resolve(__dirname, 'src', 'pages', 'addProductPage.js'),
+>>>>>>> 3cd46eb (save changes)
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -68,8 +73,8 @@ module.exports = {
       inject: false
     }),
     new HtmlWebpackPlugin({
-      template: './src/inventoryLevels.html',
-      filename: 'inventoryLevels.html',
+      template: './src/ManagerConsole.html',
+      filename: 'ManagerConsole.html',
       inject: false
     }),
     new CopyPlugin({
