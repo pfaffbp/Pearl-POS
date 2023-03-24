@@ -9,6 +9,7 @@ module.exports = {
   },
   entry: {
     examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
+    commentPage: path.resolve(__dirname, 'src', 'pages', 'addProductPage.js'),
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -29,6 +30,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: 'index.html',
+      inject: false
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/ManagerConsole.html',
+      filename: 'ManagerConsole.html',
       inject: false
     }),
     new CopyPlugin({
