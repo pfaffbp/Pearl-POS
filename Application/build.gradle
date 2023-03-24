@@ -26,7 +26,11 @@ dependencies {
     implementation 'com.google.guava:guava:31.1-jre'
     implementation group: 'com.github.ben-manes.caffeine', name: 'caffeine', version: '2.9.3'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: '2.6.3'
-    
+    implementation "io.jsonwebtoken:jjwt-api:0.11.0"
+    implementation "io.jsonwebtoken:jjwt-jackson:0.11.0", {exclude group:'io.jsonwebtoken', module:'jjwt-api'}
+    implementation "io.jsonwebtoken:jjwt-impl:0.11.0", {exclude group:'io.jsonwebtoken', module:'jjwt-api'}
+
+
 
     implementation group: 'io.micrometer', name: 'micrometer-core', version: '1.8.3'
     implementation group: 'io.micrometer', name: 'micrometer-registry-prometheus', version: '1.8.3'
@@ -51,7 +55,7 @@ processResources {
     expand(project.properties)
 }
 
-task buildZip(type: Zip) {
+tasks.register('buildZip', Zip) {
     from compileJava
     from processResources
     into('lib') {
@@ -71,7 +75,7 @@ repositories {
     }
 }
 
-task copyFrontend(type: Copy) {
+tasks.register('copyFrontend', Copy) {
     dependsOn(":Frontend:yarn_build")
 
     from("../Frontend/dist")
@@ -80,7 +84,7 @@ task copyFrontend(type: Copy) {
 
 compileJava.dependsOn(copyFrontend)
 
-task bootRunDev {
+tasks.register('bootRunDev') {
     bootRun.configure {
         systemProperty "spring.profiles.active", 'local'
     }
