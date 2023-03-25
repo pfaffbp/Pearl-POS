@@ -4,6 +4,8 @@ import com.kenzie.appserver.controller.model.LoginCreateRequest;
 import com.kenzie.appserver.controller.model.LoginResponse;
 import com.kenzie.appserver.service.UserService;
 import com.kenzie.appserver.service.model.User;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -34,12 +36,10 @@ public class LoginController {
         // Check if user exists and password matches
         if (user != null && user.getPassword().equals(loginCreateRequest.getPassword())) {
             // Create a new login token for the user
-            SecretKey key   = userService.generateKey() ;
-            String token = userService.createLoginToken(user, key);
+            String token = userService.createLoginToken(user, Keys.secretKeyFor(SignatureAlgorithm.HS256));
 
             // Return login token in the response
-            LoginResponse loginResponse = new LoginResponse(token);
-            return ResponseEntity.ok(loginResponse);
+            return ResponseEntity.ok(new LoginResponse(token));
         } else {
             // Return 401 Unauthorized status code if login failed
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
