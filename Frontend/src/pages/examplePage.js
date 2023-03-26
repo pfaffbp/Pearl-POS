@@ -81,6 +81,7 @@ class ExamplePage extends BaseClass {
  * Main method to run when the page contents have loaded.
  */
 const main = async () => {
+    console.log("Mounted")
     const examplePage = new ExamplePage();
     examplePage.mount();
 };

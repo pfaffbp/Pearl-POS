@@ -8,6 +8,7 @@ import com.kenzie.appserver.service.model.Product;
 import org.springframework.data.annotation.Id;
 
 import java.util.Objects;
+import java.util.UUID;
 
 @DynamoDBTable(tableName = "Products")
 public class ProductRecord {
@@ -83,12 +84,12 @@ public class ProductRecord {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
-        return productName.equals(product.getProductName()) && productID.equals(product.getProductID());
+        ProductRecord that = (ProductRecord) o;
+        return productID.equals(that.productID) && productName.equals(that.productName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(productName, productID);
+        return Objects.hash(productID, productName);
     }
 }

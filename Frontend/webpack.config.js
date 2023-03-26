@@ -8,6 +8,8 @@ module.exports = {
     usedExports: true
   },
   entry: {
+     examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
+     addProductPage: path.resolve(__dirname, 'src', 'pages', 'addProductPage.js'),
     loginPage: path.resolve(__dirname, 'src', 'pages', 'loginPage.js'),
   },
   output: {
@@ -23,12 +25,25 @@ module.exports = {
     disableHostCheck: true,
     contentBase: 'packaging_additional_published_artifacts',
     // overlay shows a full-screen overlay in the browser when there are compiler errors or warnings
-    overlay: true
+    overlay: true,
+    proxy:[
+      {
+        context: [
+          '/'
+        ],
+        target: 'http://localhost:5001'
+      }
+    ]
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/login.html',
       filename: 'login.html',
+      inject: false
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/ManagerConsole.html',
+      filename: 'ManagerConsole.html',
       inject: false
     }),
     new CopyPlugin({
