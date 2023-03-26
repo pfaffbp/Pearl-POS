@@ -6,6 +6,8 @@ import com.kenzie.appserver.service.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -15,6 +17,12 @@ public class ProductService {
     @Autowired
     public ProductService(ProductRepository productRepository){
         this.productRepository = productRepository;
+    }
+
+    public List<Product> getAllProducts(){
+        List<Product> allProducts = new ArrayList<Product>();
+        productRepository.findAll().forEach(productRecord -> allProducts.add(productHelperMethod(productRecord)));
+        return allProducts;
     }
 
     public Product addProduct(Product product){

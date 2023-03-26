@@ -7,6 +7,9 @@ import com.kenzie.appserver.service.model.Product;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -25,6 +28,15 @@ public class ProductController {
         ProductResponse productResponse = productResponseHelper(product);
 
         return ResponseEntity.ok(productResponse);
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<ProductResponse>> getAllProducts(){
+        List<Product> products = productService.getAllProducts();
+
+        List<ProductResponse> responses = products.stream().map(product -> productResponseHelper(product)).collect(Collectors.toList());
+        return ResponseEntity.ok(responses);
+
     }
 
     @GetMapping("/{productID}")

@@ -8,7 +8,8 @@ module.exports = {
     usedExports: true
   },
   entry: {
-    examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
+   // examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
+    inventoryLevelsPage: path.resolve(__dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -29,6 +30,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: 'index.html',
+      inject: false
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/inventoryLevels.html',
+      filename: 'inventoryLevels.html',
       inject: false
     }),
     new CopyPlugin({
