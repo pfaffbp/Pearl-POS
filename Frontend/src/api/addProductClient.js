@@ -4,11 +4,15 @@ import axios from "axios";
 export default class AddProductClient extends BaseClass{
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     constructor(props = {}){
         super();
         const methodsToBind = ['clientLoaded', 'createProduct', 'getAllInventory'];
 =======
+=======
+
+>>>>>>> 7d02c4d (my saves)
     constructor(props = {}){
         super();
         const methodsToBind = ['clientLoaded', 'createProduct'];
@@ -31,6 +35,7 @@ export default class AddProductClient extends BaseClass{
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     async createProduct(productName, price, category, quantity, description, errorCallback){
        try {
            console.log("createProduct");
@@ -38,11 +43,17 @@ export default class AddProductClient extends BaseClass{
     async createProduct(productName, price, category, quantity, productID, description, errorCallback){
        try {
 >>>>>>> 3cd46eb (save changes)
+=======
+    async createProduct(productName, price, category, quantity, description, errorCallback){
+       try {
+           console.log("createProduct");
+>>>>>>> 7d02c4d (my saves)
            const response = await this.client.post(`products`, {
                productName: productName,
                price: price,
                category: category,
                quantity: quantity,
+<<<<<<< HEAD
 <<<<<<< HEAD
                description: description
            });
@@ -52,6 +63,11 @@ export default class AddProductClient extends BaseClass{
                description: description
            });
 >>>>>>> 3cd46eb (save changes)
+=======
+               description: description
+           });
+           console.log(response.data);
+>>>>>>> 7d02c4d (my saves)
            return response.data;
        } catch (error){
            this.handleError("createProduct", error, errorCallback)

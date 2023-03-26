@@ -9,12 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 25c0d46 (first push getting an error when trying to run the boot run def)
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+=======
+import java.util.*;
+>>>>>>> 7d02c4d (my saves)
 
 import java.util.*;
 
@@ -24,6 +28,7 @@ public class ProductService {
     private ProductRepository productRepository;
 
     private TransactionService transactionService;
+<<<<<<< HEAD
 
     private TransactionRepository transactionRepository;
 
@@ -40,11 +45,17 @@ public class ProductService {
         productRepository.findAll().forEach(productRecord -> allProducts.add(productHelperMethod(productRecord)));
         return allProducts;
     }
+=======
+>>>>>>> 7d02c4d (my saves)
 
-    public List<Product> getAllProducts(){
-        List<Product> allProducts = new ArrayList<Product>();
-        productRepository.findAll().forEach(productRecord -> allProducts.add(productHelperMethod(productRecord)));
-        return allProducts;
+    private TransactionRepository transactionRepository;
+
+    @Autowired
+    public ProductService(ProductRepository productRepository,
+                          TransactionRepository transactionRepository, TransactionService transactionService){
+        this.productRepository = productRepository;
+        this.transactionRepository = transactionRepository;
+        this.transactionService = transactionService;
     }
 
     public Product addProduct(Product product){
@@ -66,10 +77,10 @@ public class ProductService {
     }
 
     public void updateProduct(Product product){
-        if(productRepository.existsById(product.getProductID())){
+        if(productRepository.existsById(product.getProductID()) == true){
             ProductRecord productRecord = productRecordHelperMethod(product);
             productRepository.save(productRecord);
-        }
+        };
     }
 
     public void deleteProduct(String productID){
@@ -146,7 +157,10 @@ public class ProductService {
         createNewProduct.setPrice(product.getPrice());
         createNewProduct.setQuantity(product.getQuantity());
         createNewProduct.setDescription(product.getDescription());
+<<<<<<< HEAD
         createNewProduct.setProductID(product.getProductID());
+=======
+>>>>>>> 7d02c4d (my saves)
 
         return createNewProduct;
     }

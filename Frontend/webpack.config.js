@@ -10,6 +10,7 @@ module.exports = {
   entry: {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
    // examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
     inventoryLevelsPage: path.resolve(__dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
@@ -27,6 +28,10 @@ module.exports = {
     examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
     commentPage: path.resolve(__dirname, 'src', 'pages', 'addProductPage.js'),
 >>>>>>> 3cd46eb (save changes)
+=======
+     examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
+     addProductPage: path.resolve(__dirname, 'src', 'pages', 'addProductPage.js'),
+>>>>>>> 7d02c4d (my saves)
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -36,7 +41,11 @@ module.exports = {
     https: false,
     port: 8080,
     open: true,
+<<<<<<< HEAD
     openPage: 'http://localhost:8080/productpage.html',
+=======
+    openPage: 'http://localhost:8080/ManagerConsole.html',
+>>>>>>> 7d02c4d (my saves)
     // diableHostChecks, otherwise we get an error about headers and the page won't render
     disableHostCheck: true,
     contentBase: 'packaging_additional_published_artifacts',

@@ -13,6 +13,7 @@ class AddProductPage extends BaseClass {
 
     async mount() {
 <<<<<<< HEAD
+<<<<<<< HEAD
         document.getElementById('add-product-block').addEventListener('submit', this.createProductEvent);
         this.client = new AddProductClient();
 
@@ -23,22 +24,34 @@ class AddProductPage extends BaseClass {
 
         this.dataStore.addChangeListener(this.renderExample)
 >>>>>>> 3cd46eb (save changes)
+=======
+        document.getElementById('add-product-block').addEventListener('submit', this.createProductEvent);
+        this.client = new AddProductClient();
+
+        // this.dataStore.addChangeListener(this.renderExample)
+>>>>>>> 7d02c4d (my saves)
     }
 
     async createProductEvent(event) {
         event.preventDefault();
+<<<<<<< HEAD
 <<<<<<< HEAD
         console.log("createProductEvent")
          // this.dataStore.set("products", null);
 =======
         this.dataStore.set("products", null);
 >>>>>>> 3cd46eb (save changes)
+=======
+        console.log("createProductEvent")
+         // this.dataStore.set("products", null);
+>>>>>>> 7d02c4d (my saves)
 
         let productName = document.getElementById("product-name").value;
         let productCategory = document.getElementById("product-category").value;
         let productQuantity = document.getElementById("quantity").value;
         let productPrice = document.getElementById("product-price").value;
         let productDescription = document.getElementById("product-description").value;
+<<<<<<< HEAD
 <<<<<<< HEAD
         console.log(productName, productPrice, productCategory);
 
@@ -50,6 +63,13 @@ class AddProductPage extends BaseClass {
         const createdProduct = await this.client.createProduct(productName, productPrice, productCategory,
             productQuantity, "12", productDescription, this.errorHandler);
 >>>>>>> 3cd46eb (save changes)
+=======
+        console.log(productName, productPrice, productCategory);
+
+
+        const createdProduct = await this.client.createProduct(productName, productPrice, productCategory,
+            productQuantity, productDescription, this.errorHandler);
+>>>>>>> 7d02c4d (my saves)
 
         this.dataStore.set("products", createdProduct);
 
@@ -63,9 +83,13 @@ class AddProductPage extends BaseClass {
 
 const main = async () => {
 <<<<<<< HEAD
+<<<<<<< HEAD
     console.log("mounted")
 =======
 >>>>>>> 3cd46eb (save changes)
+=======
+    console.log("mounted")
+>>>>>>> 7d02c4d (my saves)
     const productPage = new AddProductPage();
     productPage.mount();
 };
