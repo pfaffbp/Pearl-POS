@@ -11,6 +11,7 @@ module.exports = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
    // examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
     inventoryLevelsPage: path.resolve(__dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
@@ -32,6 +33,9 @@ module.exports = {
      examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
      addProductPage: path.resolve(__dirname, 'src', 'pages', 'addProductPage.js'),
 >>>>>>> 7d02c4d (my saves)
+=======
+    loginPage: path.resolve(__dirname, 'src', 'pages', 'loginPage.js'),
+>>>>>>> e60a327 (login and create user test)
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -42,28 +46,25 @@ module.exports = {
     port: 8080,
     open: true,
 <<<<<<< HEAD
+<<<<<<< HEAD
     openPage: 'http://localhost:8080/productpage.html',
 =======
     openPage: 'http://localhost:8080/ManagerConsole.html',
 >>>>>>> 7d02c4d (my saves)
+=======
+    openPage: 'http://localhost:8080/login.html',
+>>>>>>> e60a327 (login and create user test)
     // diableHostChecks, otherwise we get an error about headers and the page won't render
     disableHostCheck: true,
     contentBase: 'packaging_additional_published_artifacts',
     // overlay shows a full-screen overlay in the browser when there are compiler errors or warnings
-    overlay: true,
-    proxy:[
-      {
-        context: [
-          '/'
-        ],
-        target: 'http://localhost:5001'
-      }
-    ]
+    overlay: true
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/login.html',
       filename: 'login.html',
+<<<<<<< HEAD
       inject: false
     }),
     new HtmlWebpackPlugin({
@@ -84,6 +85,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/ManagerConsole.html',
       filename: 'ManagerConsole.html',
+=======
+>>>>>>> e60a327 (login and create user test)
       inject: false
     }),
     new CopyPlugin({
