@@ -1,9 +1,16 @@
 package com.kenzie.appserver.controller;
 
+<<<<<<< HEAD
+=======
+
+import com.kenzie.appserver.controller.model.UserResponse;
+import com.kenzie.appserver.service.UserService;
+>>>>>>> c82455f (added the sales and productList double check make sure everything is correct)
 import com.kenzie.appserver.service.model.User;
 import com.kenzie.appserver.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -21,8 +28,19 @@ public class UserController {
     }
 
     @GetMapping
+<<<<<<< HEAD
     public List<User> getAllUsers() {
         return userService.getAllUsers();
+=======
+    public ResponseEntity<List<UserResponse>> getAllUsers() {
+        List<User> users = userService.getAllUsers();
+        List<UserResponse> responses = new ArrayList<>();
+        for (User user : users) {
+            responses.add(convertUserToUserResponse(user));
+        }
+        return new ResponseEntity<>(responses, HttpStatus.OK);
+
+>>>>>>> c82455f (added the sales and productList double check make sure everything is correct)
     }
 
     @GetMapping("/{id}")
@@ -34,4 +52,22 @@ public class UserController {
     public User updateUser(@PathVariable String id, @RequestBody User user) {
         return userService.updateUser(id, user);
     }
+<<<<<<< HEAD
 }
+=======
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable String id) {
+        boolean deleted = userService.deleteUser(id);
+        if (!deleted) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    public UserResponse convertUserToUserResponse(User user) {
+        return new UserResponse(user.getId(), user.getUsername(), user.getEmail());
+    }
+}
+
+>>>>>>> c82455f (added the sales and productList double check make sure everything is correct)

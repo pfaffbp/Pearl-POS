@@ -127,6 +127,7 @@ module.exports = {
         context: [
           '/'
         ],
+<<<<<<< HEAD
         target: 'http://localhost:5001'
       }
 >>>>>>> bb66005 (updating my levels and purchase history links)
@@ -134,6 +135,12 @@ module.exports = {
 <<<<<<< HEAD
 }
 =======
+=======
+        target: 'http://localhost:5001/'
+      }
+    ]
+
+>>>>>>> c82455f (added the sales and productList double check make sure everything is correct)
   },
   plugins: [
     new HtmlWebpackPlugin({

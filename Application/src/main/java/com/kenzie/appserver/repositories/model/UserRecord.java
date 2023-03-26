@@ -7,6 +7,7 @@ import java.util.Objects;
 
 @DynamoDBTable(tableName = "User")
 public class UserRecord {
+
     @DynamoDBHashKey(attributeName = "id")
     private String id;
 
@@ -24,6 +25,10 @@ public class UserRecord {
         this.username = username;
         this.password = password;
         this.email = email;
+    }
+
+    public UserRecord(String id) {
+        this.id = id;
     }
 
     public String getId() {
@@ -50,11 +55,14 @@ public class UserRecord {
         this.username = username;
     }
 
+<<<<<<< HEAD
     public void setEmail(String email) {
         this.email = email;
     }
 
 
+=======
+>>>>>>> c82455f (added the sales and productList double check make sure everything is correct)
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -68,10 +76,15 @@ public class UserRecord {
         return Objects.hash(id, username, password, email);
     }
 
-
     public void setPassword(String password) {
         this.password = password;
     }
 
+<<<<<<< HEAD
 
+=======
+    public void setEmail(String email) {
+        this.email = email;
+    }
+>>>>>>> c82455f (added the sales and productList double check make sure everything is correct)
 }
