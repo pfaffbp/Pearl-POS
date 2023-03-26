@@ -10,6 +10,7 @@ module.exports = {
   entry: {
      examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
      addProductPage: path.resolve(__dirname, 'src', 'pages', 'addProductPage.js'),
+    loginPage: path.resolve(__dirname, 'src', 'pages', 'loginPage.js'),
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -19,7 +20,7 @@ module.exports = {
     https: false,
     port: 8080,
     open: true,
-    openPage: 'http://localhost:8080/ManagerConsole.html',
+    openPage: 'http://localhost:8080/login.html',
     // diableHostChecks, otherwise we get an error about headers and the page won't render
     disableHostCheck: true,
     contentBase: 'packaging_additional_published_artifacts',
@@ -36,8 +37,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
-      filename: 'index.html',
+      template: './src/login.html',
+      filename: 'login.html',
       inject: false
     }),
     new HtmlWebpackPlugin({
