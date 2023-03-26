@@ -10,9 +10,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
-
 import javax.crypto.SecretKey;
 import java.util.Objects;
 
@@ -30,11 +27,12 @@ public class LoginControllerTest {
 
     @BeforeEach
     public void setUp() {
-        userService = mock(UserService.class); // move this line up
+        userService = mock(UserService.class);
         MockitoAnnotations.openMocks(this);
         key = userService.generateKey();
         loginController = new LoginController(userService);
     }
+
 
 
 
@@ -102,13 +100,12 @@ public class LoginControllerTest {
         String token = "test-token";
         // Mock the failure response from the service layer
         when(userService.invalidateToken("Bearer " + token)).thenReturn(false);
-        // Call the logout endpoint
-        ResponseEntity<Void> response = loginController.logout(token);
+        // Call the logout endpoint with the correct token format
+        ResponseEntity<Void> response = loginController.logout("Bearer " + token);
         // Verify that the service layer was called with the correct token
         verify(userService).invalidateToken("Bearer " + token);
         // Verify that the response has the correct status code
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
-
     }
 }
 
