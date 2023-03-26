@@ -12,24 +12,27 @@ class AddProductPage extends BaseClass {
     }
 
     async mount() {
-        document.getElementById('create-form').addEventListener('submit', this.createProductEvent);
+        document.getElementById('add-product-block').addEventListener('submit', this.createProductEvent);
         this.client = new AddProductClient();
 
-        this.dataStore.addChangeListener(this.renderExample)
+        // this.dataStore.addChangeListener(this.renderExample)
     }
 
     async createProductEvent(event) {
         event.preventDefault();
-        this.dataStore.set("products", null);
+        console.log("createProductEvent")
+         // this.dataStore.set("products", null);
 
         let productName = document.getElementById("product-name").value;
         let productCategory = document.getElementById("product-category").value;
         let productQuantity = document.getElementById("quantity").value;
         let productPrice = document.getElementById("product-price").value;
         let productDescription = document.getElementById("product-description").value;
+        console.log(productName, productPrice, productCategory);
+
 
         const createdProduct = await this.client.createProduct(productName, productPrice, productCategory,
-            productQuantity, "12", productDescription, this.errorHandler);
+            productQuantity, productDescription, this.errorHandler);
 
         this.dataStore.set("products", createdProduct);
 
@@ -42,6 +45,7 @@ class AddProductPage extends BaseClass {
 }
 
 const main = async () => {
+    console.log("mounted")
     const productPage = new AddProductPage();
     productPage.mount();
 };

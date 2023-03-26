@@ -3,6 +3,7 @@ import axios from "axios";
 
 export default class AddProductClient extends BaseClass{
 
+
     constructor(props = {}){
         super();
         const methodsToBind = ['clientLoaded', 'createProduct'];
@@ -23,16 +24,17 @@ export default class AddProductClient extends BaseClass{
     }
 
 
-    async createProduct(productName, price, category, quantity, productID, description, errorCallback){
+    async createProduct(productName, price, category, quantity, description, errorCallback){
        try {
+           console.log("createProduct");
            const response = await this.client.post(`products`, {
                productName: productName,
                price: price,
                category: category,
                quantity: quantity,
-               productID: productID,
                description: description
            });
+           console.log(response.data);
            return response.data;
        } catch (error){
            this.handleError("createProduct", error, errorCallback)
