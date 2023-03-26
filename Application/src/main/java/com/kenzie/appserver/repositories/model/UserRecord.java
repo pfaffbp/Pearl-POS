@@ -11,13 +11,13 @@ public class UserRecord {
     private final String id;
 
     @DynamoDBAttribute(attributeName = "username")
-    private final String username;
+    private String username;
 
     @DynamoDBAttribute(attributeName = "password")
-    private final String password;
+    private String password;
 
     @DynamoDBAttribute(attributeName = "email")
-    private final String email;
+    private String email;
 
     public UserRecord(String id, String username, String password, String email) {
         this.id = id;
@@ -42,6 +42,9 @@ public class UserRecord {
         return email;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -53,5 +56,15 @@ public class UserRecord {
     @Override
     public int hashCode() {
         return Objects.hash(id, username, password, email);
+    }
+
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

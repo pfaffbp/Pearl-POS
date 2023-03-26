@@ -8,10 +8,10 @@ import com.kenzie.appserver.service.model.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +23,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final List<String> revokedTokens = new ArrayList<>();
 
-
+    @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -78,5 +78,42 @@ public class UserService {
     public boolean isTokenRevoked(String token) {
         // Check if token is in list of revoked tokens
         return revokedTokens.contains(token);
+    }
+
+    public List<User> getAllUsers() {
+        List<User> users = new ArrayList<>();
+        userRepository.findAll().forEach(user -> users.add(new User(user.getId(), user.getUsername(), user.getPassword(), user.getEmail())));
+        return users;
+    }
+
+    public User getUserById(String id) {
+        UserRecord userRecord = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+        return new User(userRecord.getId(), userRecord.getUsername(), userRecord.getPassword(), userRecord.getEmail());
+    }
+
+    public User createUser(User user) {
+        userRepository.save(new UserRecord(user.getId(), user.getUsername(), user.getPassword(), user.getEmail()));
+        return user;
+    }
+
+    public User updateUser(String id, User user) {
+        UserRecord userRecord = userRepository.findById(id).orElse(null);
+        if (userRecord != null) {
+            userRecord.setUsername(user.getUsername());
+            userRecord.setPassword(user.getPassword());
+            userRecord.setEmail(user.getEmail());
+            userRepository.save(userRecord);
+            return new User(userRecord.getId(), userRecord.getUsername(), userRecord.getPassword(), userRecord.getEmail());
+        }
+        return null;
+    }
+
+    public boolean deleteUser(String id) {
+        if (userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }
