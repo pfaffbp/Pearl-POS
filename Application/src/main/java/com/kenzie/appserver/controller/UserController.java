@@ -1,12 +1,14 @@
 package com.kenzie.appserver.controller;
 
 
+import com.kenzie.appserver.controller.model.UserResponse;
 import com.kenzie.appserver.service.UserService;
 import com.kenzie.appserver.service.model.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -20,9 +22,14 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<List<UserResponse>> getAllUsers() {
         List<User> users = userService.getAllUsers();
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        List<UserResponse> responses = new ArrayList<>();
+        for (User user : users) {
+            responses.add(convertUserToUserResponse(user));
+        }
+        return new ResponseEntity<>(responses, HttpStatus.OK);
+
     }
 
     @GetMapping("/{id}")
@@ -56,6 +63,10 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    public UserResponse convertUserToUserResponse(User user) {
+        return new UserResponse(user.getId(), user.getUsername(), user.getEmail());
     }
 }
 
