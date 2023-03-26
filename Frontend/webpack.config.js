@@ -8,6 +8,7 @@ module.exports = {
     usedExports: true
   },
   entry: {
+<<<<<<< HEAD
 
    // examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
     inventoryLevelsPage: path.resolve(__dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
@@ -17,6 +18,10 @@ module.exports = {
       loginPage: path.resolve(__dirname, 'src', 'pages', 'loginPage.js'),
       productpage: path.resolve(__dirname, 'src', 'pages', 'productPage.js'),
 
+=======
+   // examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
+    inventoryLevelsPage: path.resolve(__dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
+>>>>>>> 25c0d46 (first push getting an error when trying to run the boot run def)
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -60,6 +65,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/productpage.html',
       filename: 'productpage.html',
+      inject: false
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/inventoryLevels.html',
+      filename: 'inventoryLevels.html',
       inject: false
     }),
     new CopyPlugin({

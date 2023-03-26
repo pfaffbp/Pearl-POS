@@ -14,6 +14,7 @@
 
 # Fill out the following values
 # The path of your repo on github. Don't include the whole URL, just the part after github.com/KenzieAcademy-SoftwareEngineering/
+<<<<<<< HEAD
 
 export LBC_GROUP_NAME=teampearl
 export LBC_REPO_NAME=ata-lbc-project-$bantoninese83
@@ -21,6 +22,10 @@ export LBC_REPO_NAME=ata-lbc-project-$bantoninese83
 export GITHUB_USERNAME=emotheatrix
 export LBC_GROUP_NAME=teamPearl
 export LBC_REPO_NAME=ata-lbc-project-$GITHUB_USERNAME
+=======
+export LBC_GROUP_NAME=teampearl
+export LBC_REPO_NAME=ata-lbc-project-$bantoninese83
+>>>>>>> 25c0d46 (first push getting an error when trying to run the boot run def)
 
 # Do not modify the rest of these unless you have been instructed to do so.
 export LBC_PROJECT_NAME=lbcproject

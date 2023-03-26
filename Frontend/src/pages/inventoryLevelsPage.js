@@ -35,6 +35,7 @@ class InventoryLevelsPage extends BaseClass {
             let items ="";
             for (let product of inventory){
                 items += `
+<<<<<<< HEAD
              <div class="wrapper">
 
  
@@ -46,6 +47,13 @@ class InventoryLevelsPage extends BaseClass {
         
                
                         
+=======
+                <tr>
+                    <td>${product.productID}</td>
+                    <td>${product.productName}</td>
+                    <td>${product.quantity}</td>
+                </tr>
+>>>>>>> 25c0d46 (first push getting an error when trying to run the boot run def)
                 `;
             }
             resultArea.innerHTML = items;

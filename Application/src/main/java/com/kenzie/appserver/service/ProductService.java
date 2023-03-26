@@ -8,7 +8,10 @@ import com.kenzie.appserver.service.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 25c0d46 (first push getting an error when trying to run the boot run def)
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +33,12 @@ public class ProductService {
         this.productRepository = productRepository;
         this.transactionRepository = transactionRepository;
         this.transactionService = transactionService;
+    }
+
+    public List<Product> getAllProducts(){
+        List<Product> allProducts = new ArrayList<Product>();
+        productRepository.findAll().forEach(productRecord -> allProducts.add(productHelperMethod(productRecord)));
+        return allProducts;
     }
 
     public List<Product> getAllProducts(){
