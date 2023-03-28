@@ -8,9 +8,14 @@ module.exports = {
     usedExports: true
   },
   entry: {
+
+   // examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
+    inventoryLevelsPage: path.resolve(__dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
+
      examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
      addProductPage: path.resolve(__dirname, 'src', 'pages', 'addProductPage.js'),
     loginPage: path.resolve(__dirname, 'src', 'pages', 'loginPage.js'),
+
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -44,6 +49,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/ManagerConsole.html',
       filename: 'ManagerConsole.html',
+      inject: false
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/inventoryLevels.html',
+      filename: 'inventoryLevels.html',
       inject: false
     }),
     new CopyPlugin({

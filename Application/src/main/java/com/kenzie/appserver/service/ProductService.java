@@ -8,7 +8,13 @@ import com.kenzie.appserver.service.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import java.util.*;
+
 
 @Service
 public class ProductService {
@@ -24,6 +30,12 @@ public class ProductService {
         this.productRepository = productRepository;
         this.transactionRepository = transactionRepository;
         this.transactionService = transactionService;
+    }
+
+    public List<Product> getAllProducts(){
+        List<Product> allProducts = new ArrayList<Product>();
+        productRepository.findAll().forEach(productRecord -> allProducts.add(productHelperMethod(productRecord)));
+        return allProducts;
     }
 
     public Product addProduct(Product product){
@@ -125,6 +137,7 @@ public class ProductService {
         createNewProduct.setPrice(product.getPrice());
         createNewProduct.setQuantity(product.getQuantity());
         createNewProduct.setDescription(product.getDescription());
+        createNewProduct.setProductID(product.getProductID());
 
         return createNewProduct;
     }
