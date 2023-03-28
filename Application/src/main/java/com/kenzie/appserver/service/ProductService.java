@@ -137,6 +137,7 @@ public class ProductService {
         createNewProduct.setPrice(product.getPrice());
         createNewProduct.setQuantity(product.getQuantity());
         createNewProduct.setDescription(product.getDescription());
+        createNewProduct.setProductID(product.getProductID());
 
         return createNewProduct;
     }

@@ -90,3 +90,80 @@ table td{
     padding: 4px 8px;
     padding: 4px 90px 10px 8px;
 }
+
+
+.flex-container {
+    /* We first create a flex layout context */
+    display: flex;
+
+    /* Then we define the flow direction
+       and if we allow the items to wrap
+     * Remember this is the same as:
+     * flex-direction: row;
+     * flex-wrap: wrap;
+     */
+    flex-flow: row wrap;
+
+    /* Then we define how is distributed the remaining space */
+    justify-content: space-around;
+
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+/*.flex-item {
+    background: #4f4c4c;
+    padding: 5px;
+    width: fit-content;
+    height: 150px;
+    margin-top: 10px;
+    line-height: 150px;
+    color: white;
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+}*/
+
+.wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    font-weight: bold;
+    text-align: center;
+}
+
+.wrapper > * {
+    padding: 10px;
+    flex: 1 100%;
+}
+
+
+
+
+.aside-left{
+    background: #567f8d;
+}
+
+.aside-middle {
+    background: #608159;
+}
+
+.aside-right {
+    background: #247a60;
+}
+
+@media all and (min-width: 600px) {
+    .aside { flex: 1 0 0; }
+}
+
+@media all and (min-width: 800px) {
+    .main    { flex: 3 0px; }
+    .aside-left { order: 1; }
+    .aside-middle   { order: 2; }
+    .aside-right { order: 3; }
+
+}
+
+body {
+    padding: 2em;
+}

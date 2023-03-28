@@ -35,11 +35,17 @@ class InventoryLevelsPage extends BaseClass {
             let items ="";
             for (let product of inventory){
                 items += `
-                <tr>
-                    <td>${product.productID}</td>
-                    <td>${product.productName}</td>
-                    <td>${product.quantity}</td>
-                </tr>
+             <div class="wrapper">
+
+ 
+  <aside class="aside aside-left">${product.productID}</aside>
+   <aside class="aside aside-middle">${product.productName}</aside>
+  <aside class="aside aside-right">${product.quantity}</aside>
+
+</div>                    
+        
+               
+                        
                 `;
             }
             resultArea.innerHTML = items;
