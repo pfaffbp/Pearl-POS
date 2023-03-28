@@ -1,6 +1,7 @@
 package com.kenzie.appserver.service.model;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class Product {
     private String productName;
@@ -16,7 +17,9 @@ public class Product {
     private String ProductID;
 
 
-    public Product(){}
+    public Product(){
+        this.ProductID = UUID.randomUUID().toString();
+    }
 
     public String getProductName() {
         return productName;

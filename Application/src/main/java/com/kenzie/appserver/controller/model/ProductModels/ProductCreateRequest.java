@@ -1,14 +1,14 @@
-package com.kenzie.appserver.controller.model;
+package com.kenzie.appserver.controller.model.ProductModels;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import java.util.UUID;
 
-
-public class ProductResponse {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class ProductCreateRequest {
     @NotEmpty
     @JsonProperty("productName")
     private String productName;
@@ -72,10 +72,6 @@ public class ProductResponse {
 
     public String getProductID() {
         return productID;
-    }
-
-    public void setProductID(String productID) {
-        this.productID = productID;
     }
 
 }

@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script type="text/javascript" src="loginPage.js"></script>
-
   <meta charset="UTF-8">
-  <title>Login</title>
+  <title>Create User</title>
   <style>
     body {
       background-color: #f2f2f2;
@@ -39,15 +37,18 @@
       background-color: #0069d9;
     }
   </style>
+  <script type="text/javascript" src="pages/createUserPage.js"></script>
 </head>
 <body>
-<form id="loginButton" action="#" method="post">
-  <h2>Login</h2>
+<form id="createUserButton" action="#" method="post">
+  <h2>Create User</h2>
   <label for="username">Username:</label>
-  <input type="text" name="username" id="username" required autocomplete="current-username">
+  <input type="text" name="username" id="username" required autocomplete="username">
   <label for="password">Password:</label>
-  <input type="password" name="password" id="password" required autocomplete="current-password">
-  <input type="submit" value="Login">
+  <input type="password" name="password" id="password" required autocomplete="new-password">
+  <label for="confirm_password">Confirm Password:</label>
+  <input type="password" name="confirm_password" id="confirm_password" required autocomplete="new-password">
+  <input type="submit" value="Create User">
 </form>
 </body>
 </html>
