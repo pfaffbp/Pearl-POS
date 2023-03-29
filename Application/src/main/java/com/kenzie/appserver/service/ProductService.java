@@ -57,10 +57,10 @@ public class ProductService {
     }
 
     public void updateProduct(Product product){
-        if(productRepository.existsById(product.getProductID()) == true){
+        if(productRepository.existsById(product.getProductID())){
             ProductRecord productRecord = productRecordHelperMethod(product);
             productRepository.save(productRecord);
-        };
+        }
     }
 
     public void deleteProduct(String productID){
