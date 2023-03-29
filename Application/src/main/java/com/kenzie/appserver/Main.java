@@ -2,7 +2,7 @@ package com.kenzie.appserver;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kenzie.appserver.controller.model.ProductCreateRequest;
+import com.kenzie.appserver.controller.model.ProductModels.ProductCreateRequest;
 import com.kenzie.appserver.service.model.Product;
 
 import java.io.IOException;
@@ -113,12 +113,12 @@ public class Main {
                                                             Integer quantity, String category, String description){
 
         ProductCreateRequest productCreateRequest = new ProductCreateRequest();
+        //add product id
         productCreateRequest.setDescription(description);
         productCreateRequest.setQuantity(quantity);
         productCreateRequest.setProductName(productName);
         productCreateRequest.setPrice(price);
         productCreateRequest.setCategory(category);
-        productCreateRequest.setProductID(id);
 
         return productCreateRequest;
     }

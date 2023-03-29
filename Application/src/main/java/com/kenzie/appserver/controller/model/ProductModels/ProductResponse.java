@@ -1,11 +1,15 @@
-package com.kenzie.appserver.controller.model;
+package com.kenzie.appserver.controller.model.ProductModels;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
-public class ProductCreateRequest {
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class ProductResponse {
     @NotEmpty
     @JsonProperty("productName")
     private String productName;
@@ -14,7 +18,7 @@ public class ProductCreateRequest {
     @JsonProperty("price")
     private Double price;
 
-    @Min(0)
+
     @JsonProperty("quantity")
     private Integer quantity;
 
@@ -74,4 +78,5 @@ public class ProductCreateRequest {
     public void setProductID(String productID) {
         this.productID = productID;
     }
+
 }
