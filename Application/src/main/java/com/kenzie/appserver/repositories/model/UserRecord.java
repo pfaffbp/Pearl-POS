@@ -38,32 +38,23 @@ public class UserRecord {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getPassword() {
         return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getEmail() {
         return email;
     }
 
-<<<<<<< HEAD
     public void setUsername(String username) {
         this.username = username;
     }
-=======
+
     public void setEmail(String email) {
         this.email = email;
     }
 
->>>>>>> origin
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -83,7 +74,4 @@ public class UserRecord {
     }
 
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }
