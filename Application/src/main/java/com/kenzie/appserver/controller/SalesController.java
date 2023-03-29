@@ -9,11 +9,11 @@ import java.util.List;
 @RequestMapping("/sales")
 public class SalesController {
 
+    private final SalesService salesService;
+
     public SalesController(SalesService salesService) {
         this.salesService = salesService;
     }
-
-    private final SalesService salesService;
 
     @PostMapping
     public Sales createSales(@RequestBody Sales sales) {

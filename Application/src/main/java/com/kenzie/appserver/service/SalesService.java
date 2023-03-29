@@ -1,19 +1,21 @@
 package com.kenzie.appserver.service;
 
 import com.kenzie.appserver.repositories.SalesRepository;
-import com.kenzie.appserver.repositories.model.ProductRecord;
 import com.kenzie.appserver.repositories.model.SalesRecord;
-import com.kenzie.appserver.service.model.Product;
 import com.kenzie.appserver.service.model.Sales;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class SalesService {
-    private SalesRepository salesRepository;
+    private final SalesRepository salesRepository;
 
+    @Autowired
     public SalesService(SalesRepository salesRepository) {
         this.salesRepository = salesRepository;
     }
@@ -23,7 +25,6 @@ public class SalesService {
         salesRepository.save(addNewSale);
         return sales;
     }
-
 
     public Sales findByID(String id) {
         Sales salesRecord = salesRepository.findById(id).orElse(null);
@@ -37,7 +38,7 @@ public class SalesService {
     }
 
     public Sales updateSales(String id, Sales sales) {
-        if (salesRepository.existsById(sales.getId())) {
+        if (salesRepository.existsById(id)) {
             SalesRecord salesRecord = salesRecordHelperMethod(sales);
             salesRepository.save(salesRecord);
         }
@@ -48,16 +49,15 @@ public class SalesService {
         salesRepository.deleteById(saleID);
     }
 
-
     public SalesRecord salesRecordHelperMethod(Sales sales) {
-        SalesRecord createNewSale = new SalesRecord();
-        createNewSale.setID(sales.getId());
-        createNewSale.setProductName(sales.getName());
-        createNewSale.setPrice(sales.getPrice());
-        createNewSale.setQuantity(sales.getQuantity());
+        SalesRecord createNewSalesRecord = new SalesRecord();
+        createNewSalesRecord.setID(sales.getId());
+        createNewSalesRecord.setProductName(sales.getName());
+        createNewSalesRecord.setPrice(sales.getPrice());
+        createNewSalesRecord.setQuantity(sales.getQuantity());
 
 
-        return createNewSale;
+        return createNewSalesRecord;
     }
 
     public Sales salesHelperMethod(SalesRecord sales) {

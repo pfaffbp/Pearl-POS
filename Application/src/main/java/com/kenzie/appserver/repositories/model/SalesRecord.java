@@ -31,6 +31,9 @@ public class SalesRecord {
     @DynamoDBAttribute(attributeName = "category")
     private String category;
 
+    @DynamoDBAttribute(attributeName = "date")
+    private String date;
+
     public String getDate() {
         return date;
     }
@@ -38,9 +41,6 @@ public class SalesRecord {
     public void setDate(String date) {
         this.date = date;
     }
-
-    @DynamoDBAttribute(attributeName = "date")
-    private String date;
 
     public String getProductName() {
         return productName;

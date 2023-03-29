@@ -1,15 +1,15 @@
 package com.kenzie.appserver.repositories;
 
-import com.kenzie.appserver.repositories.model.ExampleRecord;
 import com.kenzie.appserver.repositories.model.SalesRecord;
 import com.kenzie.appserver.service.model.Sales;
+import org.socialsignin.spring.data.dynamodb.repository.EnableScan;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
+@EnableScan
 public class SalesRepository implements CrudRepository<Sales, String> {
 
     private final List<Sales> records = new ArrayList<>();
