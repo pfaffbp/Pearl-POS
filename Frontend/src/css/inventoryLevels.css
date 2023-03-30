@@ -2,11 +2,11 @@
 
 /* General styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: Arial, Arial, sans-serif-bold;
     margin: 0;
     padding: 0;
+    background-color: #333333;
 }
-
 /* Header styles */
 header {
     background-color: #333;
@@ -19,11 +19,18 @@ header h1 {
     margin: 0;
 }
 
+h1{
+    color: white;
+}
+
 /* Navigation styles */
+
 nav {
     background-color: #4CAF50;
 }
-
+nav a:hover {
+    background-color: #3e8e41;
+}
 nav ul {
     list-style-type: none;
     margin: 0;
@@ -46,13 +53,18 @@ nav a {
     text-decoration: none;
 }
 
-nav a:hover {
-    background-color: #3e8e41;
+.rollover{
+    font-size: 20px;
+
+    color: white;
+    background-color: #4CAF50;
+    border: none;
 }
 
 /* Main content styles */
 main {
     padding: 20px;
+    color: white;
 }
 
 /* Footer styles */
@@ -72,30 +84,10 @@ footer {
     font-size: 20px;
 }
 
-table{
-    border-collapse: collapse;
-}
-
-table th{
-    text-align: center;
-    background-color: #2d2dc7;
-    color: #cccccc;
-    padding: 4px 90px 10px 8px;
-    font-size: 25px;
-    border: 3px solid #e3e3e3;
-}
-
-table td{
-    border: 3px solid #e3e3e3;
-    padding: 4px 8px;
-    padding: 4px 90px 10px 8px;
-}
-
 
 .flex-container {
     /* We first create a flex layout context */
     display: flex;
-
     /* Then we define the flow direction
        and if we allow the items to wrap
      * Remember this is the same as:
@@ -103,27 +95,13 @@ table td{
      * flex-wrap: wrap;
      */
     flex-flow: row wrap;
-
     /* Then we define how is distributed the remaining space */
     justify-content: space-around;
-
     padding: 0;
     margin: 0;
     list-style: none;
 }
 
-/*.flex-item {
-    background: #4f4c4c;
-    padding: 5px;
-    width: fit-content;
-    height: 150px;
-    margin-top: 10px;
-    line-height: 150px;
-    color: white;
-    font-weight: bold;
-    font-size: 25px;
-    text-align: center;
-}*/
 
 .wrapper {
     display: flex;
@@ -135,10 +113,8 @@ table td{
 .wrapper > * {
     padding: 10px;
     flex: 1 100%;
+    color: white;
 }
-
-
-
 
 .aside-left{
     background: #567f8d;
@@ -161,7 +137,6 @@ table td{
     .aside-left { order: 1; }
     .aside-middle   { order: 2; }
     .aside-right { order: 3; }
-
 }
 
 body {
