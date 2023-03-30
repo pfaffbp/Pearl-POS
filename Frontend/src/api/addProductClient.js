@@ -6,7 +6,7 @@ export default class AddProductClient extends BaseClass{
 
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'createProduct'];
+        const methodsToBind = ['clientLoaded', 'createProduct', 'getAllInventory'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -39,6 +39,15 @@ export default class AddProductClient extends BaseClass{
        } catch (error){
            this.handleError("createProduct", error, errorCallback)
        }
+    }
+
+    async getAllInventory(errorCallback) {
+        try {
+            const response = await this.client.get(`/products`);
+            return response.data;
+        } catch (error) {
+            this.handleError("getAllProducts", error, errorCallback)
+        }
     }
 
     handleError(method, error, errorCallback) {

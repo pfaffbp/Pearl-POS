@@ -8,10 +8,10 @@ import com.kenzie.appserver.service.model.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +23,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final List<String> revokedTokens = new ArrayList<>();
 
-    @Autowired
+
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -50,12 +50,13 @@ public class UserService {
         Date expirationTime = new Date(System.currentTimeMillis() + 3600000);
 
         // Generate a random secret key to sign the token
+        Key secretKey = generateKey();
 
         // Build the token with the user ID and expiration time
         return Jwts.builder()
                 .setSubject(user.getId())
                 .setExpiration(expirationTime)
-                .signWith(SignatureAlgorithm.HS256, key)
+                .signWith(secretKey)
                 .compact();
     }
 
@@ -80,40 +81,33 @@ public class UserService {
         return revokedTokens.contains(token);
     }
 
+    public User createUser(User user) {
+        UserRecord userRecord = new UserRecord(user.getId(), user.getUsername(), user.getPassword(), user.getEmail());
+        userRepository.save(userRecord);
+        return new User(userRecord.getId(), userRecord.getUsername(), userRecord.getPassword(), userRecord.getEmail());
+    }
+
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
-        userRepository.findAll().forEach(user -> users.add(new User(user.getId(), user.getUsername(), user.getPassword(), user.getEmail())));
+        userRepository.findAll().forEach(userRecord -> users.add(new User(userRecord.getId(), userRecord.getUsername(), userRecord.getPassword(), userRecord.getEmail())));
         return users;
     }
 
     public User getUserById(String id) {
-        UserRecord userRecord = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException(id));
-        return new User(userRecord.getId(), userRecord.getUsername(), userRecord.getPassword(), userRecord.getEmail());
-    }
-
-    public User createUser(User user) {
-        userRepository.save(new UserRecord(user.getId(), user.getUsername(), user.getPassword(), user.getEmail()));
-        return user;
+        UserRecord userRecord = userRepository.findById(id).orElse(null);
+        return userRecord != null ? new User(userRecord.getId(), userRecord.getUsername(), userRecord.getPassword(), userRecord.getEmail()) : null;
     }
 
     public User updateUser(String id, User user) {
         UserRecord userRecord = userRepository.findById(id).orElse(null);
-        if (userRecord != null) {
+        if (userRecord == null) {
+            return null;
+        } else {
             userRecord.setUsername(user.getUsername());
             userRecord.setPassword(user.getPassword());
             userRecord.setEmail(user.getEmail());
             userRepository.save(userRecord);
             return new User(userRecord.getId(), userRecord.getUsername(), userRecord.getPassword(), userRecord.getEmail());
         }
-        return null;
-    }
-
-    public boolean deleteUser(String id) {
-        if (userRepository.existsById(id)) {
-            userRepository.deleteById(id);
-            return true;
-        }
-        return false;
     }
 }

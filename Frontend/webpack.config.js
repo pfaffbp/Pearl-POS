@@ -14,7 +14,8 @@ module.exports = {
 
      examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
      addProductPage: path.resolve(__dirname, 'src', 'pages', 'addProductPage.js'),
-    loginPage: path.resolve(__dirname, 'src', 'pages', 'loginPage.js'),
+      loginPage: path.resolve(__dirname, 'src', 'pages', 'loginPage.js'),
+      productpage: path.resolve(__dirname, 'src', 'pages', 'productPage.js'),
 
   },
   output: {
@@ -25,7 +26,7 @@ module.exports = {
     https: false,
     port: 8080,
     open: true,
-    openPage: 'http://localhost:8080/login.html',
+    openPage: 'http://localhost:8080/productpage.html',
     // diableHostChecks, otherwise we get an error about headers and the page won't render
     disableHostCheck: true,
     contentBase: 'packaging_additional_published_artifacts',
@@ -54,6 +55,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/inventoryLevels.html',
       filename: 'inventoryLevels.html',
+      inject: false
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/productpage.html',
+      filename: 'productpage.html',
       inject: false
     }),
     new CopyPlugin({
