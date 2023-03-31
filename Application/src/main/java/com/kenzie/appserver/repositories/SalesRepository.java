@@ -1,11 +1,15 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*
+=======
+>>>>>>> 05a2520 (preptomerge)
 package com.kenzie.appserver.repositories;
 
 import com.kenzie.appserver.repositories.model.SalesRecord;
 import org.socialsignin.spring.data.dynamodb.repository.EnableScan;
 import org.springframework.data.repository.CrudRepository;
 
+<<<<<<< HEAD
 
 
 <<<<<<< HEAD
@@ -201,3 +205,8 @@ public class SalesRepository {
 //    }
 //}
 >>>>>>> d60c250 (Made purchaseProducts accept multiple product id, and made Transaction service accept multiple productIDS)
+=======
+@EnableScan
+public interface SalesRepository extends CrudRepository<SalesRecord, String> {
+}
+>>>>>>> 05a2520 (preptomerge)
