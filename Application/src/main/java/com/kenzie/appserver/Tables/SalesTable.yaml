@@ -1,0 +1,33 @@
+Resources:
+  SalesTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: Sales
+      AttributeDefinitions:
+        - AttributeName: transactionID
+          AttributeType: S
+        - AttributeName: date
+          AttributeType: S
+      KeySchema:
+        - AttributeName: transactionID
+          KeyType: HASH
+        - AttributeName: date
+          KeyType: RANGE
+      BillingMode: PAY_PER_REQUEST
+      GlobalSecondaryIndexes:
+        - IndexName: SalesByProductID
+          KeySchema:
+            - AttributeName: productID
+              KeyType: HASH
+            - AttributeName: date
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
+        - IndexName: SalesByCustomerID
+          KeySchema:
+            - AttributeName: customerID
+              KeyType: HASH
+            - AttributeName: date
+              KeyType: RANGE
+          Projection:
+            ProjectionType: ALL
