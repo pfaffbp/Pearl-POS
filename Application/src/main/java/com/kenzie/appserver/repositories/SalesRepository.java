@@ -1,3 +1,4 @@
+/*
 package com.kenzie.appserver.repositories;
 
 import com.kenzie.appserver.repositories.model.SalesRecord;
@@ -15,11 +16,13 @@ public class SalesRepository implements CrudRepository<Sales, String> {
     private final List<Sales> records = new ArrayList<>();
 
 
-    /**
+    */
+/**
      * @param entity must not be {@literal null}.
      * @param <S>
      * @return
-     */
+     *//*
+
     @Override
     public <S extends Sales> S save(S entity) {
         return null;
@@ -98,3 +101,4 @@ public class SalesRepository implements CrudRepository<Sales, String> {
 
     }
 }
+*/

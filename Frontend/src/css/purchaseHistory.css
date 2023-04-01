@@ -1,0 +1,152 @@
+/*Purchase History*/
+
+/* General styles */
+body {
+    font-family: Arial, Arial, sans-serif-bold;
+    margin: 0;
+    padding: 0;
+    background-color: #333333;
+}
+/* Header styles */
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+header h1 {
+    margin: 0;
+}
+
+h1{
+    color: white;
+}
+
+/* Navigation styles */
+
+nav {
+    background-color: #4CAF50;
+}
+nav a:hover {
+    background-color: #3e8e41;
+}
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+nav li:last-child {
+    margin-right: 0;
+}
+
+nav a {
+    color: white;
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+}
+
+.rollover{
+    font-size: 20px;
+
+    color: white;
+    background-color: #4CAF50;
+    border: none;
+}
+
+/* Main content styles */
+main {
+    padding: 20px;
+    color: white;
+}
+
+/* Footer styles */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+#submit-refresh{
+    background-color: #4CAF50;
+    font-family: Counter-Strike;
+    padding: 5px 5px 5px 5px;
+    border-radius: 10px;
+    color: white;
+    font-size: 20px;
+}
+
+
+.flex-container {
+    /* We first create a flex layout context */
+    display: flex;
+    /* Then we define the flow direction
+       and if we allow the items to wrap
+     * Remember this is the same as:
+     * flex-direction: row;
+     * flex-wrap: wrap;
+     */
+    flex-flow: row wrap;
+    /* Then we define how is distributed the remaining space */
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+
+.wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    font-weight: bold;
+    text-align: center;
+}
+
+.wrapper > * {
+    padding: 10px;
+    flex: 1 100%;
+    color: white;
+}
+
+.aside-1{
+    background: #567f8d;
+}
+
+.aside-2 {
+    background: #608159;
+}
+
+.aside-3 {
+    background: #1d8061;
+}
+.aside-4 {
+    background: #567f8d;
+}
+.aside-5 {
+    background: #608159;
+}
+
+@media all and (min-width: 600px) {
+    .aside { flex: 1 0 0 ; }
+}
+
+@media all and (min-width: 800px) {
+    .main    { flex: 3 0px; }
+    .aside-1 { order: 1; }
+    .aside-2  { order: 2; }
+    .aside-3 { order: 3; }
+    .aside-4 { order: 4; }
+    .aside-5 { order: 5; }
+}
+
+body {
+    padding: 2em;
+}
