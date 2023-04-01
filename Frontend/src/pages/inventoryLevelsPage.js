@@ -72,7 +72,6 @@ class InventoryLevelsPage extends BaseClass {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
 
-
         this.dataStore.set("inventory", null);
 
         let result = await this.client.getAllInventory(this.errorHandler);

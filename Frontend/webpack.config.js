@@ -44,10 +44,16 @@ module.exports = {
 =======
    // examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
     inventoryLevelsPage: path.resolve(__dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
+<<<<<<< HEAD
     createUserPage: path.resolve(__dirname, 'src', 'pages', 'createUserPage.js'),
     purchaseHistoryPage: path.resolve(__dirname, 'src', 'pages', 'purchaseHistoryPage.js'),
      examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
      addProductPage: path.resolve(__dirname, 'src', 'pages', 'addProductPage.js'),
+=======
+
+      examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
+      addProductPage: path.resolve(__dirname, 'src', 'pages', 'addProductPage.js'),
+>>>>>>> d60c250 (Made purchaseProducts accept multiple product id, and made Transaction service accept multiple productIDS)
       loginPage: path.resolve(__dirname, 'src', 'pages', 'loginPage.js'),
       productPage: path.resolve(__dirname, 'src', 'pages', 'productPage.js'),
 >>>>>>> d6bc43a (preping to merge)

@@ -33,10 +33,12 @@ public class TransactionController {
         transactionResponse.setProductID(transaction.getProductID());
         transactionResponse.setCustomerID(transaction.getCustomerID());
         transactionResponse.setTotalSale(transaction.getTotalSale());
+        transactionResponse.setAmountPurchasedPerProduct(transaction.getAmountPurchasedPerProduct());
 
         return ResponseEntity.ok(transactionResponse);
     }
 
+<<<<<<< HEAD
     @GetMapping()
     public ResponseEntity<List<TransactionResponse>> getAllTransactions() {
         List<Transaction> transactions = transactionService.getAllTransactions();
@@ -64,4 +66,6 @@ public class TransactionController {
         List<Transaction> report = transactionService.getAllTransactions();
         return ResponseEntity.ok(report);
     }
+=======
+>>>>>>> d60c250 (Made purchaseProducts accept multiple product id, and made Transaction service accept multiple productIDS)
 }

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package com.kenzie.appserver.controller;
 
 
@@ -38,6 +39,8 @@ public class SalesController {
 
 }
 =======
+=======
+>>>>>>> d60c250 (Made purchaseProducts accept multiple product id, and made Transaction service accept multiple productIDS)
 //package com.kenzie.appserver.controller;
 //
 //import com.kenzie.appserver.service.SalesService;
@@ -75,5 +78,9 @@ public class SalesController {
 //        return salesService.updateSales(id, sales);
 //    }
 //}
+<<<<<<< HEAD
 >>>>>>> d6bc43a (preping to merge)
 
+=======
+//
+>>>>>>> d60c250 (Made purchaseProducts accept multiple product id, and made Transaction service accept multiple productIDS)

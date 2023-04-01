@@ -21,7 +21,11 @@ class AddProductPage extends BaseClass {
     async createProductEvent(event) {
         event.preventDefault();
         console.log("createProductEvent")
+<<<<<<< HEAD
         // this.dataStore.set("products", null);
+=======
+         // this.dataStore.set("products", null);
+>>>>>>> d60c250 (Made purchaseProducts accept multiple product id, and made Transaction service accept multiple productIDS)
         //this section is to add A image
         // const image_input = document.querySelector('#image_input')
         // let upload_image = "";

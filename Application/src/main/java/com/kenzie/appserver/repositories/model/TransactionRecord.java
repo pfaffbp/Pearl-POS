@@ -5,6 +5,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import org.springframework.data.annotation.Id;
 
+import java.util.List;
 import java.util.Objects;
 
 @DynamoDBTable(tableName = "Transaction")
@@ -18,7 +19,7 @@ public class TransactionRecord {
     private String customerID;
 
     @DynamoDBAttribute(attributeName = "productID")
-    private String productID;
+    private List<String> productID;
 
     @DynamoDBAttribute(attributeName = "quantity")
     private Integer quantity;
@@ -29,6 +30,16 @@ public class TransactionRecord {
     @DynamoDBAttribute(attributeName = "transactionID")
     private String transactionID;
 
+    @DynamoDBAttribute(attributeName = "amountPurchasedPerProduct")
+    private List<Integer> amountPurchasedPerProduct;
+
+    public List<Integer> getAmountPurchasedPerProduct() {
+        return amountPurchasedPerProduct;
+    }
+
+    public void setAmountPurchasedPerProduct(List<Integer> amountPurchasedPerProduct) {
+        this.amountPurchasedPerProduct = amountPurchasedPerProduct;
+    }
 
     public String getDate() {
         return date;
@@ -37,7 +48,6 @@ public class TransactionRecord {
     public void setDate(String date) {
         this.date = date;
     }
-
 
     public String getCustomerID() {
         return customerID;
@@ -48,14 +58,14 @@ public class TransactionRecord {
     }
 
 
-    public String getProductID() {
+
+    public List<String> getProductID() {
         return productID;
     }
 
-    public void setProductID(String productID) {
+    public void setProductID(List<String> productID) {
         this.productID = productID;
     }
-
 
     public Integer getQuantity() {
         return quantity;
