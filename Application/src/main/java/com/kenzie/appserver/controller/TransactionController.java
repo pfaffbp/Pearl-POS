@@ -28,13 +28,9 @@ public class TransactionController {
         transactionResponse.setProductID(transaction.getProductID());
         transactionResponse.setCustomerID(transaction.getCustomerID());
         transactionResponse.setTotalSale(transaction.getTotalSale());
+        transactionResponse.setAmountPurchasedPerProduct(transaction.getAmountPurchasedPerProduct());
 
         return ResponseEntity.ok(transactionResponse);
     }
 
-//    @PostMapping()
-//    public ResponseEntity<ProductResponse> createTransaction(@RequestBody TransactionCreateRequest transactionCreateRequest){
-//        Transaction transaction = new Transaction();
-//        transactionService.generateTransaction()
-//    }
 }
