@@ -7,6 +7,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.kenzie.appserver.service.model.Product;
 import org.springframework.data.annotation.Id;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -30,7 +31,6 @@ public class ProductRecord {
 
     @DynamoDBAttribute(attributeName = "category")
     private String category;
-
 
     public String getProductName() {
         return productName;

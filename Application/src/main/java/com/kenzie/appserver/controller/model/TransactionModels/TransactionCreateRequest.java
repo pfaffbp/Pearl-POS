@@ -5,6 +5,7 @@ import com.kenzie.appserver.service.model.Transaction;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -25,7 +26,7 @@ public class TransactionCreateRequest {
     @NotEmpty
     @Min(1)
     @JsonProperty("quantity")
-    private Integer quantity;
+    private List<Integer> quantity;
 
     @NotEmpty
     @JsonProperty("totalSale")
@@ -39,6 +40,7 @@ public class TransactionCreateRequest {
     public String getDate() {
             return date;
         }
+
         public void setDate(String date) {
         this.date = date;
     }
@@ -62,14 +64,13 @@ public class TransactionCreateRequest {
     }
 
 
-    public Integer getQuantity() {
+    public List<Integer> getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(List<Integer> quantity) {
         this.quantity = quantity;
     }
-
 
     public Double getTotalSale() {
         return totalSale;
