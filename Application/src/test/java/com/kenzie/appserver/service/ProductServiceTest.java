@@ -226,7 +226,7 @@ public class ProductServiceTest {
     void updateProduct_noProduct_Test() {
         String productId = randomUUID().toString();
         Product product1 = new Product();
-        product1.setProductID(productId);
+       // product1.setProductID(productId);
         product1.setProductName("Frozen Burrito");
         product1.setCategory("Food");
         product1.setPrice(12.99);
@@ -243,6 +243,7 @@ public class ProductServiceTest {
 
         when(productRepository.existsById(product1.getProductID())).thenReturn(false);
         productService.updateProduct(updateproduct1);
+        //thought this was needed
 
         verifyNoMoreInteractions(productRepository);
 

@@ -1,7 +1,5 @@
-<<<<<<< HEAD
-/*
-package com.kenzie.appserver.service.model;
 
+<<<<<<< HEAD
 public class Sales {
 
     private String id;
@@ -61,6 +59,8 @@ public class Sales {
 }
 */
 =======
+=======
+>>>>>>> 8557766 (merging with main 4/1 6:35)
 //package com.kenzie.appserver.service.model;
 //
 //public class Sales {
@@ -123,4 +123,8 @@ public class Sales {
 //    }
 //
 //}
+<<<<<<< HEAD
 >>>>>>> d60c250 (Made purchaseProducts accept multiple product id, and made Transaction service accept multiple productIDS)
+=======
+
+>>>>>>> 8557766 (merging with main 4/1 6:35)
