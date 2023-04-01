@@ -35,17 +35,17 @@ class ProductPage extends BaseClass {
              <div class="wrapper">
 
  
-  <figure class="product-displayed">
-   ${product.productID}
-   <br>${product.productName}</br>
-   <br>${product.quantity}</br></figure>
-
+    <figure class="product-displayed">
+    <div class = "product_ID">${product.productID}</div>
+   <div class = "product_Name">${product.productName}</div>
+  <div class = "product_Quantity">${product.quantity}</div> 
+   <div class = "product_Price">${product.price}</div>
+   <div class = "product_Category"${product.category}</div>
+   <div class = "product_Description">${product.description}</div>
+   </figure>
+   
 </div>                    
-        
-               
-                        
-                `;
-            }
+`;}
             resultArea.innerHTML = items;
         } else {
             resultArea.innerHTML = "No Item";

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 public class TransactionResponse {
     @NotEmpty
@@ -16,7 +17,7 @@ public class TransactionResponse {
 
     @NotEmpty
     @JsonProperty("productID")
-    private String productID;
+    private List<String> productID;
 
     @NotEmpty
     @Min(1)
@@ -31,14 +32,17 @@ public class TransactionResponse {
     @JsonProperty("transactionID")
     private String transactionID;
 
+    @NotEmpty
+    @JsonProperty("amountPurchasedPerProduct")
+    private List<Integer> amountPurchasedPerProduct;
 
     public String getDate() {
         return date;
     }
+
     public void setDate(String date) {
         this.date = date;
     }
-
 
     public String getCustomerID() {
         return customerID;
@@ -48,15 +52,13 @@ public class TransactionResponse {
         this.customerID = customerID;
     }
 
-
-    public String getProductID() {
+    public List<String> getProductID() {
         return productID;
     }
 
-    public void setProductID(String productID) {
+    public void setProductID(List<String> productID) {
         this.productID = productID;
     }
-
 
     public Integer getQuantity() {
         return quantity;
@@ -66,7 +68,6 @@ public class TransactionResponse {
         this.quantity = quantity;
     }
 
-
     public Double getTotalSale() {
         return totalSale;
     }
@@ -74,7 +75,6 @@ public class TransactionResponse {
     public void setTotalSale(Double totalSale) {
         this.totalSale = totalSale;
     }
-
 
     public String getTransactionID() {
         return transactionID;
@@ -84,5 +84,12 @@ public class TransactionResponse {
         this.transactionID = transactionID;
     }
 
+    public List<Integer> getAmountPurchasedPerProduct() {
+        return amountPurchasedPerProduct;
+    }
+
+    public void setAmountPurchasedPerProduct(List<Integer> amountPurchasedPerProduct) {
+        this.amountPurchasedPerProduct = amountPurchasedPerProduct;
+    }
 }
 

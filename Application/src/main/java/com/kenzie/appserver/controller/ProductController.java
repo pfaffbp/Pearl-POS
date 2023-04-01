@@ -8,7 +8,9 @@ import com.kenzie.appserver.service.model.Product;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.stream.Collectors;
 
 @RestController
@@ -73,42 +75,32 @@ public class ProductController {
     }
 
     @PutMapping("/{productID}")
-    public ResponseEntity<ProductResponse> productPurchased(@PathVariable("productID") String productID,
+    public ResponseEntity<List<ProductResponse>> productsPurchased(@PathVariable("productID") List<String> productID,
                                                             @RequestBody ProductPurchaseRequest productCreateRequest){
 
+        ListIterator<String> listIterator = productID.listIterator();
+        List<ProductResponse> productResponses = new ArrayList<>();
+        List<Product> productList = new ArrayList<>();
+        Product product = null;
 
-        Product product = productService.findByProductID(productID);
-        if(product != null){
-           Product updateProduct = productService.buyProducts(product, productCreateRequest.getQuantity());
-                if(updateProduct == null){
-                    return ResponseEntity.badRequest().build();
-                }
-           ProductResponse response = productResponseHelper(updateProduct);
-            return ResponseEntity.ok(response);
-        } else{
-            return ResponseEntity.notFound().build();
+        while(listIterator.hasNext()) {
+            product = productService.findByProductID(listIterator.next());
+            if (product != null) {
+                productList.add(product);
+            }
         }
-    }
+        List<Integer> itemsPurchased = new ArrayList<>();
 
-    //I need to figure out
-//    @PutMapping("/cart")
-//    public ResponseEntity<ProductResponse> productPurchased(@RequestBody List<ProductCreateRequest> purchaseRequests){
-//
-//        ListIterator<ProductCreateRequest> purchaseRequestListIterator = purchaseRequests.listIterator();
-//        Map<Product, Integer> productsForPurchaseMap = new HashMap<>();
-//
-//        while(purchaseRequestListIterator.hasNext()){
-//            ProductCreateRequest productBeforeRepository = purchaseRequestListIterator.next();
-//            Product product = productService.findByProductID(productBeforeRepository.getProductID());
-//
-//            if(product != null){
-//                productsForPurchaseMap.put(product, productBeforeRepository.getQuantity());
-//            }
-//        }
-//        productService.buyMultipleProducts(productsForPurchaseMap);
-//
-//        return ResponseEntity.ok().build();
-//    }
+        for(int i = 0; i < productCreateRequest.getQuantity().size(); i++){
+            itemsPurchased.add(productCreateRequest.getQuantity().get(i));
+        }
+
+        List<Product> updateProduct = productService.buyProducts(productList, itemsPurchased);
+        for(int i = 0; i < productList.size(); i++){
+             productResponses.add(productResponseHelper(updateProduct.get(i)));
+        }
+        return ResponseEntity.ok(productResponses);
+    }
 
     public Product productHelper(ProductCreateRequest product){
         Product addProduct = new Product();

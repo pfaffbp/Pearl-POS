@@ -4,6 +4,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.kenzie.appserver.repositories.model.TransactionRecord;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -12,7 +13,7 @@ public class Transaction {
 
     private String customerID;
 
-    private String productID;
+    private List<String> productID;
 
     private Integer quantity;
 
@@ -20,19 +21,30 @@ public class Transaction {
 
     private String transactionID;
 
+    private List<Integer> amountPurchasedPerProduct;
+
     public Transaction(){
 //        this.transactionID = customerID.substring(0, customerID.length()/ 2)
 //                + productID.substring(0, productID.length() / 2);
         this.transactionID = UUID.randomUUID().toString();
     }
 
-    public Transaction(String date, String customerID, String productID, Integer quantity, Double totalSale, String transactionID) {
+    public Transaction(String date, String customerID, List<String> productID, Integer quantity, Double totalSale, String transactionID, List<Integer> amountPurchasedPerProduct) {
         this.date = date;
         this.customerID = customerID;
         this.productID = productID;
         this.quantity = quantity;
         this.totalSale = totalSale;
         this.transactionID = transactionID;
+        this.amountPurchasedPerProduct = amountPurchasedPerProduct;
+    }
+
+    public List<Integer> getAmountPurchasedPerProduct() {
+        return amountPurchasedPerProduct;
+    }
+
+    public void setAmountPurchasedPerProduct(List<Integer> amountPurchasedPerProduct) {
+        this.amountPurchasedPerProduct = amountPurchasedPerProduct;
     }
 
     public String getDate() {
@@ -43,7 +55,6 @@ public class Transaction {
         this.date = date;
     }
 
-
     public String getCustomerID() {
         return customerID;
     }
@@ -52,15 +63,13 @@ public class Transaction {
         this.customerID = customerID;
     }
 
-
-    public String getProductID() {
+    public List<String> getProductID() {
         return productID;
     }
 
-    public void setProductID(String productID) {
+    public void setProductID(List<String> productID) {
         this.productID = productID;
     }
-
 
     public Integer getQuantity() {
         return quantity;
@@ -93,11 +102,11 @@ public class Transaction {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Transaction that = (Transaction) o;
-        return date.equals(that.date) && customerID.equals(that.customerID) && productID.equals(that.productID) && quantity.equals(that.quantity) && totalSale.equals(that.totalSale) && transactionID.equals(that.transactionID);
+        return date.equals(that.date) && customerID.equals(that.customerID) && productID.equals(that.productID) && quantity.equals(that.quantity) && totalSale.equals(that.totalSale) && transactionID.equals(that.transactionID) && amountPurchasedPerProduct.equals(that.amountPurchasedPerProduct);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(date, customerID, productID, quantity, totalSale, transactionID);
+        return Objects.hash(date, customerID, productID, quantity, totalSale, transactionID, amountPurchasedPerProduct);
     }
 }

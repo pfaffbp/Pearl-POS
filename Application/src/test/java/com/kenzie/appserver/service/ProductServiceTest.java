@@ -1,5 +1,4 @@
 package com.kenzie.appserver.service;
-
 import com.kenzie.appserver.controller.model.ProductModels.ProductResponse;
 import com.kenzie.appserver.repositories.ProductRepository;
 import com.kenzie.appserver.repositories.TransactionRepository;
@@ -151,7 +150,7 @@ public class ProductServiceTest {
         Product response = productService.findByProductID(productNull.getProductID());
 
         assertNull(response);
-    }
+}
 
 
     @Test
@@ -237,5 +236,4 @@ public class ProductServiceTest {
 
     }
 
-
-}
+    }

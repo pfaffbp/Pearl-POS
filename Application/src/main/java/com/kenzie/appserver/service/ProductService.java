@@ -1,5 +1,6 @@
 package com.kenzie.appserver.service;
 
+import com.kenzie.appserver.Exceptions.ProductNotFoundException;
 import com.kenzie.appserver.controller.TransactionController;
 import com.kenzie.appserver.repositories.TransactionRepository;
 import com.kenzie.appserver.repositories.model.ProductRecord;
@@ -23,6 +24,8 @@ public class ProductService {
     private TransactionService transactionService;
 
     private TransactionRepository transactionRepository;
+
+
 
     @Autowired
     public ProductService(ProductRepository productRepository,
@@ -66,56 +69,41 @@ public class ProductService {
     public void deleteProduct(String productID){
         productRepository.deleteById(productID);
     }
+    public List<Product> buyProducts(List<Product> product, List<Integer> itemsPurchased){
+        Map<Product, Integer> productPurchasedMap = new HashMap<>();
+        List<Product> productList = new ArrayList<>();
+        List<Product> productResponse = new ArrayList<>();
+        List<ProductRecord> productRecords = new ArrayList<>();
 
-
-    public Product buyProducts(Product product, int itemsPurchased){
-        if(productRepository.existsById(product.getProductID()) == true){
-            if(product.getQuantity() >= itemsPurchased){
-                ProductRecord productRecord = new ProductRecord();
-                productRecord.setProductID(product.getProductID());
-                productRecord.setProductName(product.getProductName());
-                productRecord.setPrice(product.getPrice());
-                productRecord.setQuantity(product.getQuantity() - itemsPurchased);
-                productRecord.setDescription(product.getDescription());
-                productRecord.setCategory(product.getCategory());
-
-                productRepository.save(productRecord);
-                transactionService.generateTransaction(product, itemsPurchased);
-
-                return recordToProductHelperMethod(productRecord);
+        if(product.size() == itemsPurchased.size()) {
+            for(int i = 0; i < product.size(); i++){
+                if(productRepository.existsById(product.get(i).getProductID()) == true){
+                    productPurchasedMap.put(product.get(i), itemsPurchased.get(i));
+                    productList.add(product.get(i));
+                } else {
+                    throw new ProductNotFoundException("This product does not exist: " + product.get(i).getProductID());
+                }
             }
         }
-        return null;
+        for(Map.Entry<Product, Integer> productIntegerMap : productPurchasedMap.entrySet()){
+            if(productIntegerMap.getKey().getQuantity() >= productIntegerMap.getValue()){
+                ProductRecord productRecord = new ProductRecord();
+                productRecord.setProductID(productIntegerMap.getKey().getProductID());
+                productRecord.setProductName(productIntegerMap.getKey().getProductName());
+                productRecord.setPrice(productIntegerMap.getKey().getPrice());
+                productRecord.setQuantity(productIntegerMap.getKey().getQuantity() - productIntegerMap.getValue());
+                productRecord.setDescription(productIntegerMap.getKey().getDescription());
+                productRecord.setCategory(productIntegerMap.getKey().getCategory());
+                productRecords.add(productRecord);
+
+                productResponse.add(recordToProductHelperMethod(productRecord));
+            }
+        }
+        productRepository.saveAll(productRecords);
+        transactionService.generateTransaction(productList, itemsPurchased);
+
+        return productResponse;
     }
-
-
-//    public void buyMultipleProducts(Map<Product, Integer> purchaseMap){
-//        purchaseMap = new HashMap<>();
-//        List<ProductRecord> records = new ArrayList<>();
-//        String currentProductID;
-//        Integer currentItemsPurchasedForID;
-//
-//        for(Map.Entry<Product, Integer> products: purchaseMap.entrySet()){
-//             currentProductID = products.getKey().getProductID();
-//             currentItemsPurchasedForID = products.getValue();
-//
-//            if(currentProductID != null){
-//                if(productRepository.existsById(currentProductID) == true){
-//                    ProductRecord  productRecord = new ProductRecord();
-//                    productRecord.setProductID(currentProductID);
-//                    productRecord.setProductName(products.getKey().getProductName());
-//                    productRecord.setPrice(products.getKey().getPrice());
-//                    productRecord.setQuantity(products.getKey().getQuantity() - currentItemsPurchasedForID);
-//                    productRecord.setCategory(products.getKey().getCategory());
-//                    productRecord.setDescription(products.getKey().getDescription());
-//
-//                    records.add(productRecord);
-//                }
-//            }
-//        }
-//        productRepository.saveAll(records);
-//
-//    }
 
 
     public ProductRecord productRecordHelperMethod(Product product){
