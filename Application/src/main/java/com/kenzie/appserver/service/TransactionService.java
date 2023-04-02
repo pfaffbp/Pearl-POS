@@ -21,7 +21,11 @@ import java.util.Optional;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.*;
+<<<<<<< HEAD
 >>>>>>> d60c250 (Made purchaseProducts accept multiple product id, and made Transaction service accept multiple productIDS)
+=======
+import java.util.stream.Collectors;
+>>>>>>> aa4f162 (merging new transations with maps to uses if needed)
 
 @Service
 public class TransactionService {
@@ -80,6 +84,30 @@ public class TransactionService {
         transactionRepository.save(generatedTransaction);
         return generatedTransaction;
     }
+//todo michael look at this shit
+/*    public TransactionRecord generateTransation(Map<Product, Integer> productsPurchased){
+        List<String> productIDS = new ArrayList<>();
+        double totalSales = 0;
+        Integer quantity = 0;
+
+        for (Map.Entry<Product, Integer> productIntegerEntry : productsPurchased.entrySet()){
+            productIDS.add(productIntegerEntry.getKey().getProductID());
+            totalSales += productIntegerEntry.getValue() * productIntegerEntry.getKey().getPrice();
+            quantity += productIntegerEntry.getValue();
+        }
+
+        TransactionRecord generatedTransaction = new TransactionRecord();
+        generatedTransaction.setTransactionID(UUID.randomUUID().toString());
+        generatedTransaction.setProductID(productIDS);
+        generatedTransaction.setDate(LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG, FormatStyle.MEDIUM)));
+        generatedTransaction.setQuantity(quantity);
+        generatedTransaction.setCustomerID("TestCustomer");
+        generatedTransaction.setTotalSale(totalSales);
+        generatedTransaction.setAmountPurchasedPerProduct(productsPurchased.values().stream().collect(Collectors.toList()));
+
+        transactionRepository.save(generatedTransaction);
+        return generatedTransaction;
+    }*/
 
 
     public List<Transaction> getAllTransactions() {

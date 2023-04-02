@@ -1,5 +1,6 @@
 package com.kenzie.appserver.service;
 
+import com.amazonaws.services.dynamodbv2.xspec.M;
 import com.kenzie.appserver.Exceptions.ProductNotFoundException;
 import com.kenzie.appserver.controller.TransactionController;
 import com.kenzie.appserver.repositories.TransactionRepository;
@@ -57,6 +58,7 @@ public class ProductService {
        }
     }
 
+
     public void updateProduct(Product product){
         if(productRepository.existsById(product.getProductID()) == true){
             ProductRecord productRecord = productRecordHelperMethod(product);
@@ -102,6 +104,27 @@ public class ProductService {
 
         return productResponse;
     }
+//todo michael look at this
+/*    public List<Product> buyProducts(Map<String, Integer> productToQuantity){
+        Map<Product, Integer> productPurchasedMap = new HashMap<>();
+        List<Product> productResponse = new ArrayList<>();
+
+        for (Map.Entry<String, Integer> productIntegerEntry : productToQuantity.entrySet()){
+            ProductRecord mostRecentRecord = productRepository.findById(productIntegerEntry.getKey()).get();
+            if(mostRecentRecord != null){
+                if (mostRecentRecord.getQuantity() >= productIntegerEntry.getValue()){
+                    mostRecentRecord.setQuantity(mostRecentRecord.getQuantity() - productIntegerEntry.getValue());
+                    productRepository.save(mostRecentRecord);
+                    productPurchasedMap.put(recordToProductHelperMethod(mostRecentRecord), productIntegerEntry.getValue());
+                    productResponse.add(recordToProductHelperMethod(mostRecentRecord));
+                }
+            } else {
+                throw new ProductNotFoundException("This product does not exist: " + productIntegerEntry.getKey());
+            }
+        }
+        transactionService.generateTransation(productPurchasedMap);
+        return productResponse;
+    }*/
 
 
     public ProductRecord productRecordHelperMethod(Product product){

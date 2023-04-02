@@ -18,8 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static java.util.UUID.randomUUID;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class ProductServiceTest {
@@ -152,6 +151,7 @@ public class ProductServiceTest {
         Product response = productService.findByProductID(productNull.getProductID());
 
         assertNull(response);
+<<<<<<< HEAD
 =======
 import com.kenzie.appserver.repositories.ProductRepository;
 import com.kenzie.appserver.repositories.TransactionRepository;
@@ -180,6 +180,8 @@ public class ProductServiceTest {
         MockitoAnnotations.initMocks(this);
         productService = new ProductService(productRepository,transactionRepository, transactionService);
 >>>>>>> d60c250 (Made purchaseProducts accept multiple product id, and made Transaction service accept multiple productIDS)
+=======
+>>>>>>> aa4f162 (merging new transations with maps to uses if needed)
     }
 
 
@@ -226,7 +228,7 @@ public class ProductServiceTest {
     void updateProduct_noProduct_Test() {
         String productId = randomUUID().toString();
         Product product1 = new Product();
-       // product1.setProductID(productId);
+        product1.setProductID(productId);
         product1.setProductName("Frozen Burrito");
         product1.setCategory("Food");
         product1.setPrice(12.99);
@@ -243,9 +245,10 @@ public class ProductServiceTest {
 
         when(productRepository.existsById(product1.getProductID())).thenReturn(false);
         productService.updateProduct(updateproduct1);
-        //thought this was needed
 
+        verify(productRepository, times(1)).existsById(productId);
         verifyNoMoreInteractions(productRepository);
+
 
     }
 
@@ -266,7 +269,6 @@ public class ProductServiceTest {
     @Test
     void buyProductsTest() {
 
-    }
 
 
 =======
@@ -283,5 +285,8 @@ public class ProductServiceTest {
 
 
     }
+<<<<<<< HEAD
 >>>>>>> d60c250 (Made purchaseProducts accept multiple product id, and made Transaction service accept multiple productIDS)
+=======
+>>>>>>> aa4f162 (merging new transations with maps to uses if needed)
 }
