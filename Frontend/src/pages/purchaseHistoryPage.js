@@ -1,11 +1,11 @@
 import BaseClass from "../util/baseClass";
 import DataStore from "../util/DataStore";
-import InventoryLevelsClient from "../api/inventoryLevelsClient";
+import PurchaseHistoryClient from "../api/purchaseHistoryClient";
 
 /**
  * Logic needed for the view playlist page of the website.
  */
-class InventoryLevelsPage extends BaseClass {
+class PurchaseHistoryPage extends BaseClass {
 
     constructor() {
         super();
@@ -18,7 +18,7 @@ class InventoryLevelsPage extends BaseClass {
      */
     async mount() {
         document.getElementById('submit-refresh').addEventListener('click', this.onRefresh);
-        this.client = new InventoryLevelsClient();
+        this.client = new PurchaseHistoryClient();
 
         this.dataStore.addChangeListener(this.renderInventory)
         this.onLoad();
@@ -38,9 +38,12 @@ class InventoryLevelsPage extends BaseClass {
              <div class="wrapper">
 
  
-  <aside class="aside aside-left">${product.productID}</aside>
-   <aside class="aside aside-middle">${product.productName}</aside>
-  <aside class="aside aside-right">${product.quantity}</aside>
+  <aside class="aside aside-1">${product.productID}</aside>
+   <aside class="aside aside-2">${product.productName}</aside>
+   <aside class="aside aside-3">${product.description}</aside>
+   <aside class="aside aside-4">${product.category}</aside>
+  <aside class="aside aside-5">${product.quantity}</aside>
+  
 
 </div>                              
                 `;
@@ -56,6 +59,7 @@ class InventoryLevelsPage extends BaseClass {
     async onRefresh(event) {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
+
 
         this.dataStore.set("inventory", null);
 
@@ -95,8 +99,8 @@ class InventoryLevelsPage extends BaseClass {
  * Main method to run when the page contents have loaded.
  */
 const main = async () => {
-    const inventoryLevelsPage = new InventoryLevelsPage();
-    inventoryLevelsPage.mount();
+    const purchaseHistoryPage = new PurchaseHistoryPage();
+    purchaseHistoryPage.mount();
 };
 
 window.addEventListener('DOMContentLoaded', main);
