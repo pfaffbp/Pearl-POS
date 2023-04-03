@@ -50,6 +50,7 @@ export default class AddProductClient extends BaseClass{
         }
     }
 
+
     handleError(method, error, errorCallback) {
         console.error(method + " failed - " + error);
         if (error.response.data.message !== undefined) {
