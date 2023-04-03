@@ -18,6 +18,7 @@ module.exports = {
       loginPage: path.resolve(__dirname, 'src', 'pages', 'loginPage.js'),
       productPage: path.resolve(__dirname, 'src', 'pages', 'productPage.js'),
 
+
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
