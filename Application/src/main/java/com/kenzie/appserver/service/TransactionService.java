@@ -16,11 +16,8 @@ import java.util.Optional;
 public class TransactionService {
     private final TransactionRepository transactionRepository;
 
-    private final List<Transaction> transactions;
-
     @Autowired
     public TransactionService(TransactionRepository repository, List<Transaction> transactions, ProductService productService, UserService userService){this.transactionRepository = repository;
-        this.transactions = transactions;
     }
 
     public TransactionRecord generateTransaction(Product product, int itemsPurchased){

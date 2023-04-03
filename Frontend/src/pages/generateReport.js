@@ -1,10 +1,10 @@
 import BaseClass from "../util/baseClass";
 import ReportClient from "../api/reportClient";
 
-class GenerateReport extends BaseClass {
+class generateReport extends BaseClass {
     constructor() {
         super();
-        const methodsToBind = ["mount", "generateReport"];
+        const methodsToBind = ["generateReport"];
         this.bindClassMethods(methodsToBind, this);
         this.client = new ReportClient();
     }
@@ -35,7 +35,7 @@ class GenerateReport extends BaseClass {
 }
 
 const main = async () => {
-    const generateReportPage = new GenerateReport();
+    const generateReportPage = new generateReport();
     await generateReportPage.mount();
 };
 

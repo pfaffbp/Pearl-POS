@@ -34,7 +34,7 @@ public class ReportController {
             List<Transaction> transactions = mapper.scan(Transaction.class, scanExpression);
 
             // Generate report using the transactions
-            String report = "Report";
+            String report = "Transaction Report: Transaction ID Customer ID Transaction Date Amount";
 
             // Compress report data into a ZIP file
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
