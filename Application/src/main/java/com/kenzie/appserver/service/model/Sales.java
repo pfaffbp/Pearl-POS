@@ -8,9 +8,6 @@ public class Sales {
     private Integer quantity;
     private String date;
 
-    public Sales() {
-    }
-
     public Sales(String id, String name, Double price, Integer quantity, String date) {
         this.id = id;
         this.name = name;

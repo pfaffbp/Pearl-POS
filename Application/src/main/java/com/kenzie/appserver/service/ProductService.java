@@ -7,18 +7,9 @@ import com.kenzie.appserver.repositories.ProductRepository;
 import com.kenzie.appserver.service.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> 25c0d46 (first push getting an error when trying to run the boot run def)
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-=======
-import java.util.*;
->>>>>>> 7d02c4d (my saves)
 
 import java.util.*;
 
@@ -28,7 +19,6 @@ public class ProductService {
     private ProductRepository productRepository;
 
     private TransactionService transactionService;
-<<<<<<< HEAD
 
     private TransactionRepository transactionRepository;
 
@@ -44,18 +34,6 @@ public class ProductService {
         List<Product> allProducts = new ArrayList<Product>();
         productRepository.findAll().forEach(productRecord -> allProducts.add(productHelperMethod(productRecord)));
         return allProducts;
-    }
-=======
->>>>>>> 7d02c4d (my saves)
-
-    private TransactionRepository transactionRepository;
-
-    @Autowired
-    public ProductService(ProductRepository productRepository,
-                          TransactionRepository transactionRepository, TransactionService transactionService){
-        this.productRepository = productRepository;
-        this.transactionRepository = transactionRepository;
-        this.transactionService = transactionService;
     }
 
     public Product addProduct(Product product){
@@ -157,12 +135,8 @@ public class ProductService {
         createNewProduct.setPrice(product.getPrice());
         createNewProduct.setQuantity(product.getQuantity());
         createNewProduct.setDescription(product.getDescription());
-<<<<<<< HEAD
         createNewProduct.setProductID(product.getProductID());
-=======
->>>>>>> 7d02c4d (my saves)
-
-        return createNewProduct;
+   return createNewProduct;
     }
 
     public Product recordToProductHelperMethod(ProductRecord product){

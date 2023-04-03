@@ -10,28 +10,21 @@ import org.springframework.data.annotation.Id;
 
 import java.util.Objects;
 
-@DynamoDBTable(tableName = "Sales")
+/*@DynamoDBTable(tableName = "SalesRecord")*/
 public class SalesRecord {
-    @Id
-    @DynamoDBHashKey(attributeName = "ID")
-    private String ID;
+/*    @DynamoDBHashKey(attributeName = "id")*/
+    private String id;
 
-    @DynamoDBAttribute(attributeName = "productName")
-    private String productName;
+/*    @DynamoDBAttribute(attributeName = "name")*/
+    private String name;
 
-    @DynamoDBAttribute(attributeName = "price")
+/*    @DynamoDBAttribute(attributeName = "price")*/
     private Double price;
 
-    @DynamoDBAttribute(attributeName = "quantity")
+ /*   @DynamoDBAttribute(attributeName = "quantity")*/
     private Integer quantity;
 
-    @DynamoDBAttribute(attributeName = "description")
-    private String description;
-
-    @DynamoDBAttribute(attributeName = "category")
-    private String category;
-
-    @DynamoDBAttribute(attributeName = "date")
+ /*   @DynamoDBAttribute(attributeName = "date")*/
     private String date;
 
     public String getDate() {
@@ -43,11 +36,11 @@ public class SalesRecord {
     }
 
     public String getProductName() {
-        return productName;
+        return name;
     }
 
     public void setProductName(String productName) {
-        this.productName = productName;
+        this.name = productName;
     }
 
     public Double getPrice() {
@@ -66,28 +59,12 @@ public class SalesRecord {
         this.quantity = quantity;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     public String getID() {
-        return ID;
+        return id;
     }
 
-    public void setID(String productID) {
-        this.ID = ID;
+    public void setID(String id) {
+        this.id = id;
     }
 
     @Override
@@ -95,11 +72,11 @@ public class SalesRecord {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SalesRecord sales = (SalesRecord) o;
-        return productName.equals(sales.getProductName()) && ID.equals(sales.getID());
+        return name.equals(sales.getProductName()) && id.equals(sales.getID());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(productName, ID);
+        return Objects.hash(name, id);
     }
 }

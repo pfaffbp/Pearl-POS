@@ -15,6 +15,10 @@ import java.util.Optional;
 public class TransactionService {
     private final TransactionRepository transactionRepository;
 
+    private ProductService productService;
+
+    private UserService userService;
+
     @Autowired
     public TransactionService(TransactionRepository repository){this.transactionRepository = repository;}
 
@@ -26,10 +30,18 @@ public class TransactionService {
         generatedTransaction.setQuantity(itemsPurchased);
         generatedTransaction.setDate(LocalDateTime.now().toString());
         generatedTransaction.setProductID(product.getProductID());
-        generatedTransaction.setCustomerID("TestCustomer"); //change this later
+        generatedTransaction.setCustomerID(transactionGenerator.getCustomerID());
         generatedTransaction.setTotalSale(product.getPrice() * itemsPurchased);
 
         transactionRepository.save(generatedTransaction);
+        return generatedTransaction;
+    }
+
+    public TransactionRecord generateTransactionReport(String customerID){
+        TransactionRecord generatedTransaction = new TransactionRecord();
+        generatedTransaction.setCustomerID(customerID);
+        generatedTransaction.setDate(LocalDateTime.now().toString());
+        generatedTransaction.setTransactionID("Report");
         return generatedTransaction;
     }
 

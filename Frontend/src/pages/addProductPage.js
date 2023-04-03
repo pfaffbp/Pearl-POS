@@ -1,5 +1,4 @@
 import BaseClass from "../util/baseClass";
-import ExampleClient from "../api/exampleClient";
 import AddProductClient from "../api/addProductClient";
 import DataStore from "../util/DataStore";
 
@@ -9,69 +8,48 @@ class AddProductPage extends BaseClass {
         super();
         this.bindClassMethods(['createProductEvent'], this);
         this.dataStore = new DataStore();
+
     }
 
     async mount() {
-<<<<<<< HEAD
-<<<<<<< HEAD
         document.getElementById('add-product-block').addEventListener('submit', this.createProductEvent);
         this.client = new AddProductClient();
 
         // this.dataStore.addChangeListener(this.renderExample)
-=======
-        document.getElementById('create-form').addEventListener('submit', this.createProductEvent);
-        this.client = new AddProductClient();
-
-        this.dataStore.addChangeListener(this.renderExample)
->>>>>>> 3cd46eb (save changes)
-=======
-        document.getElementById('add-product-block').addEventListener('submit', this.createProductEvent);
-        this.client = new AddProductClient();
-
-        // this.dataStore.addChangeListener(this.renderExample)
->>>>>>> 7d02c4d (my saves)
     }
 
     async createProductEvent(event) {
         event.preventDefault();
-<<<<<<< HEAD
-<<<<<<< HEAD
         console.log("createProductEvent")
-         // this.dataStore.set("products", null);
-=======
-        this.dataStore.set("products", null);
->>>>>>> 3cd46eb (save changes)
-=======
-        console.log("createProductEvent")
-         // this.dataStore.set("products", null);
->>>>>>> 7d02c4d (my saves)
+        // this.dataStore.set("products", null);
+        //this section is to add A image
+        // const image_input = document.querySelector('#image_input')
+        // let upload_image = "";
+        // image_input.addEventListener("change", function (){
+        //     const reader = new FileReader();
+        //     reader.addEventListener("load", () =>{
+        //         upload_image = reader.result;
+        //         console.log(upload_image);
+        //         document.addEventListener("")
+        //         document.querySelector("#ImageToBeAdded").style.backgroundImage = `url(${upload_image})`
+        //     });
+        //     reader.readAsDataURL(this.files[0]);
+        // })
+
 
         let productName = document.getElementById("product-name").value;
         let productCategory = document.getElementById("product-category").value;
         let productQuantity = document.getElementById("quantity").value;
         let productPrice = document.getElementById("product-price").value;
         let productDescription = document.getElementById("product-description").value;
-<<<<<<< HEAD
-<<<<<<< HEAD
         console.log(productName, productPrice, productCategory);
 
 
         const createdProduct = await this.client.createProduct(productName, productPrice, productCategory,
             productQuantity, productDescription, this.errorHandler);
-=======
-
-        const createdProduct = await this.client.createProduct(productName, productPrice, productCategory,
-            productQuantity, "12", productDescription, this.errorHandler);
->>>>>>> 3cd46eb (save changes)
-=======
-        console.log(productName, productPrice, productCategory);
-
-
-        const createdProduct = await this.client.createProduct(productName, productPrice, productCategory,
-            productQuantity, productDescription, this.errorHandler);
->>>>>>> 7d02c4d (my saves)
 
         this.dataStore.set("products", createdProduct);
+        console.log(this.dataStore.get("products"))
 
         if (createdProduct) {
             this.showMessage(`Created ${createdProduct.name}!`)
@@ -79,17 +57,14 @@ class AddProductPage extends BaseClass {
             this.errorHandler("Error creating!  Try again...");
         }
     }
+
+
 }
 
+
+
 const main = async () => {
-<<<<<<< HEAD
-<<<<<<< HEAD
     console.log("mounted")
-=======
->>>>>>> 3cd46eb (save changes)
-=======
-    console.log("mounted")
->>>>>>> 7d02c4d (my saves)
     const productPage = new AddProductPage();
     productPage.mount();
 };
