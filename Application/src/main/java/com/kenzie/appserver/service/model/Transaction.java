@@ -38,7 +38,7 @@ public class Transaction {
         this.transactionID = transactionID;
     }
 
-    public static void generateReport(@NotNull List<Transaction> transactions) {
+    public static void generateReport(List<Transaction> transactions) {
         double totalAmount = 0;
         int transactionCount = 0;
 

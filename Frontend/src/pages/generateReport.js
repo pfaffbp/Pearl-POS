@@ -4,39 +4,32 @@ import ReportClient from "../api/reportClient";
 class generateReport extends BaseClass {
     constructor() {
         super();
-        const methodsToBind = ["generateReport"];
+        const methodsToBind = ['mount', 'generateReport'];
         this.bindClassMethods(methodsToBind, this);
         this.client = new ReportClient();
     }
 
     async mount() {
-        try {
-            await this.client.login("username", "password");
-            await this.client.mount();
-            await this.generateReport();
-            await this.client.logout();
-        } catch (error) {
-            alert("Error generating report!");
-        }
+        await this.client.mount();
+        await this.generateReport();
     }
 
-    async generateReport() {
+    async generateReport(event) {
+           if (event)
+      event.preventDefault();
+
         try {
             const report = await this.client.generateReport();
             console.log(report);
-            const reportElement = document.getElementById("report");
-            if (reportElement) {
-                reportElement.innerText = report;
-            }
         } catch (error) {
-            alert("Error generating report!");
+            alert('Error generating report!');
         }
     }
 }
 
 const main = async () => {
-    const generateReportPage = new generateReport();
-    await generateReportPage.mount();
-};
+    const dashboardPage = new DashboardPage();
+    await dashboardPage.mount();
+}
 
-window.addEventListener("DOMContentLoaded", main);
+window.addEventListener('DOMContentLoaded', main);

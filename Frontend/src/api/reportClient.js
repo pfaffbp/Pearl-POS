@@ -2,6 +2,7 @@ import BaseClass from "../util/baseClass";
 import axios from 'axios'
 
 class ReportClient extends BaseClass {
+    transactions = '/generateReportScript.js';
     constructor(props = {}){
         super();
         const methodsToBind = ['clientLoaded', 'login', 'logout', 'generateReport', 'getReport'];
@@ -20,7 +21,7 @@ class ReportClient extends BaseClass {
 
     async generateReport() {
         try {
-            const response = await this.client.get('/transactions', {
+            const response = await this.client.get(this.transactions, {
                 headers: {
                     Authorization: localStorage.getItem('token')
                 }
