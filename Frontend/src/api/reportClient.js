@@ -20,16 +20,29 @@ class ReportClient extends BaseClass {
 
     async generateReport() {
         try {
-            const response = await this.client.get('/report/generate', {
+            const response = await this.client.get('/transactions', {
                 headers: {
                     Authorization: localStorage.getItem('token')
                 }
             });
-            return response.data;
-        } catch (error) {
+            const transactions = response.data;
+            // Generate report based on transactions data
+            const report = {
+                transactions: transactions,
+                // Add other report data as needed
+            };
+            // Save report to server
+            await this.client.post('/report', report, {
+                headers: {
+                    Authorization: localStorage.getItem('token')
+                }
+            });
+        }
+        catch (error) {
             this.handleError("generateReport", error)
         }
     }
+
 
     async getReport() {
         try {
@@ -39,16 +52,21 @@ class ReportClient extends BaseClass {
                 }
             });
             return response.data;
-        } catch (error) {
+        }
+        catch (error) {
             this.handleError("getReport", error)
         }
     }
 
-    handleError(method, error, errorCallback) {
-        if (errorCallback) {
-            errorCallback(error);
+    handleError(method, error) {
+        if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        } else if (error.request) {
+            console.log(error.request);
         } else {
-            console.error(`Error in ${method}: ${error}`);
+            console.log('Error', error.message);
         }
     }
 }

@@ -3,7 +3,10 @@ package com.kenzie.appserver.service.model;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.kenzie.appserver.repositories.model.TransactionRecord;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -33,6 +36,25 @@ public class Transaction {
         this.quantity = quantity;
         this.totalSale = totalSale;
         this.transactionID = transactionID;
+    }
+
+    public static void generateReport(@NotNull List<Transaction> transactions) {
+        double totalAmount = 0;
+        int transactionCount = 0;
+
+        System.out.println("Transaction Report:");
+        System.out.println("Transaction ID\tCustomer ID\tTransaction Date\tAmount");
+
+        for (Transaction transaction : transactions) {
+            System.out.println(transaction.getTransactionID() + "\t" + transaction.getCustomerID() + "\t" +
+                    transaction.getDate() + "\t" + transaction.getTotalSale());
+
+            totalAmount += transaction.getTotalSale();
+            transactionCount++;
+        }
+
+        System.out.println("\nTotal Transactions: " + transactionCount);
+        System.out.println("Total Amount: $" + totalAmount);
     }
 
     public String getDate() {
@@ -101,3 +123,6 @@ public class Transaction {
         return Objects.hash(date, customerID, productID, quantity, totalSale, transactionID);
     }
 }
+
+
+
