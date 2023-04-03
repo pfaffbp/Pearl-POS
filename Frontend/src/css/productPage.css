@@ -1,0 +1,49 @@
+/*#result_area{*/
+/*    display: flex*/
+/*}*/
+.wrapper{
+    display: inline-flex;
+}
+
+img:hover{
+    background-color: yellow
+}
+.price-plus{
+    display: flex;
+    margin-left: 200px;
+}
+
+
+.product-displayed{
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px black;
+}
+
+.product_Name{
+    text-align: center;
+    font-size: 30px;
+}
+
+.product-displayed button{
+    font-size: 16px;
+    background-color: green;
+    color: white;
+    border-radius: 3px;
+}
+
+.minus-quantity{
+    margin-left: 85px;
+}
+
+.product_Price{
+    /*margin-left: 200px;*/
+    /*font-size: 20px;*/
+}
+
+.product-footer{
+    display: flex;
+    padding-bottom: 10px;
+}
+

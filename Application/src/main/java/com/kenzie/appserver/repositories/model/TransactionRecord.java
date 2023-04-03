@@ -2,19 +2,23 @@ package com.kenzie.appserver.repositories.model;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import org.springframework.data.annotation.Id;
 
 import java.util.List;
 import java.util.Objects;
 
+
 @DynamoDBTable(tableName = "Transaction")
 public class TransactionRecord {
+    private static final String TRANSACTION_CUSTOMER_ID = "TransactionsByCustomerID";
+    private static final String TRANSACTION_BY_DATE = "TransactionsByDate";
 
-    @Id
-    @DynamoDBHashKey(attributeName = "date")
+    @DynamoDBAttribute(attributeName = "date")
     private String date;
 
+    @DynamoDBIndexHashKey(globalSecondaryIndexName = TRANSACTION_CUSTOMER_ID, attributeName = "customerID")
     @DynamoDBAttribute(attributeName = "customerID")
     private String customerID;
 
@@ -27,7 +31,8 @@ public class TransactionRecord {
     @DynamoDBAttribute(attributeName = "totalSale")
     private Double totalSale;
 
-    @DynamoDBAttribute(attributeName = "transactionID")
+    @Id
+    @DynamoDBHashKey(attributeName = "transactionID")
     private String transactionID;
 
     @DynamoDBAttribute(attributeName = "amountPurchasedPerProduct")
