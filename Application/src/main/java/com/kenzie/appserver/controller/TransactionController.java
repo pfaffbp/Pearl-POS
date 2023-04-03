@@ -6,12 +6,19 @@ import com.kenzie.appserver.service.model.Transaction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/transaction")
 public class TransactionController {
     private TransactionService transactionService;
 
-    public TransactionController(TransactionService transactionService){this.transactionService = transactionService;}
+    public TransactionController(TransactionService transactionService, List<Transaction> transactions){this.transactionService = transactionService;
+        this.transactions = transactions;
+    }
+
+    private final List<Transaction> transactions;
+
 
     @GetMapping("/{date}")
     public ResponseEntity<TransactionResponse> getTransactionByDate(@PathVariable("date") String date){
@@ -32,9 +39,15 @@ public class TransactionController {
         return ResponseEntity.ok(transactionResponse);
     }
 
+    @GetMapping("/api/transactions")
+    public List<Transaction> getAllTransactions() {
+        return transactions;
+    }
+}
+
 //    @PostMapping()
 //    public ResponseEntity<ProductResponse> createTransaction(@RequestBody TransactionCreateRequest transactionCreateRequest){
 //        Transaction transaction = new Transaction();
 //        transactionService.generateTransaction()
 //    }
-}
+

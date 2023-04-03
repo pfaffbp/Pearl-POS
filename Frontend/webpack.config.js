@@ -12,7 +12,7 @@ module.exports = {
 
         // examplePage: path.resolve(dirname, 'src', 'pages', 'examplePage.js'),
         inventoryLevelsPage: path.resolve(dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
-        generateReport: path.resolve(dirname, 'src', 'pages', 'generateReportgenerateReport.js'),
+        generateReport: path.resolve(dirname, 'src', 'pages', 'generateReport.js'),
         examplePage: path.resolve(dirname, 'src', 'pages', 'examplePage.js'),
         addProductPage: path.resolve(dirname, 'src', 'pages', 'addProductPage.js'),
         loginPage: path.resolve(dirname, 'src', 'pages', 'loginPage.js'),
@@ -66,7 +66,7 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             template: './src/generateReport.html',
-            filename: 'generateReportgenerateReport.js.html',
+            filename: 'generateReport.html',
             inject: false
         }),
         new CopyPlugin({
