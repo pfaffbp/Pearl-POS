@@ -14,9 +14,6 @@
 
 # Fill out the following values
 # The path of your repo on github. Don't include the whole URL, just the part after github.com/KenzieAcademy-SoftwareEngineering/
-export GITHUB_USERNAME=emotheatrix
-export DYNAMO_ENDPOINT=http://localhost:8000/
-
 export LBC_GROUP_NAME=teampearl
 export LBC_REPO_NAME=ata-lbc-project-$bantoninese83
 

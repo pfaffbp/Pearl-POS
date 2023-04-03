@@ -1,8 +1,10 @@
 package com.kenzie.appserver.controller;
 
 import com.kenzie.appserver.controller.model.TransactionModels.TransactionResponse;
+import com.kenzie.appserver.repositories.model.TransactionRecord;
 import com.kenzie.appserver.service.TransactionService;
 import com.kenzie.appserver.service.model.Transaction;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +40,19 @@ public class TransactionController {
         transactionResponse.setTotalSale(transaction.getTotalSale());
 
         return ResponseEntity.ok(transactionResponse);
+    }
+
+    @GetMapping
+    public ResponseEntity<String> getAllTransactions() {
+        try {
+            // Fetch report data from a database or file
+            List<TransactionRecord> transactionReport = transactionService.getAllTransactions();
+            String report = transactionReport.toString();
+
+            return new ResponseEntity<>(report, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
 

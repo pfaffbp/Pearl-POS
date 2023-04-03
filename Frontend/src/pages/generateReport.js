@@ -1,35 +1,57 @@
 import BaseClass from "../util/baseClass";
+import DataStore from "../util/DataStore";
 import ReportClient from "../api/reportClient";
 
-class generateReport extends BaseClass {
+class GenerateReport extends BaseClass {
     constructor() {
         super();
         const methodsToBind = ['mount', 'generateReport'];
         this.bindClassMethods(methodsToBind, this);
-        this.client = new ReportClient();
+        this.dataStore = new DataStore();
     }
 
     async mount() {
-        await this.client.mount();
-        await this.generateReport();
+        // add event listener to the generate report button
+        document.getElementById('generate-report').addEventListener('click', this.generateReport);
+        this.client = new ReportClient();
     }
 
     async generateReport(event) {
-           if (event)
-      event.preventDefault();
-
-        try {
-            const report = await this.client.generateReport();
-            console.log(report);
-        } catch (error) {
-            alert('Error generating report!');
+        event.preventDefault();
+        this.dataStore.set("report", null);
+        let report = await this.client.generateReport(this.errorHandler());
+        this.dataStore.set("report", report);
+        if (report) {
+            this.showMessage("Report generated successfully");
+        } else {
+            this.errorHandler("Report generation failed");
         }
     }
 }
-
 const main = async () => {
-    const dashboardPage = new DashboardPage();
-    await dashboardPage.mount();
+    const generateReport = new GenerateReport();
+    await generateReport.mount();
+
 }
 
 window.addEventListener('DOMContentLoaded', main);
+
+
+/*    async generateReport() {
+        // make a request to the backend to retrieve all transactions
+        fetch('/report')
+            .then(response => response.json())
+            .then(transactions => {
+                // create an empty report array
+                let report = [];
+
+                // loop through all transactions and add them to the report
+                transactions.forEach(transaction => {
+                    report.push(transaction);
+                });
+
+                // display the report on the webpage
+                document.getElementById('report').innerText = JSON.stringify(report, null, 2);
+            })
+            .catch(error => console.error(error));
+    }*/

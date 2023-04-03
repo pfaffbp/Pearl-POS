@@ -1,3 +1,4 @@
+/*
 package com.kenzie.appserver.controller;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
@@ -59,6 +60,20 @@ public class ReportController {
     }
 
     @GetMapping
+    public ResponseEntity<String> getAllTransactions() {
+        try {
+            // Fetch report data from a database or file
+            List<TransactionRecord> transactionReport = transactionService.getAllTransactions();
+            String report = transactionReport.toString();
+
+            return new ResponseEntity<>(report, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    @GetMapping
     public ResponseEntity<String> getReport() {
         try {
                // Fetch report data from a database or file
@@ -71,3 +86,4 @@ public class ReportController {
         }
     }
 }
+*/

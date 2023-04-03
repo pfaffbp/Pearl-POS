@@ -1,10 +1,10 @@
 import BaseClass from "../util/baseClass";
 import axios from 'axios'
 
-class ReportClient extends BaseClass {
+export default class ReportClient extends BaseClass {
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'login', 'logout', 'generateReport', 'getReport'];
+        const methodsToBind = ['clientLoaded', 'generateReport', 'getReport'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -20,55 +20,23 @@ class ReportClient extends BaseClass {
 
     async generateReport() {
         try {
-            const response = await this.client.get( "/api/transactions", {
-                headers: {
-                    Authorization: localStorage.getItem('token')
-                }
-            });
-            const transactions = response.data;
-            // Generate report based on transactions data
-            const report = {
-                transactions: transactions,
-                // Add other report data as needed
-            };
-            // Save report to server
-            await this.client.post('/report', report, {
-                headers: {
-                    Authorization: localStorage.getItem('token')
-                }
-            });
+            const response = await this.client.get('/transaction');
+            return response.data;
         }
         catch (error) {
-            this.handleError("generateReport", error)
+            this.handleError("generateReport", error, errorCallback)
         }
     }
 
-
-    async getReport() {
-        try {
-            const response = await this.client.get('/report', {
-                headers: {
-                    Authorization: localStorage.getItem('token')
-                }
-            });
-            return console.log(response.data);
+    handleError(method, error, errorCallback) {
+      console.error(method + "failed - " + error);
+        if (error.response.data.message !== undefined) {
+            console.error(error.response.data.message);
         }
-        catch (error) {
-            this.handleError("getReport", error)
-        }
-    }
 
-    handleError(method, error) {
-        if (error.response) {
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-        } else if (error.request) {
-            console.log(error.request);
-        } else {
-            console.log('Error', error.message);
+        if (errorCallback) {
+            errorCallback(method + "failed - " + error);
         }
     }
 }
 
-export default ReportClient;
