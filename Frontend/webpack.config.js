@@ -58,6 +58,7 @@ module.exports = {
       productPage: path.resolve(__dirname, 'src', 'pages', 'productPage.js'),
 >>>>>>> d6bc43a (preping to merge)
 
+<<<<<<< HEAD
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -94,6 +95,31 @@ module.exports = {
             ]
         }),
         new CleanWebpackPlugin()
+=======
+
+  },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].js',
+  },
+  devServer: {
+    https: false,
+    port: 8080,
+    open: true,
+    openPage: 'http://localhost:8080/productpage.html',
+    // diableHostChecks, otherwise we get an error about headers and the page won't render
+    disableHostCheck: true,
+    contentBase: 'packaging_additional_published_artifacts',
+    // overlay shows a full-screen overlay in the browser when there are compiler errors or warnings
+    overlay: true,
+    proxy:[
+      {
+        context: [
+          '/'
+        ],
+        target: 'http://localhost:5001'
+      }
+>>>>>>> bb66005 (updating my levels and purchase history links)
     ]
 <<<<<<< HEAD
 }
