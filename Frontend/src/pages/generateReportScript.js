@@ -1,6 +1,6 @@
 function generateReport() {
     // make a request to the backend to retrieve all transactions
-    fetch('/api/transactions')
+    fetch('/report')
         .then(response => response.json())
         .then(transactions => {
             // create an empty report array

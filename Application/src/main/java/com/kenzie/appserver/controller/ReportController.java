@@ -1,14 +1,15 @@
 package com.kenzie.appserver.controller;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
-import com.kenzie.appserver.service.model.Transaction;
+import com.kenzie.appserver.repositories.model.TransactionRecord;
+import com.kenzie.appserver.service.TransactionService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.ByteArrayOutputStream;
@@ -18,50 +19,53 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 @RestController
+@RequestMapping("/report")
 public class ReportController {
 
     private final AmazonDynamoDB dynamoDB;
 
-    public ReportController(AmazonDynamoDB dynamoDB) {
+    private final TransactionService transactionService;
+
+    public ReportController(AmazonDynamoDB dynamoDB, TransactionService transactionService) {
         this.dynamoDB = dynamoDB;
+        this.transactionService = transactionService;
     }
 
-    @GetMapping("/report")
+    @PostMapping
     public ResponseEntity<byte[]> generateReport() {
         try {
-            DynamoDBMapper mapper = new DynamoDBMapper(dynamoDB);
-            DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
-            List<Transaction> transactions = mapper.scan(Transaction.class, scanExpression);
+            // Fetch report data from a database or file
+            List<TransactionRecord> transactionReport = transactionService.getAllTransactions();
+            String report = transactionReport.toString();
 
-            // Generate report using the transactions
-            String report = "Transaction Report: Transaction ID Customer ID Transaction Date Amount";
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            ZipOutputStream zipOutputStream = new ZipOutputStream(byteArrayOutputStream);
+            ZipEntry zipEntry = new ZipEntry("report.txt");
+            zipOutputStream.putNextEntry(zipEntry);
+            zipOutputStream.write(report.getBytes());
+            zipOutputStream.closeEntry();
+            zipOutputStream.close();
 
-            // Compress report data into a ZIP file
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ZipOutputStream zos = new ZipOutputStream(baos);
-            ZipEntry entry = new ZipEntry("report.txt");
-            zos.putNextEntry(entry);
-            zos.write(report.getBytes());
-            zos.closeEntry();
-            zos.close();
-
-            // Set response headers
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-            headers.setContentDispositionFormData("attachment", "report.zip");
+            headers.setContentDispositionFormData("report.txt", "report.txt");
+            headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
 
-            return new ResponseEntity<>(baos.toByteArray(), headers, HttpStatus.OK);
+            return new ResponseEntity<>(byteArrayOutputStream.toByteArray(), headers, HttpStatus.OK);
+
         } catch (IOException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @GetMapping("/getReport")
+    @GetMapping
     public ResponseEntity<String> getReport() {
         try {
-            // Fetch report data from a database or file
-            String reportData = "Report data";
-            return new ResponseEntity<>(reportData, HttpStatus.OK);
+               // Fetch report data from a database or file
+                List<TransactionRecord> transactionReport = transactionService.getAllTransactions();
+                String report = transactionReport.toString();
+
+                return new ResponseEntity<>(report, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

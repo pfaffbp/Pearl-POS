@@ -13,7 +13,8 @@ import java.util.List;
 public class TransactionController {
     private TransactionService transactionService;
 
-    public TransactionController(TransactionService transactionService, List<Transaction> transactions){this.transactionService = transactionService;
+    public TransactionController(TransactionService transactionService, List<Transaction> transactions) {
+        this.transactionService = transactionService;
         this.transactions = transactions;
     }
 
@@ -21,10 +22,10 @@ public class TransactionController {
 
 
     @GetMapping("/{date}")
-    public ResponseEntity<TransactionResponse> getTransactionByDate(@PathVariable("date") String date){
+    public ResponseEntity<TransactionResponse> getTransactionByDate(@PathVariable("date") String date) {
         Transaction transaction = transactionService.findTransactionByDate(date);
 
-        if(transaction == null){
+        if (transaction == null) {
             return ResponseEntity.notFound().build();
         }
 
@@ -37,11 +38,6 @@ public class TransactionController {
         transactionResponse.setTotalSale(transaction.getTotalSale());
 
         return ResponseEntity.ok(transactionResponse);
-    }
-
-    @GetMapping("/api/transactions")
-    public List<Transaction> getAllTransactions() {
-        return transactions;
     }
 }
 

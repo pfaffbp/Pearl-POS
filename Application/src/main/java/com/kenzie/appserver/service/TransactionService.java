@@ -1,7 +1,10 @@
 package com.kenzie.appserver.service;
 
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.kenzie.appserver.repositories.TransactionRepository;
-import com.kenzie.appserver.repositories.model.ProductRecord;
 import com.kenzie.appserver.repositories.model.TransactionRecord;
 import com.kenzie.appserver.service.model.Product;
 import com.kenzie.appserver.service.model.Transaction;
@@ -9,18 +12,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class TransactionService {
-    private final TransactionRepository transactionRepository;
+    private TransactionRepository transactionRepository;
+
+    static AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+    static String tableName = "Transaction";
 
     private ProductService productService;
 
     private UserService userService;
 
+
+    public TransactionService(){
+    }
+
     @Autowired
     public TransactionService(TransactionRepository repository){this.transactionRepository = repository;}
+
 
     public TransactionRecord generateTransaction(Product product, int itemsPurchased){
         Transaction transactionGenerator = new Transaction();// default constructor creates transaction ID
@@ -37,12 +49,15 @@ public class TransactionService {
         return generatedTransaction;
     }
 
-    public TransactionRecord generateTransactionReport(String customerID){
-        TransactionRecord generatedTransaction = new TransactionRecord();
-        generatedTransaction.setCustomerID(customerID);
-        generatedTransaction.setDate(LocalDateTime.now().toString());
-        generatedTransaction.setTransactionID("Report");
-        return generatedTransaction;
+
+    public List<TransactionRecord> getAllTransactions(){
+
+        DynamoDBMapperConfig mapperConfig = new DynamoDBMapperConfig.Builder().withTableNameOverride(DynamoDBMapperConfig.TableNameOverride.withTableNameReplacement("Transaction")).build();
+
+        DynamoDBMapper mapper = new DynamoDBMapper(client, mapperConfig);
+        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
+        List<TransactionRecord> transactions = mapper.scan(TransactionRecord.class, scanExpression);
+        return transactions;
     }
 
     public Transaction findTransactionByDate(String date){
