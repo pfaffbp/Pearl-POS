@@ -1,53 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <script type="text/javascript" src="loginPage.js"></script>
+  <link rel="stylesheet" href="css/login.css">
+  <script src="./loginPage.js" type="module"></script>
 
-  <meta charset="UTF-8">
-  <title>Login</title>
-  <style>
-    body {
-      background-color: #f2f2f2;
-      font-family: Arial, sans-serif;
-    }
-    form {
-      background-color: white;
-      border-radius: 5px;
-      box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
-      padding: 20px;
-      margin: 20px auto;
-      max-width: 400px;
-    }
-    input[type="text"], input[type="password"] {
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
-      margin-bottom: 10px;
-      width: 100%;
-    }
-    input[type="submit"] {
-      background-color: #007bff;
-      border: none;
-      border-radius: 5px;
-      color: white;
-      cursor: pointer;
-      padding: 10px;
-      width: 100%;
-    }
-    input[type="submit"]:hover {
-      background-color: #0069d9;
-    }
-  </style>
+  <title>Login Page</title>
 </head>
 <body>
-<form id="loginButton" action="#" method="post">
-  <h2>Login</h2>
-  <label for="username">Username:</label>
-  <input type="text" name="username" id="username" required autocomplete="current-username">
+<h1>Login Page</h1>
+<form id="login-form">
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" required><br><br>
   <label for="password">Password:</label>
-  <input type="password" name="password" id="password" required autocomplete="current-password">
-  <input type="submit" value="Login">
+  <input type="password" id="password" name="password" required><br><br>
+  <button type="submit">Login</button>
 </form>
+<p id="message"></p>
+
 </body>
 </html>

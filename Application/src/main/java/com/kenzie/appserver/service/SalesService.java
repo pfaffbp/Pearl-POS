@@ -85,45 +85,6 @@ public class SalesService {
         return result;
     }
 
-    public List<Map<String, Object>> getTopSellingProducts() {
-        Map<String, List<Double>> productSales = new TreeMap<>();
-
-
-        for (TransactionRecord record : transactionRepository.findAll()) {
-            Map<Object, Object> products = record.getProducts();
-            if (products != null) {
-                products.forEach((key, value) -> {
-                    if (value instanceof Integer) {
-                        String product = (String) key;
-                        int quantity = (Integer) value;
-                        productSales.computeIfAbsent(product, k -> new ArrayList<>())
-                                .add(record.getTotalSale() / quantity);
-                    }
-                });
-            }
-        }
-
-        return productSales.entrySet().stream()
-                .map(entry -> {
-                    String product = entry.getKey();
-                    List<Double> sales = entry.getValue();
-                    double totalSales = sales.stream().mapToDouble(Double::doubleValue).sum();
-                    double averageSalePrice = totalSales / sales.size();
-
-                    Map<String, Object> productData = new TreeMap<>();
-                    productData.put("product", product);
-                    productData.put("totalSales", totalSales);
-                    productData.put("averageSalePrice", averageSalePrice);
-                    return productData;
-                })
-                .sorted((m1, m2) -> {
-                    double sales1 = (double) m1.get("totalSales");
-                    double sales2 = (double) m2.get("totalSales");
-                    return Double.compare(sales2, sales1);
-                })
-                .collect(Collectors.toList());
-    }
-
 
     public List<Map<String, Object>> getHourlySales() {
         Iterable<TransactionRecord> records = transactionRepository.findAll();
@@ -156,4 +117,5 @@ public class SalesService {
 
         return result;
     }
+
 }

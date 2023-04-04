@@ -4,22 +4,12 @@ Resources:
     Properties:
       TableName: User
       AttributeDefinitions:
-        - AttributeName: id
-          AttributeType: S
-        - AttributeName: username
-          AttributeType: S
         - AttributeName: email
           AttributeType: S
       KeySchema:
-        - AttributeName: id
+        - AttributeName: email
           KeyType: HASH
       GlobalSecondaryIndexes:
-        - IndexName: UserByUsername
-          KeySchema:
-            - AttributeName: username
-              KeyType: HASH
-          Projection:
-            ProjectionType: ALL
         - IndexName: UserByEmail
           KeySchema:
             - AttributeName: email

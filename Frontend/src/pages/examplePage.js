@@ -33,8 +33,8 @@ class ExamplePage extends BaseClass {
 
         if (example) {
             resultArea.innerHTML = `
-                <div>ID: ${example.id}</div>
-                <div>Name: ${example.name}</div>
+                <p>ID: ${example.id}
+                Name: ${example.name}</p>
             `
         } else {
             resultArea.innerHTML = "No Item";
@@ -81,6 +81,7 @@ class ExamplePage extends BaseClass {
  * Main method to run when the page contents have loaded.
  */
 const main = async () => {
+    console.log("Mounted")
     const examplePage = new ExamplePage();
     examplePage.mount();
 };

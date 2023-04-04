@@ -1,17 +1,21 @@
 package com.kenzie.appserver.controller;
 
-import com.kenzie.appserver.controller.model.ProductCreateRequest;
-import com.kenzie.appserver.controller.model.ProductResponse;
+import com.kenzie.appserver.controller.model.ProductModels.ProductCreateRequest;
+import com.kenzie.appserver.controller.model.ProductModels.ProductPurchaseRequest;
+import com.kenzie.appserver.controller.model.ProductModels.ProductResponse;
 import com.kenzie.appserver.service.ProductService;
 import com.kenzie.appserver.service.model.Product;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/products")
 public class ProductController {
 
-    private ProductService productService;
+    private final ProductService productService;
 
     public ProductController(ProductService productService){
         this.productService = productService;
@@ -25,6 +29,15 @@ public class ProductController {
         ProductResponse productResponse = productResponseHelper(product);
 
         return ResponseEntity.ok(productResponse);
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<ProductResponse>> getAllProducts(){
+        List<Product> products = productService.getAllProducts();
+
+        List<ProductResponse> responses = products.stream().map(product -> productResponseHelper(product)).collect(Collectors.toList());
+        return ResponseEntity.ok(responses);
+
     }
 
     @GetMapping("/{productID}")
@@ -59,10 +72,47 @@ public class ProductController {
         return ResponseEntity.ok(productResponse);
     }
 
+    @PutMapping("/{productID}")
+    public ResponseEntity<ProductResponse> productPurchased(@PathVariable("productID") String productID,
+                                                            @RequestBody ProductPurchaseRequest productCreateRequest){
+
+
+        Product product = productService.findByProductID(productID);
+        if(product != null){
+           Product updateProduct = productService.buyProducts(product, productCreateRequest.getQuantity());
+                if(updateProduct == null){
+                    return ResponseEntity.badRequest().build();
+                }
+           ProductResponse response = productResponseHelper(updateProduct);
+            return ResponseEntity.ok(response);
+        } else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    //I need to figure out
+//    @PutMapping("/cart")
+//    public ResponseEntity<ProductResponse> productPurchased(@RequestBody List<ProductCreateRequest> purchaseRequests){
+//
+//        ListIterator<ProductCreateRequest> purchaseRequestListIterator = purchaseRequests.listIterator();
+//        Map<Product, Integer> productsForPurchaseMap = new HashMap<>();
+//
+//        while(purchaseRequestListIterator.hasNext()){
+//            ProductCreateRequest productBeforeRepository = purchaseRequestListIterator.next();
+//            Product product = productService.findByProductID(productBeforeRepository.getProductID());
+//
+//            if(product != null){
+//                productsForPurchaseMap.put(product, productBeforeRepository.getQuantity());
+//            }
+//        }
+//        productService.buyMultipleProducts(productsForPurchaseMap);
+//
+//        return ResponseEntity.ok().build();
+//    }
+
     public Product productHelper(ProductCreateRequest product){
         Product addProduct = new Product();
         addProduct.setProductName(product.getProductName());
-        addProduct.setProductID(product.getProductID());
         addProduct.setDescription(product.getDescription());
         addProduct.setPrice(product.getPrice());
         addProduct.setQuantity(product.getQuantity());
@@ -75,9 +125,9 @@ public class ProductController {
         ProductResponse productResponse = new ProductResponse();
         productResponse.setCategory(product.getCategory());
         productResponse.setProductName(product.getProductName());
-        productResponse.setDescription(productResponse.getDescription());
+        productResponse.setDescription(product.getDescription());
         productResponse.setProductID(product.getProductID());
-        productResponse.setPrice(productResponse.getPrice());
+        productResponse.setPrice(product.getPrice());
         productResponse.setQuantity(product.getQuantity());
 
         return productResponse;

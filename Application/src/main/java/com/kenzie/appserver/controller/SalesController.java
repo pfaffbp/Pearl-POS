@@ -33,11 +33,7 @@ public class SalesController {
         return ResponseEntity.ok(dailySalesList);
     }
 
-    @GetMapping("/top")
-    public ResponseEntity<List<Map<String, Object>>> getTopSellingProducts() {
-        List<Map<String, Object>> topSellingProductsList = salesService.getTopSellingProducts();
-        return ResponseEntity.ok(topSellingProductsList);
-    }
+
 
     @GetMapping("/hourly")
     public ResponseEntity<List<Map<String, Object>>> getHourlySales() {

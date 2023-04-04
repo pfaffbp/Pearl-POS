@@ -1,31 +1,37 @@
-import BaseClass from "../util/baseClass";
-import DataStore from "../util/DataStore";
-import LoginClient from "../api/loginClient";
+import baseClass from "../util/baseClass.js";
+import DataStore from "../util/DataStore.js";
 
-class LoginPage extends BaseClass {
+class LoginPage extends baseClass {
     constructor() {
         super();
         this.bindClassMethods(['onLogin'], this);
         this.dataStore = new DataStore();
-        this.client = new LoginClient();
+        this.users = [];
     }
 
     async mount() {
         document.getElementById('login-form').addEventListener('submit', this.onLogin);
+
+        // Load users from local storage
+        const storedUsers = localStorage.getItem('users');
+        if (storedUsers) {
+            this.users = JSON.parse(storedUsers);
+        }
     }
 
     async onLogin(event) {
         event.preventDefault();
-        const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
         try {
-            const token = await this.client.login(username, password);
-            if (token) {
-                alert('Login successful!');
-                window.location.href = 'dashboard.html'; // Redirect to dashboard page
+            const user = this.users.find(u => u.email === email && u.password === password);
+            if (user) {
+                alert(`Welcome, ${user.name}!`);
+                localStorage.setItem('user', JSON.stringify(user));
+                window.location.href = 'productpage.html'; // Redirect to product page
             } else {
-                alert('Incorrect username or password!');
+                alert('Incorrect email or password!');
             }
         } catch (error) {
             alert('Error logging in!');
@@ -36,6 +42,14 @@ class LoginPage extends BaseClass {
 const main = async () => {
     const loginPage = new LoginPage();
     loginPage.mount().then(r => console.log('Mounted login page'));
+
+    // Check if a user is already logged in
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+        const user = JSON.parse(storedUser);
+        alert(`Welcome back, ${user.name}!`);
+        window.location.href = 'login.html'; // Redirect to dashboard page
+    }
 };
 
 window.addEventListener('DOMContentLoaded', main);

@@ -2,18 +2,18 @@ import BaseClass from "../util/baseClass";
 import axios from 'axios'
 
 /**
- * Client to call the Login Service.
+ * Client to call the MusicPlaylistService.
  *
- * This could be a great place to explore Mixins. Currently, the client is being loaded multiple times on each page,
+ * This could be a great place to explore Mixins. Currently the client is being loaded multiple times on each page,
  * which we could avoid using inheritance or Mixins.
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes#Mix-ins
  * https://javascript.info/mixins
  */
-export default class LoginClient extends BaseClass {
+export default class InventoryLevelsClient extends BaseClass {
 
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'login', 'logout'];
+        const methodsToBind = ['clientLoaded', 'getAllInventory'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -31,46 +31,22 @@ export default class LoginClient extends BaseClass {
     }
 
     /**
-     * Sends a login request with the given credentials.
-     * @param username The username of the user.
-     * @param password The password of the user.
+     * Gets the concert for the given ID.
+     * @param id Unique identifier for a concert
      * @param errorCallback (Optional) A function to execute if the call fails.
-     * @returns The login token for the user.
+     * @returns The concert
      */
-    async login(username, password, errorCallback) {
+    async getAllInventory(errorCallback) {
         try {
-            const response = await this.client.post('/login', {
-                username: username,
-                password: password
-            });
-            return response.data.token;
-        } catch (error) {
-            this.handleError("login", error, errorCallback)
-        }
-    }
-
-    /**
-     * Sends a logout request with the given token.
-     * @param token The login token of the user.
-     * @param errorCallback (Optional) A function to execute if the call fails.
-     * @returns A success message if the token was invalidated successfully.
-     */
-    async logout(token, errorCallback) {
-        try {
-            const response = await this.client.post('/login/logout', null, {
-                headers: {
-                    Authorization: token
-                }
-            });
+            const response = await this.client.get(`/products`);
             return response.data;
         } catch (error) {
-            this.handleError("logout", error, errorCallback)
+            this.handleError("getAllProducts", error, errorCallback)
         }
     }
 
     /**
      * Helper method to log the error and run any error functions.
-     * @param method The name of the method that failed.
      * @param error The error received from the server.
      * @param errorCallback (Optional) A function to execute if the call fails.
      */

@@ -1,15 +1,11 @@
 package com.kenzie.appserver.controller;
 
-
-import com.kenzie.appserver.controller.model.UserResponse;
+import com.kenzie.appserver.controller.model.UserCreateRequest;
 import com.kenzie.appserver.service.UserService;
 import com.kenzie.appserver.service.model.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -21,52 +17,30 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<UserResponse>> getAllUsers() {
-        List<User> users = userService.getAllUsers();
-        List<UserResponse> responses = new ArrayList<>();
-        for (User user : users) {
-            responses.add(convertUserToUserResponse(user));
+    @PostMapping("/register")
+    public ResponseEntity<User> createUser(@RequestBody UserCreateRequest request) {
+        User user = userService.createUser(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(user);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Void> login(@RequestBody UserCreateRequest request) {
+        boolean isLoggedIn = userService.login(request);
+        if (isLoggedIn) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        return new ResponseEntity<>(responses, HttpStatus.OK);
-
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable String id) {
-        User user = userService.getUserById(id);
-        if (user == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @GetMapping("/profile")
+    public ResponseEntity<User> getProfile() {
+        User user = userService.getCurrentUser();
+        if (user != null) {
+            return ResponseEntity.ok().body(user);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User createdUser = userService.createUser(user);
-        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody User user) {
-        User updatedUser = userService.updateUser(id, user);
-        if (updatedUser == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable String id) {
-        boolean deleted = userService.deleteUser(id);
-        if (!deleted) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    public UserResponse convertUserToUserResponse(User user) {
-        return new UserResponse(user.getId(), user.getUsername(), user.getEmail());
-    }
 }
-
