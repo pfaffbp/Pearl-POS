@@ -1,5 +1,8 @@
 package com.kenzie.appserver.service;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.kenzie.appserver.repositories.TransactionRepository;
 import com.kenzie.appserver.repositories.model.ProductRecord;
 import com.kenzie.appserver.repositories.model.TransactionRecord;
@@ -91,6 +94,26 @@ public class TransactionService {
         }
 
     }
+    public List<Transaction> getAllTransactions() {
+        List<Transaction> allTransactions = new ArrayList<>();
+        transactionRepository.findAll().forEach(transactionRecord -> allTransactions.add(transactionHelperMethod(transactionRecord)));
+        return allTransactions;
+    }
+
+    public Transaction transactionHelperMethod(TransactionRecord transaction){
+        Transaction createNewTransaction = new Transaction();
+        createNewTransaction.setDate(transaction.getDate());
+        createNewTransaction.setCustomerID(transaction.getCustomerID());
+        createNewTransaction.setProductID(transaction.getProductID());
+        createNewTransaction.setQuantity(transaction.getQuantity());
+        createNewTransaction.setTotalSale(transaction.getTotalSale());
+        createNewTransaction.setTransactionID(transaction.getTransactionID());
+        createNewTransaction.setAmountPurchasedPerProduct(transaction.getAmountPurchasedPerProduct());
+
+        return createNewTransaction;
+
+    }
+
 
 
 //    public int getQuantityFromCombinations(List<String> combos){
