@@ -7,14 +7,16 @@ class AddProductPage extends BaseClass {
 
     constructor() {
         super();
-        this.bindClassMethods(['createProductEvent'], this);
+        this.bindClassMethods(['createProductEvent', 'uploadImage'], this);
         this.dataStore = new DataStore();
 
     }
 
     async mount() {
         document.getElementById('add-product-block').addEventListener('submit', this.createProductEvent);
+        document.getElementById('submit-product').addEventListener('submit', this.uploadImage);
         this.client = new AddProductClient();
+
 
         // this.dataStore.addChangeListener(this.renderExample)
     }
@@ -24,18 +26,6 @@ class AddProductPage extends BaseClass {
         console.log("createProductEvent")
          // this.dataStore.set("products", null);
         //this section is to add A image
-        // const image_input = document.querySelector('#image_input')
-        // let upload_image = "";
-        // image_input.addEventListener("change", function (){
-        //     const reader = new FileReader();
-        //     reader.addEventListener("load", () =>{
-        //         upload_image = reader.result;
-        //         console.log(upload_image);
-        //         document.addEventListener("")
-        //         document.querySelector("#ImageToBeAdded").style.backgroundImage = `url(${upload_image})`
-        //     });
-        //     reader.readAsDataURL(this.files[0]);
-        // })
 
 
         let productName = document.getElementById("product-name").value;
@@ -45,6 +35,7 @@ class AddProductPage extends BaseClass {
         let productDescription = document.getElementById("product-description").value;
         console.log(productName, productPrice, productCategory);
 
+        this.uploadImage(productName);
 
         const createdProduct = await this.client.createProduct(productName, productPrice, productCategory,
             productQuantity, productDescription, this.errorHandler);
@@ -57,6 +48,24 @@ class AddProductPage extends BaseClass {
         } else {
             this.errorHandler("Error creating!  Try again...");
         }
+    }
+
+    async uploadImage(productName){
+        const image_input = document.querySelector('#submit-product')
+        console.log(1)
+        let upload_image = "";
+        image_input.addEventListener("submit", function (){
+            console.log(2)
+            const reader = new FileReader();
+            reader.addEventListener("load", () =>{
+                upload_image = reader.result;
+                console.log(upload_image);
+                console.log(3)
+                localStorage.setItem(productName, upload_image);
+                console.log(localStorage.getItem(productName));
+            });
+            reader.readAsDataURL(this.files[0]);
+        })
     }
 
 

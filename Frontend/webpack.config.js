@@ -10,6 +10,7 @@ module.exports = {
     },
     entry: {
 
+
         // examplePage: path.resolve(dirname, 'src', 'pages', 'examplePage.js'),
         inventoryLevelsPage: path.resolve(dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
         DashboardPage: path.resolve(dirname, 'src', 'pages', 'DashboardPage.js'),
@@ -42,6 +43,17 @@ module.exports = {
             ],
             target: 'http://localhost:5001'
         }]
+
+
+
+        // examplePage: path.resolve(dirname, 'src', 'pages', 'examplePage.js'),
+        inventoryLevelsPage: path.resolve(dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
+        DashboardPage: path.resolve(dirname, 'src', 'pages', 'DashboardPage.js'),
+        examplePage: path.resolve(dirname, 'src', 'pages', 'examplePage.js'),
+        addProductPage: path.resolve(dirname, 'src', 'pages', 'addProductPage.js'),
+        loginPage: path.resolve(dirname, 'src', 'pages', 'loginPage.js'),
+        productPage: path.resolve(dirname, 'src', 'pages', 'productPage.js'),
+
 
     },
     output: {
