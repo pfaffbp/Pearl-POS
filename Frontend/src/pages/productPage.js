@@ -34,18 +34,25 @@ class ProductPage extends BaseClass {
                 items += `
              <div class="wrapper">
 
- 
-  <figure class="product-displayed">
-   ${product.productID}
-   <br>${product.productName}</br>
-   <br>${product.quantity}</br></figure>
-
+    
+    <figure class="product-displayed">
+   <h1 class = "product_Name">${product.productName}</h1>
+   <img src="Images/pickImage.png" width="272.5" height="272.5"/>
+   <div class = "price-plus">
+   <div class = "dollarSign">$</div>
+   <div class = "product_Price"><strong>${product.price}</strong></div>
+   </div>
+   <div class = "product_Category"${product.category}</div>
+   <div class = "product_Description">${product.description}</div>
+   <div class = "product-footer">
+   <button id = "add">Add to Cart</button>
+   <button class = "minus-quantity">-</button>
+   <input type ="text" class = "product_Quantity" placeholder="QTY" maxlength="3" size="1" min="1" max="100" required></input> 
+   <button class = "add-quantity">+</button>
+        </div>
+   </figure> 
 </div>                    
-        
-               
-                        
-                `;
-            }
+`;}
             resultArea.innerHTML = items;
         } else {
             resultArea.innerHTML = "No Item";

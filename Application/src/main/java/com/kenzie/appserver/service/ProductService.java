@@ -1,5 +1,7 @@
 package com.kenzie.appserver.service;
 
+import com.amazonaws.services.dynamodbv2.xspec.M;
+import com.kenzie.appserver.Exceptions.ProductNotFoundException;
 import com.kenzie.appserver.controller.TransactionController;
 import com.kenzie.appserver.repositories.TransactionRepository;
 import com.kenzie.appserver.repositories.model.ProductRecord;
@@ -24,6 +26,8 @@ public class ProductService {
 
     private TransactionRepository transactionRepository;
 
+
+
     @Autowired
     public ProductService(ProductRepository productRepository,
                           TransactionRepository transactionRepository, TransactionService transactionService){
@@ -46,15 +50,16 @@ public class ProductService {
 
 
     public Product findByProductID(String productID){
-       Optional<ProductRecord> record = productRepository.findById(productID);
+        Optional<ProductRecord> record = productRepository.findById(productID);
 
-       if(record.isPresent()){
-           ProductRecord productRecord = record.get();
-           return recordToProductHelperMethod(productRecord);
-       } else {
-           return null;
-       }
+        if(record.isPresent()){
+            ProductRecord productRecord = record.get();
+            return recordToProductHelperMethod(productRecord);
+        } else {
+            return null;
+        }
     }
+
 
     public void updateProduct(Product product){
         if(productRepository.existsById(product.getProductID())){
@@ -66,54 +71,62 @@ public class ProductService {
     public void deleteProduct(String productID){
         productRepository.deleteById(productID);
     }
+    public List<Product> buyProducts(List<Product> product, List<Integer> itemsPurchased){
+        Map<Product, Integer> productPurchasedMap = new HashMap<>();
+        List<Product> productList = new ArrayList<>();
+        List<Product> productResponse = new ArrayList<>();
+        List<ProductRecord> productRecords = new ArrayList<>();
 
-
-    public Product buyProducts(Product product, int itemsPurchased){
-        if(productRepository.existsById(product.getProductID())){
-            if(product.getQuantity() >= itemsPurchased){
-                ProductRecord productRecord = new ProductRecord();
-                productRecord.setProductID(product.getProductID());
-                productRecord.setProductName(product.getProductName());
-                productRecord.setPrice(product.getPrice());
-                productRecord.setQuantity(product.getQuantity() - itemsPurchased);
-                productRecord.setDescription(product.getDescription());
-                productRecord.setCategory(product.getCategory());
-                productRepository.save(productRecord);
-                transactionService.addTransaction(product, itemsPurchased);
-
+        if(product.size() == itemsPurchased.size()) {
+            for(int i = 0; i < product.size(); i++){
+                if(productRepository.existsById(product.get(i).getProductID()) == true){
+                    productPurchasedMap.put(product.get(i), itemsPurchased.get(i));
+                    productList.add(product.get(i));
+                } else {
+                    throw new ProductNotFoundException("This product does not exist: " + product.get(i).getProductID());
+                }
             }
         }
-        return null;
+        for(Map.Entry<Product, Integer> productIntegerMap : productPurchasedMap.entrySet()){
+            if(productIntegerMap.getKey().getQuantity() >= productIntegerMap.getValue()){
+                ProductRecord productRecord = new ProductRecord();
+                productRecord.setProductID(productIntegerMap.getKey().getProductID());
+                productRecord.setProductName(productIntegerMap.getKey().getProductName());
+                productRecord.setPrice(productIntegerMap.getKey().getPrice());
+                productRecord.setQuantity(productIntegerMap.getKey().getQuantity() - productIntegerMap.getValue());
+                productRecord.setDescription(productIntegerMap.getKey().getDescription());
+                productRecord.setCategory(productIntegerMap.getKey().getCategory());
+                productRecords.add(productRecord);
+
+                productResponse.add(recordToProductHelperMethod(productRecord));
+            }
+        }
+        productRepository.saveAll(productRecords);
+        transactionService.generateTransaction(productList, itemsPurchased);
+
+        return productResponse;
     }
+//todo michael look at this
+/*    public List<Product> buyProducts(Map<String, Integer> productToQuantity){
+        Map<Product, Integer> productPurchasedMap = new HashMap<>();
+        List<Product> productResponse = new ArrayList<>();
 
-
-//    public void buyMultipleProducts(Map<Product, Integer> purchaseMap){
-//        purchaseMap = new HashMap<>();
-//        List<ProductRecord> records = new ArrayList<>();
-//        String currentProductID;
-//        Integer currentItemsPurchasedForID;
-//
-//        for(Map.Entry<Product, Integer> products: purchaseMap.entrySet()){
-//             currentProductID = products.getKey().getProductID();
-//             currentItemsPurchasedForID = products.getValue();
-//
-//            if(currentProductID != null){
-//                if(productRepository.existsById(currentProductID) == true){
-//                    ProductRecord  productRecord = new ProductRecord();
-//                    productRecord.setProductID(currentProductID);
-//                    productRecord.setProductName(products.getKey().getProductName());
-//                    productRecord.setPrice(products.getKey().getPrice());
-//                    productRecord.setQuantity(products.getKey().getQuantity() - currentItemsPurchasedForID);
-//                    productRecord.setCategory(products.getKey().getCategory());
-//                    productRecord.setDescription(products.getKey().getDescription());
-//
-//                    records.add(productRecord);
-//                }
-//            }
-//        }
-//        productRepository.saveAll(records);
-//
-//    }
+        for (Map.Entry<String, Integer> productIntegerEntry : productToQuantity.entrySet()){
+            ProductRecord mostRecentRecord = productRepository.findById(productIntegerEntry.getKey()).get();
+            if(mostRecentRecord != null){
+                if (mostRecentRecord.getQuantity() >= productIntegerEntry.getValue()){
+                    mostRecentRecord.setQuantity(mostRecentRecord.getQuantity() - productIntegerEntry.getValue());
+                    productRepository.save(mostRecentRecord);
+                    productPurchasedMap.put(recordToProductHelperMethod(mostRecentRecord), productIntegerEntry.getValue());
+                    productResponse.add(recordToProductHelperMethod(mostRecentRecord));
+                }
+            } else {
+                throw new ProductNotFoundException("This product does not exist: " + productIntegerEntry.getKey());
+            }
+        }
+        transactionService.generateTransation(productPurchasedMap);
+        return productResponse;
+    }*/
 
 
     public ProductRecord productRecordHelperMethod(Product product){

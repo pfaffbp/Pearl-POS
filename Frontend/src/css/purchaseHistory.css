@@ -1,4 +1,4 @@
-/* Inventory.css */
+/*Purchase History*/
 
 /* General styles */
 body {
@@ -116,27 +116,35 @@ footer {
     color: white;
 }
 
-.aside-left{
+.aside-1{
     background: #567f8d;
 }
 
-.aside-middle {
+.aside-2 {
     background: #608159;
 }
 
-.aside-right {
-    background: #247a60;
+.aside-3 {
+    background: #1d8061;
+}
+.aside-4 {
+    background: #567f8d;
+}
+.aside-5 {
+    background: #608159;
 }
 
 @media all and (min-width: 600px) {
-    .aside { flex: 1 0 0; }
+    .aside { flex: 1 0 0 ; }
 }
 
 @media all and (min-width: 800px) {
     .main    { flex: 3 0px; }
-    .aside-left { order: 1; }
-    .aside-middle   { order: 2; }
-    .aside-right { order: 3; }
+    .aside-1 { order: 1; }
+    .aside-2  { order: 2; }
+    .aside-3 { order: 3; }
+    .aside-4 { order: 4; }
+    .aside-5 { order: 5; }
 }
 
 body {

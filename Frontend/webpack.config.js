@@ -14,6 +14,15 @@ module.exports = {
     productpage: path.resolve(__dirname, 'src', 'pages', 'productPage.js'),
     inventoryLevelsPage: path.resolve(__dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
     createUserPage: path.resolve(__dirname, 'src', 'pages', 'createUserPage.js'),
+<<<<<<< HEAD
+=======
+    purchaseHistoryPage: path.resolve(__dirname, 'src', 'pages', 'purchaseHistoryPage.js'),
+     examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
+     addProductPage: path.resolve(__dirname, 'src', 'pages', 'addProductPage.js'),
+      loginPage: path.resolve(__dirname, 'src', 'pages', 'loginPage.js'),
+      productPage: path.resolve(__dirname, 'src', 'pages', 'productPage.js'),
+
+>>>>>>> origin
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -56,8 +65,18 @@ module.exports = {
       inject: false
     }),
     new HtmlWebpackPlugin({
-      template: './src/productpage.html',
-      filename: 'productpage.html',
+      template: './src/productPage.html',
+      filename: 'productPage.html',
+      inject: false
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/createUser.html',
+      filename: 'createUser.html',
+      inject: false
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/purchaseHistory.html',
+      filename: 'purchaseHistory.html',
       inject: false
     }),
     new HtmlWebpackPlugin({
