@@ -231,6 +231,8 @@ public class TransactionService {
             DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
             PaginatedScanList<TransactionRecord> records =  mapper.scan(TransactionRecord.class, scanExpression);
             List<TransactionRecord> transactionRecords = new ArrayList<>();
+            System.out.println("Test");
+
 
             for(int i = 0; i < records.size(); i++){
                 if(records.get(i).getDate().contains(date)){
