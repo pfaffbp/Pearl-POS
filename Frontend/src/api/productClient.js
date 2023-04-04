@@ -88,4 +88,13 @@ export default class ProductClient extends BaseClass {
             errorCallback(method + " failed - " + error);
         }
     }
+
+    async deleteProduct(id, errorHandler) {
+        try {
+            const response = await this.client.delete(`/products/${id}`);
+            return response.data;
+        } catch (error) {
+            this.handleError("deleteProduct", error, errorHandler);
+        }
+    }
 }

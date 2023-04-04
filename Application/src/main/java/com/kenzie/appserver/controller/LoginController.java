@@ -25,6 +25,7 @@ public class LoginController {
     }
 
     @PostMapping
+<<<<<<< HEAD
     public ResponseEntity<LoginResponse> login(@RequestBody LoginCreateRequest loginCreateRequest) {
         if (!userService.authenticateUser(loginCreateRequest)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -59,3 +60,13 @@ public class LoginController {
     }
 
 }
+=======
+    public ResponseEntity<User> login(@RequestBody LoginRequest request) throws AuthenticationException {
+        User user = userService.loginUser(request);
+        return ResponseEntity.ok(user);
+
+    }
+}
+
+
+>>>>>>> 78e3b20 (login and create user all test passing for service and controller)

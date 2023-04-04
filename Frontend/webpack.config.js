@@ -4,6 +4,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
+<<<<<<< HEAD
     optimization: {
         usedExports: true
     },
@@ -107,6 +108,19 @@ module.exports = {
         new CleanWebpackPlugin()
 =======
 
+=======
+  optimization: {
+    usedExports: true
+  },
+  entry: {
+    examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
+    addProductPage: path.resolve(__dirname, 'src', 'pages', 'addProductPage.js'),
+    loginPage: path.resolve(__dirname, 'src', 'pages', 'loginPage.js'),
+    productPage: path.resolve(__dirname, 'src', 'pages', 'productPage.js'),
+    inventoryLevelsPage: path.resolve(__dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
+    createUserPage: path.resolve(__dirname, 'src', 'pages', 'createUserPage.js'),
+    purchaseHistoryPage: path.resolve(__dirname, 'src', 'pages', 'purchaseHistoryPage.js')
+>>>>>>> 78e3b20 (login and create user all test passing for service and controller)
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -116,8 +130,13 @@ module.exports = {
     https: false,
     port: 8080,
     open: true,
+<<<<<<< HEAD
     openPage: 'http://localhost:8080/productpage.html',
     // diableHostChecks, otherwise we get an error about headers and the page won't render
+=======
+    openPage: 'http://localhost:8080/login.html',
+    // disableHostChecks, otherwise we get an error about headers and the page won't render
+>>>>>>> 78e3b20 (login and create user all test passing for service and controller)
     disableHostCheck: true,
     contentBase: 'packaging_additional_published_artifacts',
     // overlay shows a full-screen overlay in the browser when there are compiler errors or warnings

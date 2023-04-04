@@ -27,6 +27,7 @@ public class UserController {
         return userService.createUser(user);
     }
 
+<<<<<<< HEAD
     @GetMapping
 <<<<<<< HEAD
     public List<User> getAllUsers() {
@@ -37,6 +38,16 @@ public class UserController {
         List<UserResponse> responses = new ArrayList<>();
         for (User user : users) {
             responses.add(convertUserToUserResponse(user));
+=======
+
+    @PostMapping("/login")
+    public ResponseEntity<Void> login(@RequestBody UserCreateRequest request) {
+        boolean isLoggedIn = userService.login(request);
+        if (isLoggedIn) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+>>>>>>> 78e3b20 (login and create user all test passing for service and controller)
         }
         return new ResponseEntity<>(responses, HttpStatus.OK);
 

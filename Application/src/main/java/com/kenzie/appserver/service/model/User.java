@@ -22,6 +22,11 @@ public class User {
         return username;
     }
 
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     public String getPassword() {
         return password;
     }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kenzie.appserver.controller.model.UserCreateRequest;
 import com.kenzie.appserver.service.UserService;
 import com.kenzie.appserver.service.model.User;
+<<<<<<< HEAD
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -58,10 +59,48 @@ public class UserControllerTest {
         String jsonResult = result.getResponse().getContentAsString();
         List<User> returnedList = objectMapper.readValue(jsonResult, objectMapper.getTypeFactory().constructCollectionType(List.class, User.class));
         assert(returnedList.size() == userList.size());
+=======
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+class UserControllerTest {
+
+    private MockMvc mockMvc;
+
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
+    @Mock
+    private UserService userService;
+
+    @Captor
+    private ArgumentCaptor<UserCreateRequest> userCreateRequestCaptor;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+        this.mockMvc = MockMvcBuilders.standaloneSetup(new UserController(userService)).build();
+>>>>>>> 78e3b20 (login and create user all test passing for service and controller)
     }
 
     @Test
     void testCreateUser() throws Exception {
+<<<<<<< HEAD
         // Create a new user request
         UserCreateRequest request = new UserCreateRequest("3", "test3", "password3", "test3@example.com");
 
@@ -92,3 +131,26 @@ public class UserControllerTest {
     }
 
 }
+=======
+        // Arrange
+        UserCreateRequest request = new UserCreateRequest("email@example.com", "password");
+        User user = new User(request.getEmail(), request.getPassword());
+        when(userService.createUser(any(UserCreateRequest.class))).thenReturn(user);
+
+        // Act
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/users/register")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request));
+        mockMvc.perform(builder)
+                .andExpect(status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(request.getEmail()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.password").value(request.getPassword()));
+
+        // Assert
+        verify(userService).createUser(userCreateRequestCaptor.capture());
+        UserCreateRequest capturedRequest = userCreateRequestCaptor.getValue();
+        assertEquals(request.getEmail(), capturedRequest.getEmail());
+        assertEquals(request.getPassword(), capturedRequest.getPassword());
+    }
+}
+>>>>>>> 78e3b20 (login and create user all test passing for service and controller)

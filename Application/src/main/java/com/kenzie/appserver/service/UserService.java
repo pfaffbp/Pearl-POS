@@ -15,6 +15,7 @@ import java.security.Key;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -28,6 +29,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+<<<<<<< HEAD
     public boolean authenticateUser(LoginCreateRequest request) {
         UserRecord user = userRepository.findByUsername(request.getUsername());
         return user != null && user.getPassword().equals(request.getPassword());
@@ -67,6 +69,40 @@ public class UserService {
     public boolean invalidateToken(String token) {
         // Check if the token is in the list of revoked tokens
         if (revokedTokens.contains(token)) {
+=======
+    public User createUser(UserCreateRequest request) {
+        String email = request.getEmail();
+        Optional<UserRecord> existingUser = Optional.ofNullable(userRepository.findByEmail(email));
+        if (existingUser.isPresent()) {
+            // User already exists, throw an exception or return null/empty response
+            // Here we are throwing an exception with appropriate message
+            throw new RuntimeException("User with email " + email + " already exists!");
+        } else {
+            // Create new user
+            UserRecord record = new UserRecord(email, request.getPassword());
+            userRepository.save(record);
+            return new User(record);
+        }
+    }
+
+
+    public User loginUser(LoginRequest request) throws AuthenticationException {
+        UserRecord record = userRepository.findByEmail(request.getEmail());
+        if (record != null && record.getPassword().equals(request.getPassword())) {
+            currentUser = new User(record);
+            return currentUser;
+        } else {
+            throw new AuthenticationException("Invalid email or password");
+        }
+    }
+
+
+    public boolean logout() {
+        if (currentUser != null) {
+            currentUser = null;
+            return true;
+        } else {
+>>>>>>> 78e3b20 (login and create user all test passing for service and controller)
             return false;
         } else {
             // Add token to list of revoked tokens

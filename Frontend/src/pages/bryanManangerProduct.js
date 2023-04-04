@@ -1,8 +1,8 @@
-import BaseClass from "../util/baseClass";
+import baseClass from "../util/baseClass";
 import DataStore from "../util/DataStore";
 import InventoryLevelsClient from "../api/inventoryLevelsClient";
 
-class ProductPage extends BaseClass {
+class ProductPage extends baseClass {
     constructor() {
         super();
         this.bindClassMethods(['renderInventory', 'onRefresh', 'onLoad'], this);
