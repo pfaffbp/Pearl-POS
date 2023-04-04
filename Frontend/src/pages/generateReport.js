@@ -5,15 +5,16 @@ import ReportClient from "../api/reportClient";
 class GenerateReport extends BaseClass {
     constructor() {
         super();
-        const methodsToBind = ['mount', 'generateReport'];
+        const methodsToBind = ['generateReport', 'renderReport'];
         this.bindClassMethods(methodsToBind, this);
         this.dataStore = new DataStore();
     }
 
     async mount() {
         // add event listener to the generate report button
-        document.getElementById('generate-report').addEventListener('click', this.generateReport);
+        document.getElementById('report').addEventListener('click', this.generateReport);
         this.client = new ReportClient();
+        this.dataStore.addEventListener(this.renderReport);
     }
 
     async generateReport(event) {
@@ -27,14 +28,34 @@ class GenerateReport extends BaseClass {
             this.errorHandler("Report generation failed");
         }
     }
-}
-const main = async () => {
-    const generateReport = new GenerateReport();
-    await generateReport.mount();
 
+    async renderReport() {
+        let report = document.getElementById("report");
+        const reportData = this.dataStore.get("report");
+        if (reportData) {
+            let items = "";
+            for (let transaction of reportData) {
+                items += `<div class="wrapper">
+    <figure class="product-displayed">
+    <div class = "transactionID">${transaction.transactionId}</div>
+   <div class = "productID">${transaction.productID}</div>
+  <div class = "quantity">${transaction.quantity}</div> 
+   <div class = "totalSale">${transaction.totalSale}</div> </figure></div>`;
+            }
+            report.innerHTML = items;
+        } else {
+            report.innerHTML = "no report data";
+        }
+    }
 }
+    const main = async () => {
+        const generateReport = new GenerateReport();
+        await generateReport.mount();
 
-window.addEventListener('DOMContentLoaded', main);
+    };
+        window.addEventListener('DOMContentLoaded', main);
+
+
 
 
 /*    async generateReport() {
