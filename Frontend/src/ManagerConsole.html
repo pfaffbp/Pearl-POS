@@ -31,13 +31,14 @@
                         <option value="clothing">Clothing</option>
                         <option value="food">Food</option>
                         <option value="furniture">Furniture</option>
+
                     </select>
                 </div>
                 <div>
                     <label for="quantity" class="product-label-quantity">
                         <strong>qty</strong>
                     </label>
-                    <input type="text" id="quantity" />
+                    <input type="text" id="quantity" required/>
                 </div>
             </div>
             <div>
@@ -46,7 +47,7 @@
                 </label>
                 <input type="text" id="product-price" />
             </div>
-            <label for="product-description" class="product-label-description">
+            <label for="product-description" class="product-label-description" >
                 <strong>Description</strong>
             </label>
             <input type="text" id="product-description" />
@@ -71,6 +72,7 @@
                 <!--            <input type ="file" id="image-input" accept="image/png">-->
             </div>
             <button id="submit-product">Add Product</button>
+            <input type="file" id="upload"/>
         </div>
     </form>
 </div>

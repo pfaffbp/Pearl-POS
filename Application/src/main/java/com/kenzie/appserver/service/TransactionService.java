@@ -1,5 +1,8 @@
 package com.kenzie.appserver.service;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.*;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.kenzie.appserver.config.DynamoDbConfig;
 import com.kenzie.appserver.repositories.TransactionRepository;
 import com.kenzie.appserver.repositories.model.ProductRecord;
 import com.kenzie.appserver.repositories.model.TransactionRecord;
@@ -19,15 +22,27 @@ import java.util.stream.Collectors;
 public class TransactionService {
     private final TransactionRepository transactionRepository;
 
-    @Autowired
-    public TransactionService(TransactionRepository repository){this.transactionRepository = repository;}
+    private final DynamoDbConfig dynamoDbConfig;
 
-    public TransactionRecord generateTransaction(List<Product> product, List<Integer> itemsPurchased){
+    private final DynamoDBMapper mapper;
+
+    private static final String TRANSACTION_CUSTOMER_ID = "TransactionsByCustomerID";
+
+    private static final String TRANSACTION_BY_DATE = "TransactionsByDate";
+
+    @Autowired
+    public TransactionService(TransactionRepository repository, DynamoDbConfig dynamoDbConfig) {
+        this.transactionRepository = repository;
+        this.dynamoDbConfig = dynamoDbConfig;
+        this.mapper = new DynamoDBMapper(dynamoDbConfig.defaultAmazonDynamoDb());
+    }
+
+    public TransactionRecord generateTransaction(List<Product> product, List<Integer> itemsPurchased) {
         List<String> productIDS = new ArrayList<>();
         double totalSales = 0;
         Integer quantity = 0;
 
-        for(int i = 0; i < product.size(); i++){
+        for (int i = 0; i < product.size(); i++) {
             productIDS.add(product.get(i).getProductID());
             totalSales += itemsPurchased.get(i) * product.get(i).getPrice();
             quantity += itemsPurchased.get(i);
@@ -72,10 +87,10 @@ public class TransactionService {
         return generatedTransaction;
     }*/
 
-    public Transaction findTransactionByDate(String date){
-        Optional<TransactionRecord> record = transactionRepository.findById(date);
+    public Transaction findTransactionID(String transactionID) {
+        Optional<TransactionRecord> record = transactionRepository.findById(transactionID);
 
-        if(record.isPresent()){
+        if (record.isPresent()) {
             TransactionRecord transactionRecord = record.get();
 
             return new Transaction(
@@ -91,43 +106,62 @@ public class TransactionService {
         }
 
     }
+    public PaginatedQueryList<TransactionRecord> transactionByCustomerID(String customerID){
+        Map<String, AttributeValue> valueMap = new HashMap<>();
+        valueMap.put(":customerID", new AttributeValue().withS(customerID));
+
+        DynamoDBQueryExpression<TransactionRecord> queryExpression = new DynamoDBQueryExpression<TransactionRecord>()
+                .withIndexName(TRANSACTION_CUSTOMER_ID)
+                .withConsistentRead(false)
+                .withKeyConditionExpression("customerID = :customerID")
+                .withExpressionAttributeValues(valueMap);
+
+        PaginatedQueryList<TransactionRecord> TransactionList = mapper.query(TransactionRecord.class, queryExpression);
+        return TransactionList;
+    }
 
 
-//    public int getQuantityFromCombinations(List<String> combos){
-//        int totalQuantity = 0;
-//        for(String combo : combos){
-//            combo = combo.replaceAll(combo.substring(0, 36), "");
-//            combo = combo.replaceAll(combo.substring(combo.indexOf("x"), combo.length()), "");
-//            totalQuantity += Integer.parseInt(combo);
-//        }
-//        return totalQuantity;
+//    public PaginatedQueryList<TransactionRecord> transactionByDate(String date){
+//        DynamoDBMapper mapper = new DynamoDBMapper(dynamoDbConfig.defaultAmazonDynamoDb());
+//
+//        Map<String, AttributeValue> valueMap = new HashMap<>();
+//        valueMap.put(":date", new AttributeValue().withS(date));
+//
+//        DynamoDBQueryExpression<TransactionRecord> queryExpression = new DynamoDBQueryExpression<TransactionRecord>()
+//                .withIndexName(TRANSACTION_BY_DATE)
+//                .withConsistentRead(false)
+//                .withKeyConditionExpression("date = :date")
+//                .withExpressionAttributeValues(valueMap);
+//
+//        PaginatedQueryList<TransactionRecord> TransactionList = mapper.query(TransactionRecord.class, queryExpression);
+//        return TransactionList;
 //    }
-//
-//    public double getTotalSalesFromCombinations(List<String> combos){
-//        HashMap<Integer, Double> priceWithQuantityMap = new HashMap<>();
-//        int quantity = 0;
-//        double price = 0;
-//        double totalSales = 0;
-//
-//        for(String combo : combos){
-//            quantity = Integer.parseInt(combo.substring(36, combo.lastIndexOf("x")));
-//            price = Double.parseDouble(combo.substring(combo.lastIndexOf("x") + 1, combo.length()));
-//            priceWithQuantityMap.put(quantity, price);
-//
-//        }
-//
-//        for(Map.Entry<Integer, Double> combo : priceWithQuantityMap.entrySet()){
-//            totalSales += combo.getKey() * combo.getValue();
-//        }
-//        return totalSales;
-//    }
-//
-//    public List<String> getProductIDSFromCombinations(List<String> combos){
-//        List<String> productIDS = new ArrayList<>();
-//
-//        for(String combo : combos){
-//            productIDS.add(combo.substring(0, 36));
-//        }
-//        return productIDS;
-//    }
+
+    public List<TransactionRecord> transactionByDate(String date){
+            DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
+            PaginatedScanList<TransactionRecord> records =  mapper.scan(TransactionRecord.class, scanExpression);
+            List<TransactionRecord> transactionRecords = new ArrayList<>();
+            System.out.println("Test");
+
+
+            for(int i = 0; i < records.size(); i++){
+                if(records.get(i).getDate().contains(date)){
+                    transactionRecords.add(records.get(i));
+                }
+            }
+            return transactionRecords;
+        }
+
+    public Transaction recordIntoTransaction(TransactionRecord record) {
+        Transaction transaction = new Transaction();
+        transaction.setTransactionID(record.getTransactionID());
+        transaction.setDate(record.getDate());
+        transaction.setQuantity(record.getQuantity());
+        transaction.setCustomerID(record.getCustomerID());
+        transaction.setTotalSale(record.getTotalSale());
+        transaction.setProductID(record.getProductID());
+        transaction.setAmountPurchasedPerProduct(record.getAmountPurchasedPerProduct());
+
+        return transaction;
+    }
 }
