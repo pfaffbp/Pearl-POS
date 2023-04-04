@@ -60,4 +60,17 @@ export default class AddProductClient extends BaseClass{
             errorCallback(method + " failed - " + error);
         }
     }
+
+    async updateProduct(id, name, price, description, errorHandler) {
+        try {
+            const response = await this.client.put(`/products/${id}`, {
+                name: name,
+                price: price,
+                description: description
+            });
+            return response.data;
+        } catch (error) {
+            this.handleError("updateProduct", error, errorHandler)
+        }
+    }
 }

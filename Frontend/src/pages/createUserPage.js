@@ -4,7 +4,7 @@ import DataStore from "../util/DataStore.js";
 class CreateUserPage extends baseClass {
     constructor() {
         super();
-        this.bindClassMethods(['onCreate'], this);
+        this.bindClassMethods(['onCreate', 'checkEmailUniqueness', 'validatePassword'], this);
         this.dataStore = new DataStore();
     }
 
@@ -16,6 +16,21 @@ class CreateUserPage extends baseClass {
         event.preventDefault();
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+
+        // Validate password
+        const isValidPassword = this.validatePassword(password, confirmPassword);
+        if (!isValidPassword) {
+            alert('Password and confirm password do not match or password is less than 8 characters');
+            return;
+        }
+
+        // Check email uniqueness
+        const isEmailUnique = this.checkEmailUniqueness(email);
+        if (!isEmailUnique) {
+            alert('Email already exists!');
+            return;
+        }
 
         try {
             // Save user data to local storage
@@ -28,6 +43,16 @@ class CreateUserPage extends baseClass {
         } catch (error) {
             alert('Error creating user!');
         }
+    }
+
+    checkEmailUniqueness(email) {
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const user = users.find(user => user.email === email);
+        return !user;
+    }
+
+    validatePassword(password, confirmPassword) {
+        return password.length >= 8 && password === confirmPassword;
     }
 }
 

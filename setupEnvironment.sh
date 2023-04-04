@@ -14,18 +14,14 @@
 
 # Fill out the following values
 # The path of your repo on github. Don't include the whole URL, just the part after github.com/KenzieAcademy-SoftwareEngineering/
-<<<<<<< HEAD
+
+# Fill out the following values
+# The path of your repo on github.  Don't but the whole URL, just the part after github.com/
 export LBC_GROUP_NAME=teampearl
 export LBC_REPO_NAME=ata-lbc-project-bantoinese83
-=======
 
-export LBC_GROUP_NAME=teampearl
-export LBC_REPO_NAME=ata-lbc-project-$bantoninese83
+export GITHUB_TOKEN='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'
 
-export GITHUB_USERNAME=emotheatrix
-export LBC_GROUP_NAME=teamPearl
-export LBC_REPO_NAME=ata-lbc-project-$GITHUB_USERNAME
->>>>>>> origin
 
 # Do not modify the rest of these unless you have been instructed to do so.
 export LBC_PROJECT_NAME=lbcproject

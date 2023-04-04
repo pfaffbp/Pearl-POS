@@ -4,10 +4,9 @@ body {
 }
 
 h1 {
-    text-align: center;
-    margin-top: 80px;
-    margin-bottom: 50px;
     font-size: 2.5rem;
+    margin: 80px auto 50px;
+    text-align: center;
     color: #2D3748;
 }
 
@@ -22,9 +21,9 @@ form {
 
 label {
     display: block;
+    margin-bottom: 10px;
     font-size: 1.1rem;
     font-weight: 500;
-    margin-bottom: 10px;
     color: #2D3748;
 }
 
@@ -34,7 +33,7 @@ input[type="password"] {
     padding: 12px 20px;
     margin-bottom: 30px;
     border-radius: 5px;
-    border: 2px solid #E2E8F0;
+    border: 2px solid #189b9b;
     font-size: 1rem;
     color: #4A5568;
     transition: border-color 0.2s ease-in-out;
@@ -69,3 +68,7 @@ button[type="submit"]:hover {
     margin-top: 15px;
     font-size: 0.9rem;
 }
+#confirm-password {
+    background-color: #E8F0FE;
+}
+

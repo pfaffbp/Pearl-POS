@@ -1,50 +1,93 @@
-// Select the form element
-document.addEventListener('DOMContentLoaded', function() {
-    const addProductForm = document.querySelector('#add-product-form');
+import baseClass from "../util/baseClass";
+import DataStore from "../util/DataStore";
+import InventoryLevelsClient from "../api/inventoryLevelsClient";
 
-    // Add an event listener to the form submit event
-    addProductForm.addEventListener('submit', function(event) {
-        event.preventDefault(); // prevent the form from submitting
+class ProductPage extends baseClass {
+    constructor() {
+        super();
+        this.bindClassMethods(['renderInventory', 'onRefresh', 'onLoad'], this);
+        this.dataStore = new DataStore();
+    }
 
-        // Get the form values
-        const productName = document.querySelector('#product-name').value;
-        const productCategory = document.querySelector('#product-category').value;
-        const quantity = document.querySelector('#quantity').value;
-        const productPrice = document.querySelector('#product-price').value;
-        const productDescription = document.querySelector('#product-description').value;
-        const productImage = document.querySelector('#product-image').value;
+    /**
+     * Once the page has loaded, set up the event handlers and fetch the concert list.
+     */
+    async mount() {
+        document.getElementById('submit-refresh').addEventListener('click', this.onRefresh);
+        this.client = new InventoryLevelsClient();
 
-        // Create a new product object
-        const newProduct = {
-            name: productName,
-            category: productCategory,
-            quantity: quantity,
-            price: productPrice,
-            description: productDescription,
-            image: productImage
-        };
+        this.dataStore.addChangeListener(this.renderInventory)
+        this.onLoad();
+    }
 
-        // Send the new product data to the server using fetch
-        fetch('/api/products', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newProduct)
-        })
-            .then(response => {
-                if (response.ok) {
-                    // If the response is ok, clear the form and show a success message
-                    addProductForm.reset();
-                    alert('Product added successfully!');
-                } else {
-                    // If the response is not ok, show an error message
-                    alert('An error occurred while adding the product.');
-                }
-            })
-            .catch(error => {
-                // If there is an error, show an error message
-                alert('An error occurred while adding the product.');
-            });
-    });
-});
+    // Render Methods --------------------------------------------------------------------------------------------------
+
+    async renderInventory() {
+        let resultArea = document.getElementById("result_area");
+
+        const inventory = this.dataStore.get("inventory");
+
+        if (inventory) {
+            let items = "";
+            for (let product of inventory) {
+                items += `
+             <div class="wrapper">
+
+    
+    <figure class="product-displayed">
+   <h1 class = "product_Name">${product.productName}</h1>
+   <img src="Images/pickImage.png" width="272.5" height="272.5"/>
+   <div class = "price-plus">
+   <div class = "dollarSign">$</div>
+   <div class = "product_Price"><strong>${product.price}</strong></div>
+   </div>
+   <div class = "product_Category"${product.category}</div>
+   <div class = "product_Description">${product.description}</div>
+   <div class = "product-footer">
+   <button id = "add">Add to Cart</button>
+   <button class = "minus-quantity">-</button>
+   <input type ="text" class = "product_Quantity" placeholder="QTY" maxlength="3" size="1" min="1" max="100" required></input> 
+   <button class = "add-quantity">+</button>
+        </div>
+   </figure> 
+</div>                    
+`;}
+            resultArea.innerHTML = items;
+        } else {
+            resultArea.innerHTML = "No Item";
+        }
+    }
+
+    // Event Handlers --------------------------------------------------------------------------------------------------
+
+    async onRefresh(event) {
+        // Prevent the page from refreshing on form submit
+        event.preventDefault();
+
+
+        this.dataStore.set("inventory", null);
+
+        let result = await this.client.getAllInventory(this.errorHandler);
+        this.dataStore.set("inventory", result);
+        if (result) {
+            this.showMessage(`refreshed!`)
+        } else {
+            this.errorHandler("Error doing GET ALL!  Try again...");
+        }
+    }
+
+    async onLoad(){
+        let result = await this.client.getAllInventory(this.errorHandler);
+        this.dataStore.set("inventory", result);
+    }
+}
+
+
+
+
+const main = async () => {
+    console.log("mounted ProductPageYea")
+    const productOnPage = new ProductPage();
+    productOnPage.mount();
+};
+window.addEventListener('DOMContentLoaded', main);
