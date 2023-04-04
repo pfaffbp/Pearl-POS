@@ -1,6 +1,21 @@
-/*#result_area{*/
-/*    display: flex*/
-/*}*/
+*{
+    padding: 0;
+    margin: 0;
+}
+
+#header{
+    display: flex;
+    background-color: #101010
+}
+h1{
+    color: white;
+    align-self: center;
+}
+
+h3{
+    color: white;
+}
+
 .wrapper{
     display: inline-flex;
 }
