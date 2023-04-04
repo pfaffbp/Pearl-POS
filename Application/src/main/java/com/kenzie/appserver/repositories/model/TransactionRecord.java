@@ -3,6 +3,7 @@ package com.kenzie.appserver.repositories.model;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.kenzie.appserver.service.model.Transaction;
 import org.springframework.data.annotation.Id;
 
 import java.util.List;
@@ -92,6 +93,8 @@ public class TransactionRecord {
     public void setTransactionID(String transactionID) {
         this.transactionID = transactionID;
     }
+
+
 
     @Override
     public boolean equals(Object o) {
