@@ -4,7 +4,7 @@ import axios from 'axios'
 export default class ReportClient extends BaseClass {
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'generateReport', 'getReport'];
+        const methodsToBind = ['clientLoaded', 'generateReport'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -20,7 +20,7 @@ export default class ReportClient extends BaseClass {
 
     async generateReport() {
         try {
-            const response = await this.client.get('/transaction');
+            const response = await this.client.get('/transaction/report');
             return response.data;
         }
         catch (error) {

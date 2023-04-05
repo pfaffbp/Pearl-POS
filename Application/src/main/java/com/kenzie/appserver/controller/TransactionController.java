@@ -1,27 +1,22 @@
 package com.kenzie.appserver.controller;
 
 import com.kenzie.appserver.controller.model.TransactionModels.TransactionResponse;
-import com.kenzie.appserver.repositories.model.TransactionRecord;
 import com.kenzie.appserver.service.TransactionService;
 import com.kenzie.appserver.service.model.Transaction;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/transaction")
 public class TransactionController {
-    private TransactionService transactionService;
+    private final TransactionService transactionService;
 
-    public TransactionController(TransactionService transactionService, List<Transaction> transactions) {
+    public TransactionController(TransactionService transactionService) {
         this.transactionService = transactionService;
-        this.transactions = transactions;
     }
-
-    private final List<Transaction> transactions;
-
 
     @GetMapping("/{date}")
     public ResponseEntity<TransactionResponse> getTransactionByDate(@PathVariable("date") String date) {
@@ -42,23 +37,31 @@ public class TransactionController {
         return ResponseEntity.ok(transactionResponse);
     }
 
-    @GetMapping
-    public ResponseEntity<String> getAllTransactions() {
-        try {
-            // Fetch report data from a database or file
-            List<TransactionRecord> transactionReport = transactionService.getAllTransactions();
-            String report = transactionReport.toString();
+    @GetMapping()
+    public ResponseEntity<List<TransactionResponse>> getAllTransactions() {
+        List<Transaction> transactions = transactionService.getAllTransactions();
 
-            return new ResponseEntity<>(report, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        List<TransactionResponse> responses = transactions.stream().map(this::transactionResponseHelper).collect(Collectors.toList());
+        return ResponseEntity.ok(responses);
+
+    }
+
+    public TransactionResponse transactionResponseHelper(Transaction transaction) {
+        TransactionResponse transactionResponse = new TransactionResponse();
+        transactionResponse.setDate(transaction.getDate());
+        transactionResponse.setCustomerID(transaction.getCustomerID());
+        transactionResponse.setProductID(transaction.getProductID());
+        transactionResponse.setQuantity(transaction.getQuantity());
+        transactionResponse.setTotalSale(transaction.getTotalSale());
+        transactionResponse.setTransactionID(transaction.getTransactionID());
+
+
+        return transactionResponse;
+    }
+
+    @GetMapping("/report")
+    public ResponseEntity<List<Transaction>> generateReport() {
+        List<Transaction> report = transactionService.getAllTransactions();
+        return ResponseEntity.ok(report);
     }
 }
-
-//    @PostMapping()
-//    public ResponseEntity<ProductResponse> createTransaction(@RequestBody TransactionCreateRequest transactionCreateRequest){
-//        Transaction transaction = new Transaction();
-//        transactionService.generateTransaction()
-//    }
-

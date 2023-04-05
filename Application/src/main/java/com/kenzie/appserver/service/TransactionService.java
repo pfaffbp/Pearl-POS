@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,14 +51,23 @@ public class TransactionService {
     }
 
 
-    public List<TransactionRecord> getAllTransactions(){
+    public List<Transaction> getAllTransactions() {
+        List<Transaction> allTransactions = new ArrayList<>();
+        transactionRepository.findAll().forEach(transactionRecord -> allTransactions.add(transactionHelperMethod(transactionRecord)));
+        return allTransactions;
+    }
 
-        DynamoDBMapperConfig mapperConfig = new DynamoDBMapperConfig.Builder().withTableNameOverride(DynamoDBMapperConfig.TableNameOverride.withTableNameReplacement("Transaction")).build();
+    public Transaction transactionHelperMethod(TransactionRecord transaction){
+        Transaction createNewTransaction = new Transaction();
+        createNewTransaction.setDate(transaction.getDate());
+        createNewTransaction.setCustomerID(transaction.getCustomerID());
+        createNewTransaction.setProductID(transaction.getProductID());
+        createNewTransaction.setQuantity(transaction.getQuantity());
+        createNewTransaction.setTotalSale(transaction.getTotalSale());
+        createNewTransaction.setTransactionID(transaction.getTransactionID());
 
-        DynamoDBMapper mapper = new DynamoDBMapper(client, mapperConfig);
-        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
-        List<TransactionRecord> transactions = mapper.scan(TransactionRecord.class, scanExpression);
-        return transactions;
+        return createNewTransaction;
+
     }
 
     public Transaction findTransactionByDate(String date){

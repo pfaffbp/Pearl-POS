@@ -1,5 +1,4 @@
 const path = require('path');
-const dirname = path.resolve();
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -12,7 +11,7 @@ module.exports = {
 
         // examplePage: path.resolve(dirname, 'src', 'pages', 'examplePage.js'),
         inventoryLevelsPage: path.resolve(dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
-        generateReport: path.resolve(dirname, 'src', 'pages', 'generateReport.js'),
+        generateReportPage: path.resolve(dirname, 'src', 'pages', 'generateReportPage.js'),
         examplePage: path.resolve(dirname, 'src', 'pages', 'examplePage.js'),
         addProductPage: path.resolve(dirname, 'src', 'pages', 'addProductPage.js'),
         loginPage: path.resolve(dirname, 'src', 'pages', 'loginPage.js'),
