@@ -10,12 +10,12 @@ module.exports = {
     entry: {
 
         // examplePage: path.resolve(dirname, 'src', 'pages', 'examplePage.js'),
-        inventoryLevelsPage: path.resolve(dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
-        generateReportPage: path.resolve(dirname, 'src', 'pages', 'generateReportPage.js'),
-        examplePage: path.resolve(dirname, 'src', 'pages', 'examplePage.js'),
-        addProductPage: path.resolve(dirname, 'src', 'pages', 'addProductPage.js'),
-        loginPage: path.resolve(dirname, 'src', 'pages', 'loginPage.js'),
-        productPage: path.resolve(dirname, 'src', 'pages', 'productPage.js'),
+        inventoryLevelsPage: path.resolve(__dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
+        generateReportPage: path.resolve(__dirname, 'src', 'pages', 'generateReportPage.js'),
+        examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
+        addProductPage: path.resolve(__dirname, 'src', 'pages', 'addProductPage.js'),
+        loginPage: path.resolve(__dirname, 'src', 'pages', 'loginPage.js'),
+        productPage: path.resolve(__dirname, 'src', 'pages', 'productPage.js'),
 
     },
     output: {

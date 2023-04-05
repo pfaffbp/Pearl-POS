@@ -15,21 +15,21 @@ class GenerateReportPage extends BaseClass {
 
     async mount() {
         // add event listener to the generate report button
-        const generateButton = document.getElementById("submit-generate");
-        generateButton.addEventListener("click", this.generateReport.bind(this));
+        const generateButton = document.getElementById("generate-report-btn");
+        generateButton.addEventListener("click", (e)=>this.generateReport(e));
 
         // render the report
         await this.renderReport();
 
         // add event listener to the data store
-        this.dataStore.addEventListener("report", this.renderReport.bind(this));
+        this.dataStore.addChangeListener(this.renderReport)
     }
 
     async generateReport(event) {
         event.preventDefault();
         this.dataStore.set("report", null);
         try {
-            const report = await this.client.sendRequest("/transaction/report", "GET");
+            const report = await this.client.generateReport(this.errorHandler);
             this.dataStore.set("report", report);
             this.showMessage("Report generated successfully");
         } catch (error) {
@@ -40,6 +40,7 @@ class GenerateReportPage extends BaseClass {
     async renderReport() {
         const reportContainer = document.getElementById("report-container");
         const report = this.dataStore.get("report");
+        console.log(report);
         if (report) {
             const reportTable = document.createElement("table");
             reportTable.className = "report-table";
@@ -71,5 +72,13 @@ class GenerateReportPage extends BaseClass {
         }
     }
 }
+
+const main = async () => {
+    const page = new GenerateReportPage();
+    await page.mount();
+}
+
+window.addEventListener("DOMContentLoaded", main)
+
 
 export default GenerateReportPage;

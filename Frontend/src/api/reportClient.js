@@ -18,7 +18,7 @@ export default class ReportClient extends BaseClass {
         }
     }
 
-    async generateReport() {
+    async generateReport(errorCallback) {
         try {
             const response = await this.client.get('/transaction/report');
             return response.data;
@@ -38,5 +38,8 @@ export default class ReportClient extends BaseClass {
             errorCallback(method + "failed - " + error);
         }
     }
+/*    errorCallback = (error) => {
+        console.error(error);
+    }*/
 }
 
