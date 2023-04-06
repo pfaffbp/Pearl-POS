@@ -109,7 +109,7 @@ public class TransactionService {
         transactionRepository.save(generatedTransaction);
         return generatedTransaction;
     }
-//todo michael look at this shit
+//todo michael look at this
 /*    public TransactionRecord generateTransation(Map<Product, Integer> productsPurchased){
         List<String> productIDS = new ArrayList<>();
         double totalSales = 0;
@@ -227,7 +227,7 @@ public class TransactionService {
 //        return TransactionList;
 //    }
 
-    public List<TransactionRecord> transactionByDate(String date){
+/*    public List<TransactionRecord> transactionByDate(String date){
             DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
             PaginatedScanList<TransactionRecord> records =  mapper.scan(TransactionRecord.class, scanExpression);
             List<TransactionRecord> transactionRecords = new ArrayList<>();
@@ -240,7 +240,7 @@ public class TransactionService {
                 }
             }
             return transactionRecords;
-        }
+        }*/
 
     public Transaction recordIntoTransaction(TransactionRecord record) {
         Transaction transaction = new Transaction();

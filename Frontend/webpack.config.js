@@ -1,5 +1,4 @@
 const path = require('path');
-const dirname = path.resolve();
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -13,14 +12,22 @@ module.exports = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         // examplePage: path.resolve(dirname, 'src', 'pages', 'examplePage.js'),
         inventoryLevelsPage: path.resolve(__dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
         generateReportPage: path.resolve(__dirname, 'src', 'pages', 'generateReportPage.js'),
+=======
+        // examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
+        inventoryLevelsPage: path.resolve(__dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
+        createUserPage: path.resolve(__dirname, 'src', 'pages', 'createUserPage.js'),
+        purchaseHistoryPage: path.resolve(__dirname, 'src', 'pages', 'purchaseHistoryPage.js'),
+>>>>>>> abab043 (working productHistoryPage and addeded tests for Transaction service)
         examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
         addProductPage: path.resolve(__dirname, 'src', 'pages', 'addProductPage.js'),
         loginPage: path.resolve(__dirname, 'src', 'pages', 'loginPage.js'),
         productPage: path.resolve(__dirname, 'src', 'pages', 'productPage.js'),
 
+<<<<<<< HEAD
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -180,6 +187,8 @@ module.exports = {
         loginPage: path.resolve(dirname, 'src', 'pages', 'loginPage.js'),
         productPage: path.resolve(dirname, 'src', 'pages', 'productPage.js'),
 
+=======
+>>>>>>> abab043 (working productHistoryPage and addeded tests for Transaction service)
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -200,10 +209,9 @@ module.exports = {
                 context: [
                     '/'
                 ],
-                target: 'http://localhost:5001/'
+                target: 'http://localhost:5001'
             }
         ]
-
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -227,8 +235,13 @@ module.exports = {
             inject: false
         }),
         new HtmlWebpackPlugin({
-            template: './src/GenerateReport.html',
-            filename: 'DashboardPage.js.html',
+            template: './src/createUser.html',
+            filename: 'createUser.html',
+            inject: false
+        }),
+        new HtmlWebpackPlugin({
+            template: './src/purchaseHistory.html',
+            filename: 'purchaseHistory.html',
             inject: false
         }),
         new CopyPlugin({
