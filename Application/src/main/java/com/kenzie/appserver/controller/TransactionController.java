@@ -72,7 +72,7 @@ public class TransactionController {
         return ResponseEntity.ok(transactionResponseList);
     }
 
-    @GetMapping("/date/{date}")
+/*    @GetMapping("/date/{date}")
     public ResponseEntity<List<TransactionResponse>> getTransactionByDate(@PathVariable("date") String date){
 
         //Returns A paginated transactionList for a specific customer
@@ -82,7 +82,7 @@ public class TransactionController {
         transactions.forEach(transaction -> transactionResponseList.add(transactionRecordToResponseEntity(transaction)));
 
         return ResponseEntity.ok(transactionResponseList);
-    }
+    }*/
 
 
     public TransactionResponse transactionToResponseEntity(Transaction transaction){

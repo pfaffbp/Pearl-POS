@@ -2,18 +2,14 @@ import BaseClass from "../util/baseClass";
 import axios from 'axios'
 
 /**
- * Client to call the MusicPlaylistService.
- *
- * This could be a great place to explore Mixins. Currently the client is being loaded multiple times on each page,
- * which we could avoid using inheritance or Mixins.
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes#Mix-ins
- * https://javascript.info/mixins
+ * Client to call the Transaction DynamoDB table to populate all the items they have bought.
+
  */
 export default class PurchaseHistoryClient extends BaseClass {
 
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'getAllInventory'];
+        const methodsToBind = ['clientLoaded', 'transactionByCustomerID'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -31,17 +27,17 @@ export default class PurchaseHistoryClient extends BaseClass {
     }
 
     /**
-     * Gets the concert for the given ID.
-     * @param id Unique identifier for a concert
+     * Gets the transactions by the logged in customer by the customerID.
+     * @param id Unique identifier for a customer
      * @param errorCallback (Optional) A function to execute if the call fails.
-     * @returns The concert
      */
-    async getAllInventory(errorCallback) {
+    async transactionByCustomerID(errorCallback) {
+      //  localStorage.getItem(TestCustomer)
         try {
-            const response = await this.client.get(`/products`);
+            const response = await this.client.get(`/transaction/customer/TestCustomer`);
             return response.data;
         } catch (error) {
-            this.handleError("getAllProducts", error, errorCallback)
+            this.handleError("transactionByCustomerID", error, errorCallback)
         }
     }
 
