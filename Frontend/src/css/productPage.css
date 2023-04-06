@@ -4,11 +4,19 @@
 }
 
 #header{
-    display: flex;
+    display: grid;
     background-color: #101010
 }
+.header_bar{
+    display: flex;
+}
+
+#cart-icon{
+    margin-left: 88vw;
+}
+
 h1{
-    color: white;
+    color: black;
     align-self: center;
 }
 
@@ -55,6 +63,30 @@ img:hover{
 .product_Price{
     /*margin-left: 200px;*/
     /*font-size: 20px;*/
+}
+
+#sidebar {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 300px;
+    background-color: #fff;
+    padding: 20px;
+}
+
+#cart-items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#close-sidebar {
+    margin-top: 20px;
+}
+#checkout {
+    margin-top: 20px;
 }
 
 .product-footer{

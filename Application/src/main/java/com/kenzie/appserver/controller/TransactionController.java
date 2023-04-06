@@ -24,12 +24,9 @@ public class TransactionController {
             @PathVariable("transactionID") String transactionID){
 
         Transaction transaction = transactionService.findTransactionID(transactionID);
-
-
         if(transaction == null){
             return ResponseEntity.notFound().build();
         }
-
         TransactionResponse transactionResponse = new TransactionResponse();
         transactionResponse.setTransactionID(transaction.getTransactionID());
         transactionResponse.setDate(transaction.getDate());
