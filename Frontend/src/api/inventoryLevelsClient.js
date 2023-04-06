@@ -62,13 +62,14 @@ export default class InventoryLevelsClient extends BaseClass {
             url += item.productID;
             url += ',';
         });
-        let newUrl = url.substring(0, url.length - 2);
+
+        let newUrl = url.substring(0, url.length - 1);
         try{
-            console.log(url);
+            console.log(newUrl);
             const response = await this.client.put(newUrl, {
                     quantity: quantityArr
             });
-            console.log(response.data())
+            console.log(response.data)
         } catch (error){
             this.handleError("buyProducts", error, errorCallback);
         }
