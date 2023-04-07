@@ -64,9 +64,11 @@ public class LoginController {
     public ResponseEntity<User> login(@RequestBody LoginRequest request) throws AuthenticationException {
         User user = userService.loginUser(request);
         return ResponseEntity.ok(user);
-
     }
 }
 
+<<<<<<< HEAD
 
 >>>>>>> 78e3b20 (login and create user all test passing for service and controller)
+=======
+>>>>>>> eb90ed7 (Revert "login and create user all test passing for service and controller")

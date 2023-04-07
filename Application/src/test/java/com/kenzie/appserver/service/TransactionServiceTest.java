@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package com.kenzie.appserver.service;
 
 <<<<<<< HEAD
@@ -199,6 +200,10 @@ public class TransactionServiceTest {
 }
 >>>>>>> abab043 (working productHistoryPage and addeded tests for Transaction service)
 =======
+=======
+package com.kenzie.appserver.service;
+
+>>>>>>> eb90ed7 (Revert "login and create user all test passing for service and controller")
 import com.kenzie.appserver.repositories.TransactionRepository;
 import com.kenzie.appserver.repositories.model.TransactionRecord;
 import com.kenzie.appserver.service.model.Product;
@@ -299,6 +304,7 @@ public class TransactionServiceTest {
     }
 
 }
+<<<<<<< HEAD
 >>>>>>> 05a2520 (preptomerge)
 =======
 //package com.kenzie.appserver.service;
@@ -383,3 +389,5 @@ public class TransactionServiceTest {
 //
 //}
 >>>>>>> 78e3b20 (login and create user all test passing for service and controller)
+=======
+>>>>>>> eb90ed7 (Revert "login and create user all test passing for service and controller")

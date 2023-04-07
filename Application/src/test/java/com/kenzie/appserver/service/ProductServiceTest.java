@@ -1,4 +1,5 @@
 package com.kenzie.appserver.service;
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -8,6 +9,9 @@ import com.kenzie.appserver.controller.model.ProductModels.ProductResponse;
 >>>>>>> 05a2520 (preptomerge)
 =======
 >>>>>>> 78e3b20 (login and create user all test passing for service and controller)
+=======
+import com.kenzie.appserver.controller.model.ProductModels.ProductResponse;
+>>>>>>> eb90ed7 (Revert "login and create user all test passing for service and controller")
 import com.kenzie.appserver.repositories.ProductRepository;
 import com.kenzie.appserver.repositories.TransactionRepository;
 import com.kenzie.appserver.repositories.model.ProductRecord;
@@ -19,6 +23,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 <<<<<<< HEAD
@@ -27,6 +32,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static java.util.UUID.randomUUID;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import static org.junit.jupiter.api.Assertions.*;
 =======
@@ -43,20 +49,25 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 >>>>>>> 78e3b20 (login and create user all test passing for service and controller)
+=======
+import static org.junit.jupiter.api.Assertions.*;
+>>>>>>> eb90ed7 (Revert "login and create user all test passing for service and controller")
 import static org.mockito.Mockito.*;
 
 public class ProductServiceTest {
 
 <<<<<<< HEAD
     private ProductRepository productRepository;
+    private TransactionService transactionService;
+    private TransactionRepository transactionRepository;
     private ProductService productService;
 
     @BeforeEach
     void setup() {
         MockitoAnnotations.initMocks(this);
         productRepository = mock(ProductRepository.class);
-        TransactionService transactionService = mock((TransactionService.class));
-        TransactionRepository transactionRepository = mock(TransactionRepository.class);
+        transactionService = mock((TransactionService.class));
+        transactionRepository = mock(TransactionRepository.class);
         productService = new ProductService(productRepository, transactionRepository, transactionService);
     }
 

@@ -28,6 +28,7 @@ public class UserController {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     @GetMapping
 <<<<<<< HEAD
     public List<User> getAllUsers() {
@@ -40,6 +41,8 @@ public class UserController {
             responses.add(convertUserToUserResponse(user));
 =======
 
+=======
+>>>>>>> eb90ed7 (Revert "login and create user all test passing for service and controller")
     @PostMapping("/login")
     public ResponseEntity<Void> login(@RequestBody UserCreateRequest request) {
         boolean isLoggedIn = userService.login(request);
