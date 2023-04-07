@@ -1,3 +1,4 @@
+/*
 package com.kenzie.appserver.service.model;
 
 public class Sales {
@@ -57,3 +58,4 @@ public class Sales {
     }
 
 }
+*/

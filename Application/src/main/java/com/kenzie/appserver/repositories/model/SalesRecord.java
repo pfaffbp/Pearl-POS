@@ -1,3 +1,4 @@
+/*
 package com.kenzie.appserver.repositories.model;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
@@ -80,3 +81,4 @@ public class SalesRecord {
         return Objects.hash(name, id);
     }
 }
+*/

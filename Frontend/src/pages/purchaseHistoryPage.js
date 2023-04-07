@@ -1,11 +1,11 @@
 import BaseClass from "../util/baseClass";
 import DataStore from "../util/DataStore";
-import InventoryLevelsClient from "../api/inventoryLevelsClient";
+import PurchaseHistoryClient from "../api/purchaseHistoryClient";
 
 /**
  * Logic needed for the view playlist page of the website.
  */
-class InventoryLevelsPage extends BaseClass {
+class PurchaseHistoryPage extends BaseClass {
 
     constructor() {
         super();
@@ -18,7 +18,7 @@ class InventoryLevelsPage extends BaseClass {
      */
     async mount() {
         document.getElementById('submit-refresh').addEventListener('click', this.onRefresh);
-        this.client = new InventoryLevelsClient();
+        this.client = new PurchaseHistoryClient();
 
         this.dataStore.addChangeListener(this.renderInventory)
         this.onLoad();
@@ -35,29 +35,17 @@ class InventoryLevelsPage extends BaseClass {
             let items ="";
             for (let product of inventory){
                 items += `
-<<<<<<< HEAD
              <div class="wrapper">
 
  
-  <aside class="aside aside-left">${product.productID}</aside>
-   <aside class="aside aside-middle">${product.productName}</aside>
-  <aside class="aside aside-right">${product.quantity}</aside>
+  <aside class="aside aside-1">${product.productID}</aside>
+   <aside class="aside aside-2">${product.productName}</aside>
+   <aside class="aside aside-3">${product.description}</aside>
+   <aside class="aside aside-4">${product.category}</aside>
+  <aside class="aside aside-5">${product.quantity}</aside>
+  
 
-<<<<<<< HEAD
-</div>                    
-        
-               
-                        
-=======
-                <tr>
-                    <td>${product.productID}</td>
-                    <td>${product.productName}</td>
-                    <td>${product.quantity}</td>
-                </tr>
->>>>>>> 25c0d46 (first push getting an error when trying to run the boot run def)
-=======
 </div>                              
->>>>>>> d6bc43a (preping to merge)
                 `;
             }
             resultArea.innerHTML = items;
@@ -111,8 +99,8 @@ class InventoryLevelsPage extends BaseClass {
  * Main method to run when the page contents have loaded.
  */
 const main = async () => {
-    const inventoryLevelsPage = new InventoryLevelsPage();
-    inventoryLevelsPage.mount();
+    const purchaseHistoryPage = new PurchaseHistoryPage();
+    purchaseHistoryPage.mount();
 };
 
 window.addEventListener('DOMContentLoaded', main);

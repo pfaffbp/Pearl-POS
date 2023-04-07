@@ -9,6 +9,7 @@ module.exports = {
     },
     entry: {
 
+<<<<<<< HEAD
         // examplePage: path.resolve(dirname, 'src', 'pages', 'examplePage.js'),
         inventoryLevelsPage: path.resolve(__dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
         generateReportPage: path.resolve(__dirname, 'src', 'pages', 'generateReportPage.js'),
@@ -40,6 +41,16 @@ module.exports = {
                 target: 'http://localhost:5001/'
             }
         ]
+=======
+   // examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
+    inventoryLevelsPage: path.resolve(__dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
+    createUserPage: path.resolve(__dirname, 'src', 'pages', 'createUserPage.js'),
+    purchaseHistoryPage: path.resolve(__dirname, 'src', 'pages', 'purchaseHistoryPage.js'),
+     examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
+     addProductPage: path.resolve(__dirname, 'src', 'pages', 'addProductPage.js'),
+      loginPage: path.resolve(__dirname, 'src', 'pages', 'loginPage.js'),
+      productPage: path.resolve(__dirname, 'src', 'pages', 'productPage.js'),
+>>>>>>> d6bc43a (preping to merge)
 
     },
     plugins: [
@@ -78,4 +89,50 @@ module.exports = {
         }),
         new CleanWebpackPlugin()
     ]
+<<<<<<< HEAD
 }
+=======
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/login.html',
+      filename: 'login.html',
+      inject: false
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/ManagerConsole.html',
+      filename: 'ManagerConsole.html',
+      inject: false
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/inventoryLevels.html',
+      filename: 'inventoryLevels.html',
+      inject: false
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/productPage.html',
+      filename: 'productPage.html',
+      inject: false
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/createUser.html',
+      filename: 'createUser.html',
+      inject: false
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/purchaseHistory.html',
+      filename: 'purchaseHistory.html',
+      inject: false
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve('src/css'),
+          to: path.resolve("dist/css")
+        }
+      ]
+    }),
+    new CleanWebpackPlugin()
+  ]
+}
+>>>>>>> d6bc43a (preping to merge)
