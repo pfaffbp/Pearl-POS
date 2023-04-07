@@ -45,6 +45,35 @@ export default class InventoryLevelsClient extends BaseClass {
         }
     }
 
+
+// {
+//     "quantity": [
+//         1, 2, 3
+//     ]
+// }
+    async buyProducts(errorCallback, productsInCart, quantity){
+        let url = "/products/"
+        let quantityArr = [];
+        // let quantityJson = `{"quantity": [`;
+        productsInCart.forEach(item => {
+            quantityArr.push(quantity.get(item.productID));
+            // quantityJson += `${quantity.get(item.productID)}`;
+            // quantityJson +=
+            url += item.productID;
+            url += ',';
+        });
+        let newUrl = url.substring(0, url.length - 1);
+        try{
+            console.log(newUrl);
+            const response = await this.client.put(newUrl, {
+                quantity: quantityArr
+            });
+            console.log(response.data)
+        } catch (error){
+            this.handleError("buyProducts", error, errorCallback);
+        }
+    }
+
     /**
      * Helper method to log the error and run any error functions.
      * @param error The error received from the server.
