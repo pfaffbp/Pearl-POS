@@ -1,8 +1,15 @@
 Arguments: 
+<<<<<<< HEAD
   C:\Program Files\nodejs\node.exe C:\Users\edito\kenzie\homework\ata-lbc-project-bantoinese83\Frontend\.gradle\yarn\yarn-latest\node_modules\yarn\bin\yarn.js install
 
 PATH: 
   C:\Users\edito\kenzie\homework\ata-lbc-project-bantoinese83\Frontend\.gradle\yarn\yarn-latest;C:\Users\edito\kenzie\homework\ata-lbc-project-bantoinese83\Frontend\.gradle\nodejs\node-v14.15.4-win-x64;C:\Users\edito\kenzie\homework\ata-lbc-project-bantoinese83\Frontend\.gradle\nodejs\node-v14.15.4-win-x64;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\edito\bin;C:\Python311\Scripts;C:\Python311;C:\Program Files\Amazon Corretto\jdk16.0.2_7\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\ProgramData\chocolatey\bin;C:\Program Files\GitHub CLI;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\nodejs;C:\Program Files\dotnet;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\Amazon\AWSCLIV2;C:\Program Files\Amazon\AWSSAMCLI\bin;C:\Users\edito\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2022.2\bin;C:\Users\edito\AppData\Local\JetBrains\Toolbox\scripts;C:\Users\edito\AppData\Local\Microsoft\WindowsApps;C:\Users\edito\AppData\Roaming\npm;C:\Users\edito\AppData\Local\GitHubDesktop\bin
+=======
+  C:\Program Files\nodejs\node.exe C:\Users\micha\Desktop\ata-lbc-project-bantoinese83\Frontend\.gradle\yarn\yarn-latest\node_modules\yarn\bin\yarn.js install
+
+PATH: 
+  C:\Users\micha\Desktop\ata-lbc-project-bantoinese83\Frontend\.gradle\yarn\yarn-latest;C:\Users\micha\Desktop\ata-lbc-project-bantoinese83\Frontend\.gradle\nodejs\node-v14.15.4-win-x64;C:\Users\micha\Desktop\ata-lbc-project-bantoinese83\Frontend\.gradle\nodejs\node-v14.15.4-win-x64;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\micha\bin;C:\Program Files\Oculus\Support\oculus-runtime;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\dotnet;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\ProgramData\chocolatey\bin;C:\Program Files\GitHub CLI;C:\Program Files\Amazon\AWSCLIV2;C:\Program Files\Amazon\AWSSAMCLI\bin;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\nodejs;C:\Users\micha\AppData\Local\Microsoft\WindowsApps;C:\Users\micha\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\micha\AppData\Roaming\npm;C:\Users\micha\AppData\Local\GitHubDesktop\bin
+>>>>>>> 6727e8c (Added productPage and checkout works)
 
 Yarn version: 
   1.22.19
@@ -14,7 +21,16 @@ Platform:
   win32 x64
 
 Trace: 
+<<<<<<< HEAD
   Error: EPERM: operation not permitted, copyfile 'C:\Users\edito\AppData\Local\Yarn\Cache\v6\npm-body-parser-1.20.2-6feb0e21c4724d06de7ff38da36dad4f57a747fd-integrity\node_modules\body-parser\lib\types\urlencoded.js' -> 'C:\Users\edito\kenzie\homework\ata-lbc-project-bantoinese83\Frontend\node_modules\body-parser\lib\types\urlencoded.js'
+=======
+  SyntaxError: C:\Users\micha\Desktop\ata-lbc-project-bantoinese83\Frontend\package.json: Unexpected token < in JSON at position 611
+      at JSON.parse (<anonymous>)
+      at C:\Users\micha\Desktop\ata-lbc-project-bantoinese83\Frontend\.gradle\yarn\yarn-latest\node_modules\yarn\lib\cli.js:1629:59
+      at Generator.next (<anonymous>)
+      at step (C:\Users\micha\Desktop\ata-lbc-project-bantoinese83\Frontend\.gradle\yarn\yarn-latest\node_modules\yarn\lib\cli.js:310:30)
+      at C:\Users\micha\Desktop\ata-lbc-project-bantoinese83\Frontend\.gradle\yarn\yarn-latest\node_modules\yarn\lib\cli.js:321:13
+>>>>>>> 6727e8c (Added productPage and checkout works)
 
 npm manifest: 
   {
@@ -37,7 +53,14 @@ npm manifest:
       "body-parser": "^1.20.2",
       "clean-webpack-plugin": "^4.0.0",
       "express": "^4.18.2",
+<<<<<<< HEAD
       "multer": "^1.4.5-lts.1",
+=======
+  <<<<<<< HEAD
+  =======
+      "multer": "^1.4.5-lts.1",
+  >>>>>>> origin
+>>>>>>> 6727e8c (Added productPage and checkout works)
       "toastify-js": "^1.11.2",
       "webpack": "^4.41.2",
       "webpack-cli": "^3.3.10",

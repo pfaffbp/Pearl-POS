@@ -62,7 +62,7 @@ class LoginPage extends BaseClass {
             if (user) {
                 alert(`Welcome, ${user.name}!`);
                 localStorage.setItem('user', JSON.stringify(user));
-                window.location.href = 'productpage.html'; // Redirect to product page
+                window.location.href = 'productPage.html'; // Redirect to product page
             } else {
 <<<<<<< HEAD
                 alert("Incorrect email or password!");

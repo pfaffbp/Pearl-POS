@@ -22,6 +22,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     "multer": "^1.4.5-lts.1",
 =======
 >>>>>>> c82455f (added the sales and productList double check make sure everything is correct)
@@ -36,6 +37,9 @@
 =======
     "multer": "^1.4.5-lts.1",
 >>>>>>> 1ce6643 ( 4/6 10:19)
+=======
+    "multer": "^1.4.5-lts.1",
+>>>>>>> 6727e8c (Added productPage and checkout works)
     "toastify-js": "^1.11.2",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",

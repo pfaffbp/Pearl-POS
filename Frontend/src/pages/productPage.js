@@ -2,11 +2,21 @@ import BaseClass from "../util/baseClass";
 import DataStore from "../util/DataStore";
 import AddProductClient from "../api/addProductClient";
 import InventoryLevelsClient from "../api/inventoryLevelsClient";
+const productMap = new Map;
+const productAndQuantityMap = new Map;
+let cartItems = [];
+let itemCart;
+let productID;
+let checkOutCart;
+const sidebar = document.getElementById(".sidebar");
+const cartItemsList = document.getElementById(".cart-items");
+const closeSidebarButton = document.getElementById("checkout");
+
 
 class ProductPage extends BaseClass {
     constructor() {
         super();
-        this.bindClassMethods(['renderInventory', 'onRefresh', 'onLoad'], this);
+        this.bindClassMethods(['renderInventory', 'onRefresh', 'onLoad', 'addToCart', 'addButton', 'checkout'], this);
         this.dataStore = new DataStore();
     }
 
@@ -14,11 +24,11 @@ class ProductPage extends BaseClass {
      * Once the page has loaded, set up the event handlers and fetch the concert list.
      */
     async mount() {
-        document.getElementById('submit-refresh').addEventListener('click', this.onRefresh);
         this.client = new InventoryLevelsClient();
-
         this.dataStore.addChangeListener(this.renderInventory)
         this.onLoad();
+        document.getElementById('submit-refresh').addEventListener('click', this.addButton);
+        document.getElementById('close-sidebar').addEventListener('click', this.checkout)
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
@@ -44,27 +54,43 @@ class ProductPage extends BaseClass {
    </div>
    <div class = "product_Category"${product.category}</div>
    <div class = "product_Description">${product.description}</div>
-   <div class = "product-footer">
-   <button id = "add">Add to Cart</button>
+   <form class = "product-footer">
+   <button class = "add" id = ${product.productID}>Add to Cart</button>
    <button class = "minus-quantity">-</button>
-   <input type ="text" class = "product_Quantity" placeholder="QTY" maxlength="3" size="1" min="1" max="100" required></input> 
+   <input type ="text" class = "quantity" id = "${product.productID}qty" placeholder="QTY" maxlength="3" size="1" min="1" max="100" required></input> 
    <button class = "add-quantity">+</button>
-        </div>
+        </form>
    </figure> 
 </div>                    
 `;}
+            //current map of all items
+            for(let product of inventory){
+                if(productMap.has(product.productID) != true){
+                    productMap.set(product.productID, product);
+                }
+            }
+            console.log(productMap);
+
+
             resultArea.innerHTML = items;
+            itemCart = document.querySelectorAll('.add');
+            itemCart.forEach(button => button.addEventListener('click', async function () {
+                event.preventDefault();
+                  combine(button.id, button.id + "qty");
+                  add(button.id, button.id + "qty");
+            }));
+
         } else {
             resultArea.innerHTML = "No Item";
         }
     }
+
 
     // Event Handlers --------------------------------------------------------------------------------------------------
 
     async onRefresh(event) {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
-
 
         this.dataStore.set("inventory", null);
 
@@ -77,14 +103,102 @@ class ProductPage extends BaseClass {
         }
     }
 
+     addToCart(productId){
+        console.log(productId)
+    }
+
+    // async updateCartItems() {
+    //
+    // }
+
     async onLoad(){
         let result = await this.client.getAllInventory(this.errorHandler);
         this.dataStore.set("inventory", result);
     }
+
+    async addButton(event, productID){
+    }
+
+    async checkout(){
+        const itemsToBuy = cartItems;
+        const quantityOfItems = productAndQuantityMap;
+
+        const results = await this.client.buyProducts(this.errorHandler(), itemsToBuy, quantityOfItems);
+    }
+
 }
 
+function combine(productID, qty){
+    const quantity = document.getElementById(`${qty}`);
+    productAndQuantityMap.set(productID, quantity.value);
+}
 
+function add(productID) {
+    // if(cartItems)
+    let edit = productMap.get(productID)
+    if(cartItems.includes(productMap.get(productID)) === false) {
+        cartItems.push(productMap.get(productID));
+        console.log("In methods")
+    }
+        console.log(cartItems)
+        updateCartItems();
+        showSidebar();
+}
 
+function updateCartItems() {
+    const cartItemsList = document.getElementById("cart-items");
+
+    let totalSale = 0;
+    let createdHtml = false;
+    let allItems = ""
+    let moneySale = ""
+    let createdCheckout = false;
+    cartItemsList.innerHTML = ""
+    cartItems.forEach((item) => {
+        const currentQuantity = productAndQuantityMap.get(item.productID);
+        totalSale += totalSales(currentQuantity, item.price)
+        allItems += `
+<div class = "shopping-cart">
+    <div class = "add-cart-inline">
+    <img src="Images/pickImage.png" width="80" height="80"/>
+        <div class = "inline">
+    <h3 class = "test">${item.productName}</h3>
+    <div class = "current-price"><strong>Price:$${item.price}</strong></div>
+    <div class = "current-quantity"><strong>Quantity:${currentQuantity}</strong></div>
+        </div>
+    </div>
+</div>
+`
+        if(createdHtml !== true){
+            createdHtml = true;
+        moneySale += `
+    <div id = "totalSale">0</div>
+    `}
+
+        checkOutCart = document.getElementById('checkout');
+        const li = document.createElement("li");
+        // li.innerText = allItems;
+        cartItemsList.innerHTML = allItems;
+        cartItemsList.innerHTML += moneySale;
+    });
+    const currentTotalSale = document.getElementById("totalSale");
+    currentTotalSale.innerHTML = totalSale;
+    console.log(cartItemsList);
+}
+
+function showSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    sidebar.style.display = "block";
+}
+
+function hideSidebar() {
+    sidebar.style.display = "none";
+}
+
+function totalSales(quantity, price){
+    let totalSale = quantity * price
+    return totalSale;
+}
 
 const main = async () => {
     console.log("mounted ProductPageYea")

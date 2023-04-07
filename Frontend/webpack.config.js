@@ -116,9 +116,10 @@ module.exports = {
     examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
     addProductPage: path.resolve(__dirname, 'src', 'pages', 'addProductPage.js'),
     loginPage: path.resolve(__dirname, 'src', 'pages', 'loginPage.js'),
-    productpage: path.resolve(__dirname, 'src', 'pages', 'productPage.js'),
+    productPage: path.resolve(__dirname, 'src', 'pages', 'productPage.js'),
     inventoryLevelsPage: path.resolve(__dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
     createUserPage: path.resolve(__dirname, 'src', 'pages', 'createUserPage.js'),
+<<<<<<< HEAD
 <<<<<<< HEAD
     purchaseHistoryPage: path.resolve(__dirname, 'src', 'pages', 'purchaseHistoryPage.js')
 >>>>>>> 78e3b20 (login and create user all test passing for service and controller)
@@ -133,6 +134,9 @@ module.exports = {
 
 >>>>>>> origin
 >>>>>>> eb90ed7 (Revert "login and create user all test passing for service and controller")
+=======
+    purchaseHistoryPage: path.resolve(__dirname, 'src', 'pages', 'purchaseHistoryPage.js'),
+>>>>>>> 6727e8c (Added productPage and checkout works)
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
