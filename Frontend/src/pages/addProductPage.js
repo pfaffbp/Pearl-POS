@@ -1,5 +1,4 @@
 import BaseClass from "../util/baseClass";
-import ExampleClient from "../api/exampleClient";
 import AddProductClient from "../api/addProductClient";
 import DataStore from "../util/DataStore";
 
@@ -76,7 +75,7 @@ class AddProductPage extends BaseClass {
 const main = async () => {
     console.log("mounted")
     const productPage = new AddProductPage();
-    productPage.mount();
+    await productPage.mount();
 };
 
 window.addEventListener('DOMContentLoaded', main);

@@ -1,10 +1,10 @@
-import BaseClass from "./baseClass";
+import baseClass from "./baseClass";
 
 /**
  * Stores all of the data across the state. When the state changes in any way, execute all of the listeners registered
  * with the DataStore. This way pages can listen to changes for specific data and refresh the page accordingly.
  */
-export default class DataStore extends BaseClass {
+export default class DataStore extends baseClass {
 
     constructor(initialState = {}) {
         super();

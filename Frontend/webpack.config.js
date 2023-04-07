@@ -4,20 +4,20 @@ const CopyPlugin = require("copy-webpack-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
+
     optimization: {
         usedExports: true
     },
     entry: {
 
         // examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
+        loginPage: path.resolve(__dirname, 'src', 'pages', 'loginPage.js'),
+        addProductPage: path.resolve(__dirname, 'src', 'pages', 'addProductPage.js'),
         inventoryLevelsPage: path.resolve(__dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
+        productPage: path.resolve(__dirname, 'src', 'pages', 'productPage.js'),
         createUserPage: path.resolve(__dirname, 'src', 'pages', 'createUserPage.js'),
         purchaseHistoryPage: path.resolve(__dirname, 'src', 'pages', 'purchaseHistoryPage.js'),
         examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
-        addProductPage: path.resolve(__dirname, 'src', 'pages', 'addProductPage.js'),
-        loginPage: path.resolve(__dirname, 'src', 'pages', 'loginPage.js'),
-        productPage: path.resolve(__dirname, 'src', 'pages', 'productPage.js'),
-
     },
     output: {
         path: path.resolve(__dirname, 'dist'),

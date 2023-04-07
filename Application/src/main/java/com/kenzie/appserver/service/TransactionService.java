@@ -153,20 +153,37 @@ public class TransactionService {
 //        return TransactionList;
 //    }
 
-/*    public List<TransactionRecord> transactionByDate(String date){
-            DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
-            PaginatedScanList<TransactionRecord> records =  mapper.scan(TransactionRecord.class, scanExpression);
-            List<TransactionRecord> transactionRecords = new ArrayList<>();
-            System.out.println("Test");
+
+//    public PaginatedQueryList<TransactionRecord> transactionByDate(String date){
+//        DynamoDBMapper mapper = new DynamoDBMapper(dynamoDbConfig.defaultAmazonDynamoDb());
+//
+//        Map<String, AttributeValue> valueMap = new HashMap<>();
+//        valueMap.put(":date", new AttributeValue().withS(date));
+//
+//        DynamoDBQueryExpression<TransactionRecord> queryExpression = new DynamoDBQueryExpression<TransactionRecord>()
+//                .withIndexName(TRANSACTION_BY_DATE)
+//                .withConsistentRead(false)
+//                .withKeyConditionExpression("date = :date")
+//                .withExpressionAttributeValues(valueMap);
+//
+//        PaginatedQueryList<TransactionRecord> TransactionList = mapper.query(TransactionRecord.class, queryExpression);
+//        return TransactionList;
+//    }
+
+    public List<TransactionRecord> transactionByDate(String date){
+        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
+        PaginatedScanList<TransactionRecord> records =  mapper.scan(TransactionRecord.class, scanExpression);
+        List<TransactionRecord> transactionRecords = new ArrayList<>();
 
 
-            for(int i = 0; i < records.size(); i++){
-                if(records.get(i).getDate().contains(date)){
-                    transactionRecords.add(records.get(i));
-                }
+        for(int i = 0; i < records.size(); i++){
+            if(records.get(i).getDate().contains(date)){
+                transactionRecords.add(records.get(i));
             }
-            return transactionRecords;
-        }*/
+        }
+        return transactionRecords;
+    }
+
 
     public Transaction recordIntoTransaction(TransactionRecord record) {
         Transaction transaction = new Transaction();

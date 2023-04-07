@@ -1,37 +1,46 @@
 package com.kenzie.appserver.controller;
 
-import com.kenzie.appserver.service.model.User;
+import com.kenzie.appserver.controller.model.UserCreateRequest;
 import com.kenzie.appserver.service.UserService;
+import com.kenzie.appserver.service.model.User;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
+
     private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-    @PostMapping
-    public User createUser(@RequestBody User user) {
-        return userService.createUser(user);
+    @PostMapping("/register")
+    public ResponseEntity<User> createUser(@RequestBody UserCreateRequest request) {
+        User user = userService.createUser(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
-    @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    @PostMapping("/login")
+    public ResponseEntity<Void> login(@RequestBody UserCreateRequest request) {
+        boolean isLoggedIn = userService.login(request);
+        if (isLoggedIn) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
-    @GetMapping("/{id}")
-    public User getUser(@PathVariable String id) {
-        return userService.getUserById(id);
+    @GetMapping("/profile")
+    public ResponseEntity<User> getProfile() {
+        User user = userService.getCurrentUser();
+        if (user != null) {
+            return ResponseEntity.ok().body(user);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
-    @PutMapping("/{id}")
-    public User updateUser(@PathVariable String id, @RequestBody User user) {
-        return userService.updateUser(id, user);
-    }
 }

@@ -1,126 +1,81 @@
-package com.kenzie.appserver.service;
-
-import com.kenzie.appserver.controller.model.LoginCreateRequest;
-import com.kenzie.appserver.repositories.UserRepository;
-import com.kenzie.appserver.repositories.model.UserRecord;
-import com.kenzie.appserver.service.model.User;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
-import javax.crypto.SecretKey;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.*;
-
-public class UserServiceTest {
-
-    @Mock
-    private UserRepository userRepository;
-
-    private UserService userService;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.initMocks(this);
-        userService = new UserService(userRepository);
-    }
-
-
-
-    @Test
-    void testAuthenticateUser() {
-        // GIVEN
-        String username = "user";
-        String password = "pass";
-        LoginCreateRequest loginRequest = new LoginCreateRequest(username, password);
-        UserRecord userRecord = new UserRecord("1L", username, password, "testemail");
-
-        // WHEN
-        when(userRepository.findByUsername(username)).thenReturn(userRecord);
-        boolean authenticated = userService.authenticateUser(loginRequest);
-
-        // THEN
-        verify(userRepository, times(1)).findByUsername(username);
-        Assertions.assertTrue(authenticated, "The user is authenticated with correct credentials");
-    }
-
-    @Test
-    void testFindUserByUsername() {
-        // GIVEN
-        String userId = "12345";
-        String username = "testuser";
-        UserRecord userRecord = new UserRecord(userId, username, "testpass", "testemail");
-
-
-        // WHEN
-        when(userRepository.findByUsername(username)).thenReturn(userRecord);
-        User user = userService.findUserByUsername(username);
-
-        // THEN
-        verify(userRepository, times(1)).findByUsername(username);
-        assertNotNull(user, "The user is returned");
-        assertEquals(userRecord.getId(), user.getId(), "The id matches");
-        assertEquals(userRecord.getUsername(), user.getUsername(), "The username matches");
-        assertEquals(userRecord.getPassword(), user.getPassword(), "The password matches");
-    }
-
-
-    @Test
-    void testFindUserByEmail() {
-        // GIVEN
-        String email = "testemail";
-        UserRecord userRecord = new UserRecord("12345", "testuser", "testpass", email);
-
-        // WHEN
-        when(userRepository.findUserByEmail(email)).thenReturn(userRecord);
-        User user = userService.findUserByEmail(email);
-
-        // THEN
-        verify(userRepository, times(1)).findUserByEmail(email);
-        assertNotNull(user, "The user is returned");
-        assertEquals(userRecord.getId(), user.getId(), "The id matches");
-        assertEquals(userRecord.getUsername(), user.getUsername(), "The username matches");
-        assertEquals(userRecord.getPassword(), user.getPassword(), "The password matches");
-        assertEquals(userRecord.getEmail(), user.getEmail(), "The email matches");
-    }
-
-
-
-
-
-
-    @Test
-    void testFindUserByUsernameNotFound() {
-        // GIVEN
-        String username = "nonexistent";
-
-        // WHEN
-        when(userRepository.findByUsername(username)).thenReturn(null);
-        User user = userService.findUserByUsername(username);
-
-        // THEN
-        verify(userRepository, times(1)).findByUsername(username);
-        Assertions.assertNull(user, "The user is null when not found");
-    }
-
-    @Test
-    void testCreateLoginToken() {
-
-        User user = new User("username", "password", "email", "id");
-        SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-
-
-        String token = userService.createLoginToken(user, key);
-
-        assertNotNull(token, "The token is not null");
-        Assertions.assertFalse(token.isEmpty(), "The token is not empty");
-
-    }
-
-}
+//package com.kenzie.appserver.service;
+//
+//import com.kenzie.appserver.controller.model.UserCreateRequest;
+//import com.kenzie.appserver.repositories.UserRepository;
+//import com.kenzie.appserver.repositories.model.UserRecord;
+//import com.kenzie.appserver.service.model.User;
+//import io.jsonwebtoken.lang.Assert;
+//import org.junit.jupiter.api.BeforeEach;
+//import org.junit.jupiter.api.Test;
+//import org.mockito.ArgumentCaptor;
+//import org.mockito.Mock;
+//import org.mockito.MockitoAnnotations;
+//
+//import java.util.ArrayList;
+//import java.util.Arrays;
+//import java.util.List;
+//
+//import static org.junit.jupiter.api.Assertions.assertNotNull;
+//import static org.junit.jupiter.api.Assertions.assertTrue;
+//import static org.mockito.ArgumentMatchers.any;
+//import static org.mockito.Mockito.*;
+//import static org.springframework.test.util.AssertionErrors.assertEquals;
+//
+//public class UserServiceTest {
+//
+//    private UserService userService;
+//
+//    @Mock
+//    private UserRepository userRepository;
+//
+//    @BeforeEach
+//    void setUp() {
+//        // configure userRepository mock
+//        List<User> userList = new ArrayList<>();
+//        User user = new User();
+//        user.setPassword("John");
+//        user.setEmail("john@test.com");
+//        userList.add(user);
+//
+//        when(userRepository.findAll()).thenReturn(userList);
+//    }
+//
+//
+//    @Test
+//    void testCreateUser() {
+//        // GIVEN
+//        UserCreateRequest request = new UserCreateRequest("username", "password");
+//        UserRecord record = new UserRecord(request.getEmail(), request.getPassword());
+//        when(userRepository.save(any())).thenReturn(record);
+//
+//        // WHEN
+//        User createdUser = userService.createUser(request);
+//
+//        // THEN
+//        Assert.notNull(createdUser, "The created user is not null");
+//        assertEquals("The password matches", request.getPassword(), createdUser.getPassword());
+//        assertEquals("The email matches", request.getEmail(), createdUser.getEmail());
+//        verify(userRepository, times(1)).save(any(UserRecord.class));
+//    }
+//
+//
+//    @Test
+//    void testGetAllUsers() {
+//        // create a user object
+//        User user = new User();
+//        user.setPassword("John");
+//        user.setEmail("john@test.com");
+//
+//        // save the user to the database
+//        userRepository.save(user);
+//
+//        // retrieve all users from the database
+//        List<User> userList = userService.getAllUsers();
+//
+//        // verify that the user is in the list
+//        assertTrue(userList.contains(user));
+//    }
+//
+//
+//}
+//

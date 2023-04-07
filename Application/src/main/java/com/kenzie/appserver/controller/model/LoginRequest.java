@@ -1,13 +1,17 @@
 package com.kenzie.appserver.controller.model;
 
-public class UserCreateRequest {
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.validation.constraints.NotEmpty;
+
+public class LoginRequest {
 
     private String email;
     private String password;
 
-    public UserCreateRequest() {}
+    public LoginRequest() {}
 
-    public UserCreateRequest( String email, String password) {
+    public LoginRequest(String email, String password) {
         this.email = email;
         this.password = password;
     }
@@ -28,5 +32,3 @@ public class UserCreateRequest {
         this.password = password;
     }
 }
-
-

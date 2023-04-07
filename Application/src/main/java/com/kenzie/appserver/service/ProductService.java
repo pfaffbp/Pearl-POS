@@ -50,14 +50,14 @@ public class ProductService {
 
 
     public Product findByProductID(String productID){
-       Optional<ProductRecord> record = productRepository.findById(productID);
+        Optional<ProductRecord> record = productRepository.findById(productID);
 
-       if(record.isPresent()){
-           ProductRecord productRecord = record.get();
-           return recordToProductHelperMethod(productRecord);
-       } else {
-           return null;
-       }
+        if(record.isPresent()){
+            ProductRecord productRecord = record.get();
+            return recordToProductHelperMethod(productRecord);
+        } else {
+            return null;
+        }
     }
 
 
