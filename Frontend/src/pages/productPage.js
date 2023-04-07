@@ -1,5 +1,6 @@
 import BaseClass from "../util/baseClass";
 import DataStore from "../util/DataStore";
+import AddProductClient from "../api/addProductClient";
 import InventoryLevelsClient from "../api/inventoryLevelsClient";
 
 class ProductPage extends BaseClass {

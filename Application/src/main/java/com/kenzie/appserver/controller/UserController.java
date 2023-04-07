@@ -23,7 +23,6 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
-
     @PostMapping("/login")
     public ResponseEntity<Void> login(@RequestBody UserCreateRequest request) {
         boolean isLoggedIn = userService.login(request);

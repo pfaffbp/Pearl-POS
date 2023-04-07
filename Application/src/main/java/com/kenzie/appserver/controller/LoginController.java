@@ -25,8 +25,6 @@ public class LoginController {
     public ResponseEntity<User> login(@RequestBody LoginRequest request) throws AuthenticationException {
         User user = userService.loginUser(request);
         return ResponseEntity.ok(user);
-
     }
 }
-
 

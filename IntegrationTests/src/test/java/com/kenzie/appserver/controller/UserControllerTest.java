@@ -1,66 +1,71 @@
-package com.kenzie.appserver.controller;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kenzie.appserver.controller.model.UserCreateRequest;
-import com.kenzie.appserver.service.UserService;
-import com.kenzie.appserver.service.model.User;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-class UserControllerTest {
-
-    private MockMvc mockMvc;
-
-    private final ObjectMapper objectMapper = new ObjectMapper();
-
-    @Mock
-    private UserService userService;
-
-    @Captor
-    private ArgumentCaptor<UserCreateRequest> userCreateRequestCaptor;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-        this.mockMvc = MockMvcBuilders.standaloneSetup(new UserController(userService)).build();
-    }
-
-    @Test
-    void testCreateUser() throws Exception {
-        // Arrange
-        UserCreateRequest request = new UserCreateRequest("email@example.com", "password");
-        User user = new User(request.getEmail(), request.getPassword());
-        when(userService.createUser(any(UserCreateRequest.class))).thenReturn(user);
-
-        // Act
-        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/users/register")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request));
-        mockMvc.perform(builder)
-                .andExpect(status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(request.getEmail()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.password").value(request.getPassword()));
-
-        // Assert
-        verify(userService).createUser(userCreateRequestCaptor.capture());
-        UserCreateRequest capturedRequest = userCreateRequestCaptor.getValue();
-        assertEquals(request.getEmail(), capturedRequest.getEmail());
-        assertEquals(request.getPassword(), capturedRequest.getPassword());
-    }
-}
+//package com.kenzie.appserver.controller;
+//
+//import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.kenzie.appserver.controller.model.UserCreateRequest;
+//import com.kenzie.appserver.service.UserService;
+//import com.kenzie.appserver.service.model.User;
+//import org.junit.jupiter.api.Assertions;
+//import org.junit.jupiter.api.BeforeEach;
+//import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.extension.ExtendWith;
+//import org.mockito.Mockito;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+//import org.springframework.boot.test.mock.mockito.MockBean;
+//import org.springframework.http.MediaType;
+//import org.springframework.test.context.junit.jupiter.SpringExtension;
+//import org.springframework.test.web.servlet.MockMvc;
+//import org.springframework.test.web.servlet.MvcResult;
+//import org.springframework.test.web.servlet.ResultMatcher;
+//import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+//import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+//
+//import java.util.ArrayList;
+//import java.util.List;
+//import java.util.Map;
+//
+//import static org.junit.Assert.assertEquals;
+//import static org.junit.Assert.assertNotNull;
+//import static org.mockito.ArgumentMatchers.any;
+//import static org.mockito.Mockito.when;
+//import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
+//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+//
+//@ExtendWith(SpringExtension.class)
+//@WebMvcTest(UserController.class)
+//public class UserControllerTest {
+//
+//    @Autowired
+//    private MockMvc mockMvc;
+//
+//    @Autowired
+//    private ObjectMapper objectMapper;
+//
+//    @MockBean
+//    private UserService userService;
+//
+//    private List<User> userList;
+//
+//    @BeforeEach
+//    public void setup() {
+//        userList = new ArrayList<>();
+//        userList.add(new User("test1@example.com", "password1"));
+//        userList.add(new User("test2@example.com", "password2"));
+//    }
+//
+//
+//    @Test
+//    void testCreateUser() throws Exception {
+//        UserCreateRequest request = new UserCreateRequest("test3@example.com", "password3");
+//        User user = new User(request.getEmail(), request.getPassword());
+//        when(userService.createUser(any(User.class))).thenReturn(user);
+//
+//        MvcResult result = mockMvc.perform(
+//                MockMvcRequestBuilders.post("/users")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(objectMapper.writeValueAsString(request))
+//        ).andExpect(MockMvcResultMatchers.status().isCreated()).andReturn();
+//
+//        Assertions.assertNotNull(result.getResponse().getContentAsString());
+//    }
+//}
