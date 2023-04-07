@@ -1,3 +1,4 @@
+/*
 package com.kenzie.appserver.controller;
 
 import com.kenzie.appserver.controller.model.LoginCreateRequest;
@@ -25,7 +26,7 @@ public class LoginController {
     }
 
     @PostMapping
-<<<<<<< HEAD
+
     public ResponseEntity<LoginResponse> login(@RequestBody LoginCreateRequest loginCreateRequest) {
         if (!userService.authenticateUser(loginCreateRequest)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -46,6 +47,7 @@ public class LoginController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
+
     @PostMapping("/logout")
     public ResponseEntity<Void> logout(@RequestHeader("Authorization") String token) {
         // Remove the token from the server-side storage or database
@@ -58,17 +60,8 @@ public class LoginController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
-
 }
-=======
-    public ResponseEntity<User> login(@RequestBody LoginRequest request) throws AuthenticationException {
-        User user = userService.loginUser(request);
-        return ResponseEntity.ok(user);
-    }
-}
+*/
 
-<<<<<<< HEAD
 
->>>>>>> 78e3b20 (login and create user all test passing for service and controller)
-=======
->>>>>>> eb90ed7 (Revert "login and create user all test passing for service and controller")
+

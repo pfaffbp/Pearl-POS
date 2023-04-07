@@ -55,14 +55,7 @@ public class UserRecord {
         this.username = username;
     }
 
-<<<<<<< HEAD
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
-
-=======
->>>>>>> c82455f (added the sales and productList double check make sure everything is correct)
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -80,11 +73,8 @@ public class UserRecord {
         this.password = password;
     }
 
-<<<<<<< HEAD
 
-=======
     public void setEmail(String email) {
         this.email = email;
     }
->>>>>>> c82455f (added the sales and productList double check make sure everything is correct)
 }

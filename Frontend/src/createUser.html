@@ -1,67 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Create User</title>
-  <style>
-    body {
-      background-color: #f2f2f2;
-      font-family: Arial, sans-serif;
-    }
-    form {
-      background-color: white;
-      border-radius: 5px;
-      box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
-      padding: 20px;
-      margin: 20px auto;
-      max-width: 400px;
-    }
-    input[type="text"], input[type="password"] {
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
-      margin-bottom: 10px;
-      width: 100%;
-    }
-    input[type="submit"] {
-      background-color: #007bff;
-      border: none;
-      border-radius: 5px;
-      color: white;
-      cursor: pointer;
-      padding: 10px;
-      width: 100%;
-    }
-    input[type="submit"]:hover {
-      background-color: #0069d9;
-    }
-  </style>
-  <script type="text/javascript" src="pages/createUserPage.js"></script>
+  <link rel="stylesheet" href="css/login.css">
+  <script src="./createUserPage.js" type="module"></script>
+
+  <title>Create User Page</title>
 </head>
 <body>
-<<<<<<< HEAD
-<form id="createUserButton" action="#" method="post">
-  <h2>Create User</h2>
-  <label for="username">Username:</label>
-  <input type="text" name="username" id="username" required autocomplete="username">
-  <label for="password">Password:</label>
-  <input type="password" name="password" id="password" required autocomplete="new-password">
-  <label for="confirm_password">Confirm Password:</label>
-  <input type="password" name="confirm_password" id="confirm_password" required autocomplete="new-password">
-  <input type="submit" value="Create User">
-</form>
-=======
 <h1>Create User</h1>
 <form id="create-user-form">
   <label for="email">Email:</label>
-  <input type="email" id="email" name="email" required><br><br>
+  <input type="email" id="email" name="email" autocomplete="email" required><br><br>
   <label for="password">Password:</label>
-  <input type="password" id="password" name="password" required><br><br>
+  <input type="password" id="password" name="password" autocomplete="current-password" minlength="8" required>
+  <label for="confirm-password">Confirm Password:</label>
+  <input type="password" id="confirm-password" name="confirm-password" autocomplete="new-password" minlength="8" required>
   <button type="submit">Create User</button>
+  <p>Already have an account? <a href="login.html">Login here</a></p>
 </form>
 <p id="message"></p>
-<<<<<<< HEAD
 
 <script>
   const form = document.getElementById('create-user-form');
@@ -78,7 +35,7 @@
       message.textContent = 'Email field is required.';
       message.style.color = 'red';
       return;
-    } else if (!/\S+@\S+\.\S+/.test(emailInput.value)) {
+    } else if (!/\S+@\S+.\S+/.test(emailInput.value)) {
       message.textContent = 'Please enter a valid email address.';
       message.style.color = 'red';
       return;
@@ -100,8 +57,5 @@
   });
 </script>
 
->>>>>>> 78e3b20 (login and create user all test passing for service and controller)
-=======
->>>>>>> eb90ed7 (Revert "login and create user all test passing for service and controller")
 </body>
 </html>

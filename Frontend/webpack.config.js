@@ -4,243 +4,21 @@ const CopyPlugin = require("copy-webpack-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-<<<<<<< HEAD
+
+
     optimization: {
         usedExports: true
     },
     entry: {
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         // examplePage: path.resolve(dirname, 'src', 'pages', 'examplePage.js'),
-        inventoryLevelsPage: path.resolve(__dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
-        generateReportPage: path.resolve(__dirname, 'src', 'pages', 'generateReportPage.js'),
-=======
-        // examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
-        inventoryLevelsPage: path.resolve(__dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
-        createUserPage: path.resolve(__dirname, 'src', 'pages', 'createUserPage.js'),
-        purchaseHistoryPage: path.resolve(__dirname, 'src', 'pages', 'purchaseHistoryPage.js'),
->>>>>>> abab043 (working productHistoryPage and addeded tests for Transaction service)
-        examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
-        addProductPage: path.resolve(__dirname, 'src', 'pages', 'addProductPage.js'),
-        loginPage: path.resolve(__dirname, 'src', 'pages', 'loginPage.js'),
-        productPage: path.resolve(__dirname, 'src', 'pages', 'productPage.js'),
-
-<<<<<<< HEAD
-    },
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: '[name].js',
-    },
-    devServer: {
-        https: false,
-        port: 8080,
-        open: true,
-        openPage: 'http://localhost:8080/productpage.html',
-        // diableHostChecks, otherwise we get an error about headers and the page won't render
-        disableHostCheck: true,
-        contentBase: 'packaging_additional_published_artifacts',
-        // overlay shows a full-screen overlay in the browser when there are compiler errors or warnings
-        overlay: true,
-        proxy:[
-            {
-                context: [
-                    '/'
-                ],
-                target: 'http://localhost:5001/'
-            }
-        ]
-=======
-   // examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
-    inventoryLevelsPage: path.resolve(__dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
-<<<<<<< HEAD
-    createUserPage: path.resolve(__dirname, 'src', 'pages', 'createUserPage.js'),
-    purchaseHistoryPage: path.resolve(__dirname, 'src', 'pages', 'purchaseHistoryPage.js'),
-     examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
-     addProductPage: path.resolve(__dirname, 'src', 'pages', 'addProductPage.js'),
-=======
-
-      examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
-      addProductPage: path.resolve(__dirname, 'src', 'pages', 'addProductPage.js'),
->>>>>>> d60c250 (Made purchaseProducts accept multiple product id, and made Transaction service accept multiple productIDS)
-      loginPage: path.resolve(__dirname, 'src', 'pages', 'loginPage.js'),
-      productPage: path.resolve(__dirname, 'src', 'pages', 'productPage.js'),
->>>>>>> d6bc43a (preping to merge)
-
-<<<<<<< HEAD
-    },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: './src/login.html',
-            filename: 'login.html',
-            inject: false
-        }),
-        new HtmlWebpackPlugin({
-            template: './src/ManagerConsole.html',
-            filename: 'ManagerConsole.html',
-            inject: false
-        }),
-        new HtmlWebpackPlugin({
-            template: './src/inventoryLevels.html',
-            filename: 'inventoryLevels.html',
-            inject: false
-        }),
-        new HtmlWebpackPlugin({
-            template: './src/productPage.html',
-            filename: 'productPage.html',
-            inject: false
-        }),
-        new HtmlWebpackPlugin({
-            template: './src/generateReport.html',
-            filename: 'generateReport.html',
-            inject: false
-        }),
-        new CopyPlugin({
-            patterns: [
-                {
-                    from: path.resolve('src/css'),
-                    to: path.resolve("dist/css")
-                }
-            ]
-        }),
-        new CleanWebpackPlugin()
-=======
-
-=======
-  optimization: {
-    usedExports: true
-  },
-  entry: {
-    examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
-    addProductPage: path.resolve(__dirname, 'src', 'pages', 'addProductPage.js'),
-    loginPage: path.resolve(__dirname, 'src', 'pages', 'loginPage.js'),
-    productPage: path.resolve(__dirname, 'src', 'pages', 'productPage.js'),
-    inventoryLevelsPage: path.resolve(__dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
-    createUserPage: path.resolve(__dirname, 'src', 'pages', 'createUserPage.js'),
-<<<<<<< HEAD
-<<<<<<< HEAD
-    purchaseHistoryPage: path.resolve(__dirname, 'src', 'pages', 'purchaseHistoryPage.js')
->>>>>>> 78e3b20 (login and create user all test passing for service and controller)
-=======
-<<<<<<< HEAD
-=======
-    purchaseHistoryPage: path.resolve(__dirname, 'src', 'pages', 'purchaseHistoryPage.js'),
-     examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
-     addProductPage: path.resolve(__dirname, 'src', 'pages', 'addProductPage.js'),
-      loginPage: path.resolve(__dirname, 'src', 'pages', 'loginPage.js'),
-      productPage: path.resolve(__dirname, 'src', 'pages', 'productPage.js'),
-
->>>>>>> origin
->>>>>>> eb90ed7 (Revert "login and create user all test passing for service and controller")
-=======
-    purchaseHistoryPage: path.resolve(__dirname, 'src', 'pages', 'purchaseHistoryPage.js'),
->>>>>>> 6727e8c (Added productPage and checkout works)
-  },
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: '[name].js',
-  },
-  devServer: {
-    https: false,
-    port: 8080,
-    open: true,
-<<<<<<< HEAD
-<<<<<<< HEAD
-    openPage: 'http://localhost:8080/productpage.html',
-    // diableHostChecks, otherwise we get an error about headers and the page won't render
-=======
-    openPage: 'http://localhost:8080/login.html',
-    // disableHostChecks, otherwise we get an error about headers and the page won't render
->>>>>>> 78e3b20 (login and create user all test passing for service and controller)
-=======
-    openPage: 'http://localhost:8080/createUser.html',
-    // diableHostChecks, otherwise we get an error about headers and the page won't render
->>>>>>> eb90ed7 (Revert "login and create user all test passing for service and controller")
-    disableHostCheck: true,
-    contentBase: 'packaging_additional_published_artifacts',
-    // overlay shows a full-screen overlay in the browser when there are compiler errors or warnings
-    overlay: true,
-    proxy:[
-      {
-        context: [
-          '/'
-        ],
-<<<<<<< HEAD
-        target: 'http://localhost:5001'
-      }
->>>>>>> bb66005 (updating my levels and purchase history links)
-    ]
-<<<<<<< HEAD
-}
-=======
-=======
-        target: 'http://localhost:5001/'
-      }
-    ]
-
->>>>>>> c82455f (added the sales and productList double check make sure everything is correct)
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './src/login.html',
-      filename: 'login.html',
-      inject: false
-    }),
-    new HtmlWebpackPlugin({
-      template: './src/ManagerConsole.html',
-      filename: 'ManagerConsole.html',
-      inject: false
-    }),
-    new HtmlWebpackPlugin({
-      template: './src/inventoryLevels.html',
-      filename: 'inventoryLevels.html',
-      inject: false
-    }),
-    new HtmlWebpackPlugin({
-      template: './src/productPage.html',
-      filename: 'productPage.html',
-      inject: false
-    }),
-    new HtmlWebpackPlugin({
-      template: './src/createUser.html',
-      filename: 'createUser.html',
-      inject: false
-    }),
-    new HtmlWebpackPlugin({
-      template: './src/purchaseHistory.html',
-      filename: 'purchaseHistory.html',
-      inject: false
-    }),
-    new HtmlWebpackPlugin({
-      template: './src/createUser.html',
-      filename: 'createUser.html',
-      inject: false
-    }),
-    new CopyPlugin({
-      patterns: [
-        {
-          from: path.resolve('src/css'),
-          to: path.resolve("dist/css")
-        }
-      ]
-    }),
-    new CleanWebpackPlugin()
-  ]
-}
->>>>>>> d6bc43a (preping to merge)
-=======
-        // examplePage: path.resolve(dirname, 'src', 'pages', 'examplePage.js'),
-        inventoryLevelsPage: path.resolve(dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
-        DashboardPage: path.resolve(dirname, 'src', 'pages', 'DashboardPage.js'),
-        examplePage: path.resolve(dirname, 'src', 'pages', 'examplePage.js'),
-        addProductPage: path.resolve(dirname, 'src', 'pages', 'addProductPage.js'),
         loginPage: path.resolve(dirname, 'src', 'pages', 'loginPage.js'),
+        addProductPage: path.resolve(dirname, 'src', 'pages', 'addProductPage.js'),
+        inventoryLevelsPage: path.resolve(dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
         productPage: path.resolve(dirname, 'src', 'pages', 'productPage.js'),
-
-=======
->>>>>>> abab043 (working productHistoryPage and addeded tests for Transaction service)
+        createUserPage: path.resolve(dirname, 'src', 'pages', 'createUserPage.js'),
+        purchaseHistoryPage: path.resolve(dirname, 'src', 'pages', 'purchaseHistoryPage.js'),
+        examplePage: path.resolve(dirname, 'src', 'pages', 'examplePage.js'),
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -261,7 +39,7 @@ module.exports = {
                 context: [
                     '/'
                 ],
-                target: 'http://localhost:5001'
+                target: 'http://localhost:5001/'
             }
         ]
     },
@@ -307,76 +85,3 @@ module.exports = {
         new CleanWebpackPlugin()
     ]
 }
->>>>>>> bf1cc5f (webpack update)
-=======
-        // examplePage: path.resolve(dirname, 'src', 'pages', 'examplePage.js'),
-        inventoryLevelsPage: path.resolve(dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
-        DashboardPage: path.resolve(dirname, 'src', 'pages', 'DashboardPage.js'),
-        examplePage: path.resolve(dirname, 'src', 'pages', 'examplePage.js'),
-        addProductPage: path.resolve(dirname, 'src', 'pages', 'addProductPage.js'),
-        loginPage: path.resolve(dirname, 'src', 'pages', 'loginPage.js'),
-        productPage: path.resolve(dirname, 'src', 'pages', 'productPage.js'),
-
-    },
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: '[name].js',
-    },
-    devServer: {
-        https: false,
-        port: 8080,
-        open: true,
-        openPage: 'http://localhost:8080/productpage.html',
-        // diableHostChecks, otherwise we get an error about headers and the page won't render
-        disableHostCheck: true,
-        contentBase: 'packaging_additional_published_artifacts',
-        // overlay shows a full-screen overlay in the browser when there are compiler errors or warnings
-        overlay: true,
-        proxy:[
-            {
-                context: [
-                    '/'
-                ],
-                target: 'http://localhost:5001/'
-            }
-        ]
-
-    },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: './src/login.html',
-            filename: 'login.html',
-            inject: false
-        }),
-        new HtmlWebpackPlugin({
-            template: './src/ManagerConsole.html',
-            filename: 'ManagerConsole.html',
-            inject: false
-        }),
-        new HtmlWebpackPlugin({
-            template: './src/inventoryLevels.html',
-            filename: 'inventoryLevels.html',
-            inject: false
-        }),
-        new HtmlWebpackPlugin({
-            template: './src/productPage.html',
-            filename: 'productPage.html',
-            inject: false
-        }),
-        new HtmlWebpackPlugin({
-            template: './src/GenerateReport.html',
-            filename: 'DashboardPage.js.html',
-            inject: false
-        }),
-        new CopyPlugin({
-            patterns: [
-                {
-                    from: path.resolve('src/css'),
-                    to: path.resolve("dist/css")
-                }
-            ]
-        }),
-        new CleanWebpackPlugin()
-    ]
-}
->>>>>>> ecfddbb (webpack update)

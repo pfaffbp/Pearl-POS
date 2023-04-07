@@ -1,102 +1,90 @@
-import BaseClass from "../util/baseClass";
-import DataStore from "../util/DataStore";
-import LoginClient from "../api/loginClient";
+import baseClass from "../util/baseClass.js";
+import DataStore from "../util/DataStore.js";
 
-class LoginPage extends BaseClass {
+class LoginPage extends baseClass {
     constructor() {
         super();
-        this.bindClassMethods(['onLogin'], this);
+        // Bind class methods to the current instance
+        this.bindClassMethods(["onLogin", "checkLoggedInUser"], this);
+        // Create a new instance of DataStore
         this.dataStore = new DataStore();
-        this.client = new LoginClient();
+        // Initialize an empty array to store user data
+        this.users = [];
     }
 
     async mount() {
-<<<<<<< HEAD
-<<<<<<< HEAD
-        document.getElementById('login-form').addEventListener('submit', this.onLogin);
-=======
+        // Add a "submit" event listener to the login form, calling the "onLogin" method when submitted
         document
             .getElementById("login-form")
             .addEventListener("submit", this.onLogin);
-=======
-        document.getElementById('login-form').addEventListener('submit', this.onLogin);
->>>>>>> eb90ed7 (Revert "login and create user all test passing for service and controller")
 
         // Load users from local storage
-        const storedUsers = localStorage.getItem('users');
+        const storedUsers = localStorage.getItem("users");
         if (storedUsers) {
+            // Parse the JSON string of users and store it in the instance variable
             this.users = JSON.parse(storedUsers);
         }
-<<<<<<< HEAD
 
+        // Check if a user is already logged in
         this.checkLoggedInUser();
->>>>>>> 78e3b20 (login and create user all test passing for service and controller)
-=======
->>>>>>> eb90ed7 (Revert "login and create user all test passing for service and controller")
     }
 
     async onLogin(event) {
         event.preventDefault();
-<<<<<<< HEAD
-<<<<<<< HEAD
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-
-        try {
-            const token = await this.client.login(username, password);
-            if (token) {
-                alert('Login successful!');
-                window.location.href = 'dashboard.html'; // Redirect to dashboard page
-            } else {
-                alert('Incorrect username or password!');
-=======
+        // Get the values of the email and password fields
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
-=======
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
->>>>>>> eb90ed7 (Revert "login and create user all test passing for service and controller")
 
         try {
-            const user = this.users.find(u => u.email === email && u.password === password);
+            // Find a user with matching email and password
+            const user = this.users.find(
+                (u) => u.email === email && u.password === password
+            );
             if (user) {
-                alert(`Welcome, ${user.name}!`);
-                localStorage.setItem('user', JSON.stringify(user));
-                window.location.href = 'productPage.html'; // Redirect to product page
+                // If a matching user is found, store it in local storage and redirect to the product page
+                alert("Welcome !");
+                localStorage.setItem("user", JSON.stringify(user));
+                window.location.href = "productPage.html"; // Redirect to product page
             } else {
-<<<<<<< HEAD
+                // If no matching user is found, display an error message
                 alert("Incorrect email or password!");
->>>>>>> 78e3b20 (login and create user all test passing for service and controller)
-=======
-                alert('Incorrect email or password!');
->>>>>>> eb90ed7 (Revert "login and create user all test passing for service and controller")
             }
         } catch (error) {
-            alert('Error logging in!');
+            // If there is an error, display an error message
+            alert("Error logging in!");
+        }
+    }
+
+    checkLoggedInUser() {
+        // Check if a user is already logged in
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+            try {
+                // Parse the JSON string of the stored user
+                const user = JSON.parse(storedUser);
+                if (user && user.name) {
+                    // If the user has a name property, display a welcome message and redirect to the product page
+                    alert("Welcome Back");
+                    window.location.href = "productPage.html"; // Redirect to product page
+                } else {
+                    // If the user does not have a name property, remove the user from local storage
+                    localStorage.removeItem("user");
+                }
+            } catch (error) {
+                // If there is an error, remove the user from local storage
+                console.error(error);
+                localStorage.removeItem("user");
+            }
         }
     }
 }
 
+// Create a new instance of LoginPage and call the "mount" method
 const main = async () => {
     const loginPage = new LoginPage();
-<<<<<<< HEAD
-<<<<<<< HEAD
-    loginPage.mount().then(r => console.log('Mounted login page'));
-=======
     await loginPage.mount();
     console.log("Mounted login page");
->>>>>>> 78e3b20 (login and create user all test passing for service and controller)
-=======
-    loginPage.mount().then(r => console.log('Mounted login page'));
-
-    // Check if a user is already logged in
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-        const user = JSON.parse(storedUser);
-        alert(`Welcome back, ${user.name}!`);
-        window.location.href = 'login.html'; // Redirect to dashboard page
-    }
->>>>>>> eb90ed7 (Revert "login and create user all test passing for service and controller")
 };
 
-window.addEventListener('DOMContentLoaded', main);
+// Add a "DOMContentLoaded" event listener to the window, calling the "main" function when the page is loaded
+window.addEventListener("DOMContentLoaded", main);
