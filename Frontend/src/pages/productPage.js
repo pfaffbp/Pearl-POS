@@ -27,8 +27,7 @@ class ProductPage extends BaseClass {
         this.client = new InventoryLevelsClient();
         this.dataStore.addChangeListener(this.renderInventory)
         this.onLoad();
-        document.getElementById('submit-refresh').addEventListener('click', this.addButton);
-        document.getElementById('close-sidebar').addEventListener('click', this.checkout)
+        document.getElementById('checkout').addEventListener('click', this.checkout)
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------

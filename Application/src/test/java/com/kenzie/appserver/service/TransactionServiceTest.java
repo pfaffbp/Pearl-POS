@@ -50,7 +50,7 @@ public class TransactionServiceTest {
 //todo
     @Test
     public void testGenerateTransaction() {
-      /*  Transaction transaction = new Transaction();
+        Transaction transaction = new Transaction();
         transaction.setTransactionID("1");
         transaction.setQuantity(2);
         transaction.setDate(LocalDateTime.now().toString());
@@ -84,7 +84,7 @@ public class TransactionServiceTest {
         assertEquals("1", result.getProductID());
         assertEquals(2, result.getQuantity());
         assertEquals(20.0, result.getTotalSale());
-        assertEquals("1", result.getTransactionID());*/
+        assertEquals("1", result.getTransactionID());
     }
 
     @Test
@@ -119,6 +119,17 @@ public class TransactionServiceTest {
         assertEquals(transaction1.getTransactionID(), transaction.getTransactionID(), "The transaction IDs match.");
         assertEquals(transaction1.getAmountPurchasedPerProduct(), transaction.getAmountPurchasedPerProduct(),
                 "The Amounts per product match.");
+    }
+
+    @Test
+    void findTransactionByID_isNull_Test() {
+        TransactionRecord transactionNull = new TransactionRecord();
+        transactionNull.setTransactionID(null);
+
+        when(transactionRepository.findById(transactionNull.getTransactionID())).thenReturn(Optional.empty());
+        Transaction response = transactionService.findTransactionID(transactionNull.getTransactionID());
+
+        assertNull(response);
     }
 
     @Test
@@ -193,30 +204,30 @@ public class TransactionServiceTest {
 
     }
 //todo
-   // @Test
-//    public void testFindTransactionByDate() {
-//        String date = LocalDateTime.now().toString();
-//
-//        TransactionRecord transactionRecord = new TransactionRecord();
-//        transactionRecord.setTransactionID("1");
-//        transactionRecord.setQuantity(2);
-//        transactionRecord.setDate(date);
-//        transactionRecord.setProductID("1");
-//        transactionRecord.setCustomerID("TestCustomer");
-//        transactionRecord.setTotalSale(20.0);
-//
-//        when(transactionRepository.findById(date)).thenReturn(Optional.of(transactionRecord));
-//
-//        Transaction result = transactionService.findTransactionByDate(date);
-//
-//        verify(transactionRepository, times(1)).findById(date);
-//        assertEquals(date, result.getDate());
-//        assertEquals("TestCustomer", result.getCustomerID());
-//        assertEquals("1", result.getProductID());
-//        assertEquals(2, result.getQuantity());
-//        assertEquals(20.0, result.getTotalSale());
-//        assertEquals("1", result.getTransactionID());
-//    }
+    @Test
+    public void testFindTransactionByDate() {
+        String date = LocalDateTime.now().toString();
+
+        TransactionRecord transactionRecord = new TransactionRecord();
+        transactionRecord.setTransactionID("1");
+        transactionRecord.setQuantity(2);
+        transactionRecord.setDate(date);
+        transactionRecord.setProductID("1");
+        transactionRecord.setCustomerID("TestCustomer");
+        transactionRecord.setTotalSale(20.0);
+
+        when(transactionRepository.findById(date)).thenReturn(Optional.of(transactionRecord));
+
+        Transaction result = transactionService.findTransactionByDate(date);
+
+        verify(transactionRepository, times(1)).findById(date);
+        assertEquals(date, result.getDate());
+        assertEquals("TestCustomer", result.getCustomerID());
+        assertEquals("1", result.getProductID());
+        assertEquals(2, result.getQuantity());
+        assertEquals(20.0, result.getTotalSale());
+        assertEquals("1", result.getTransactionID());
+    }
 
 }
 
