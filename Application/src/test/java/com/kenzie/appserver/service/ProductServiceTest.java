@@ -230,6 +230,8 @@ public class ProductServiceTest {
         verify(productRepository).deleteById(product1.getProductID());
     }
 
+
+    //made by Michael A.
     @Test
     void buyProductsTest() {
         Product product1 = new Product();
@@ -262,6 +264,11 @@ public class ProductServiceTest {
         when(productRepository.existsById(product1.getProductID())).thenReturn(true);
         when(productRepository.existsById(updateproduct1.getProductID())).thenReturn(true);
 
+
+        productService.buyProducts(productList, itemsPurchased);
+
+        verify(productRepository, times(1)).saveAll(anyObject());
+        verify(transactionService, times(1)).generateTransaction(productList, itemsPurchased);
 
         productService.buyProducts(productList, itemsPurchased);
 
