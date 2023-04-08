@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html>
 <head>
     <script type="text/javascript" src="inventoryLevelsPage.js"></script>
     <meta charset="utf-8">
@@ -11,24 +10,33 @@
 <header>
     <h1>Inventory Manager Console</h1>
 </header>
-<nav>
-    <ul>
-        <li><a href="productpage.html">Products</a></li>
-        <li><a href="ManagerConsole.html">Manager Console</a></li>
-        <li><a href="#">Sales Reports</a></li>
-    </ul>
-</nav>
+<div class="topnav">
+    <a href="productPage.html">Products</a>
+    <a href="ManagerConsole.html">Manager Console</a>
+    <a href="GenerateReport.html">Sales Report</a>
+    <div class="topnav-right">
+        <a href="login.html">Login</a>
+        <a href="#">Logout</a>
+    </div>
+</div>
+
 <main>
     <h2>Welcome to the Inventory Manager Console</h2>
     <p>Use the navigation above to manage your inventory, orders, and customers.</p>
 </main>
+
+
 <div>
     <button id = "submit-refresh">Refresh</button>
 </div>
 <h1>Current Inventory List</h1>
+<div class="wrapper">
+    <aside class="aside aside-left"> Product ID</aside>
+    <aside class="aside aside-middle">Product Name</aside>
+    <aside class="aside aside-right">Product Amount</aside>
+</div>
 
-
-    <div>
+<div>
         <p id="result-info"></p>
     </div>
 

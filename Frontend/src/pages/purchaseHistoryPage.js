@@ -38,15 +38,11 @@ class PurchaseHistoryPage extends BaseClass {
             for (let product of inventory){
                 items += `
              <div class="wrapper">
-
- 
   <aside class="aside aside-1">${product.customerID}</aside>
    <aside class="aside aside-2">${product.transactionID}</aside>
    <aside class="aside aside-3">${product.date}</aside>
    <aside class="aside aside-4">${product.quantity}</aside>
   <aside class="aside aside-5">${product.totalSale}</aside>
-  
-
 </div>                              
                 `;
             }
