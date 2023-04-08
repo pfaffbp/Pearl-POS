@@ -167,6 +167,7 @@ function updateCartItems() {
         </div>
     </div>
 </div>
+<button id = "class">Remove</button>
 `
         if(createdHtml !== true){
             createdHtml = true;
