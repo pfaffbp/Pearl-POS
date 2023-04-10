@@ -19,6 +19,7 @@ module.exports = {
         createUserPage: path.resolve(__dirname, 'src', 'pages', 'createUserPage.js'),
         purchaseHistoryPage: path.resolve(__dirname, 'src', 'pages', 'purchaseHistoryPage.js'),
         examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
+        generateReportPage: path.resolve(__dirname, 'src', 'pages', 'generateReportPage.js'),
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -72,6 +73,11 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './src/purchaseHistory.html',
             filename: 'purchaseHistory.html',
+            inject: false
+        }),
+        new HtmlWebpackPlugin({
+            template: './src/generateReport.html',
+            filename: 'generateReport.html',
             inject: false
         }),
         new CopyPlugin({
