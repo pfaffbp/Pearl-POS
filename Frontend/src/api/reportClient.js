@@ -4,7 +4,7 @@ import axios from 'axios'
 export default class ReportClient extends BaseClass {
     constructor(props = {}) {
         super();
-        const methodsToBind = ['clientLoaded', 'generateReport' , this.errorCallback];
+        const methodsToBind = ['clientLoaded', 'generateReport'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -20,7 +20,7 @@ export default class ReportClient extends BaseClass {
 
     async generateReport(errorCallback) {
         try {
-            const response = await this.client.get('report');
+            const response = await this.client.get('/transaction');
             return response.data;
         } catch (error) {
             this.handleError("generateReport", error, errorCallback)
@@ -36,11 +36,6 @@ export default class ReportClient extends BaseClass {
         if (errorCallback) {
             errorCallback(method + "failed - " + error);
         }
-    }
-
-    errorCallback = (error) => {
-        console.error(error);
-
     }
 }
 

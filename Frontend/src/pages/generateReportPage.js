@@ -8,24 +8,24 @@ class GenerateReportPage extends BaseClass {
         const methodsToBind = ["generateReport", "renderReport"];
         this.bindClassMethods(methodsToBind, this);
         this.dataStore = new DataStore();
-        this.client = new ReportClient({
-            apiUrl: "https://localhost:5001",
-        });
+
     }
 
     async mount() {
         // add event listener to the generate report button
         const generateButton = document.getElementById("generate-report-btn");
         generateButton.addEventListener("click", (e)=>this.generateReport(e));
+        this.client = new ReportClient();
 
         // render the report
-        await this.renderReport();
+  /*      await this.renderReport();*/
 
         // add event listener to the data store
         this.dataStore.addChangeListener(this.renderReport)
     }
 
     async generateReport(event) {
+        console.log("generate report");
         event.preventDefault();
         this.dataStore.set("report", null);
         try {
@@ -40,8 +40,9 @@ class GenerateReportPage extends BaseClass {
     async renderReport() {
         const reportContainer = document.getElementById("report-container");
         const report = this.dataStore.get("report");
-        console.log(report);
+
         if (report) {
+            console.log(report);
             const reportTable = document.createElement("table");
             reportTable.className = "report-table";
             const tableHead = document.createElement("thead");
@@ -80,5 +81,3 @@ const main = async () => {
 
 window.addEventListener("DOMContentLoaded", main)
 
-
-export default GenerateReportPage;
