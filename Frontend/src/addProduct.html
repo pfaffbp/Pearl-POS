@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="css/ManagerConsole.css">
+    <link rel="stylesheet" type="text/css" href="css/addProduct.css">
     <script type="text/javascript" src="addProductPage.js"></script>
 </head>
 <body>
@@ -13,7 +13,7 @@
 <div class="add-product">
     <style>
         .add-product {
-            background-image: url(Images/rows-shelves-goods-boxes-modern-industry_shutterstock_637308847.jpg);
+            background-image: url(https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRw8P8Vf4jZ2_zAKA8qTcAXgtdQCE6cUVFeZoo95hR-WBX6slR_);
         }
     </style>
     <form id="add-product-block">
@@ -21,7 +21,7 @@
             <label for="product-name" class="product-label-name">
                 <strong>Product Name</strong>
             </label>
-            <input type="text" id="product-name" />
+            <input type="text" id="product-name" required/>
             <div id="display-inline">
                 <div>
                     <label for="product-category" class="product-label-category">
@@ -31,7 +31,10 @@
                         <option value="clothing">Clothing</option>
                         <option value="food">Food</option>
                         <option value="furniture">Furniture</option>
-
+                        <option value="electronic">Electronic</option>
+                        <option value="accessories">Accessories</option>
+                        <option value="toys">Toys</option>
+                        <option value="school_supplies">School Supplies</option>
                     </select>
                 </div>
                 <div>
@@ -45,12 +48,12 @@
                 <label for="product-price" class="product-label-price">
                     <strong>Price</strong>
                 </label>
-                <input type="text" id="product-price" />
+                <input type="text" id="product-price" required/>
             </div>
             <label for="product-description" class="product-label-description" >
                 <strong>Description</strong>
             </label>
-            <input type="text" id="product-description" />
+            <input type="text" id="product-description" maxlength="30" max="30" />
         </div>
         <div class="image-box">
             <h2>

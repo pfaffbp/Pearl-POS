@@ -27,20 +27,17 @@ import java.util.stream.Collectors;
 @Service
 public class TransactionService {
     private final TransactionRepository transactionRepository;
-
-    private final DynamoDbConfig dynamoDbConfig;
-
+//    private final DynamoDbConfig dynamoDbConfig;
     private final DynamoDBMapper mapper;
-
     private static final String TRANSACTION_CUSTOMER_ID = "TransactionsByCustomerID";
 
     private static final String TRANSACTION_BY_DATE = "TransactionsByDate";
 
     @Autowired
-    public TransactionService(TransactionRepository repository, DynamoDbConfig dynamoDbConfig) {
+    public TransactionService(TransactionRepository repository, DynamoDBMapper mapper) {
         this.transactionRepository = repository;
-        this.dynamoDbConfig = dynamoDbConfig;
-        this.mapper = new DynamoDBMapper(dynamoDbConfig.defaultAmazonDynamoDb());
+//        this.dynamoDbConfig = dynamoDbConfig;
+        this.mapper = mapper;
     }
 
     public TransactionRecord generateTransaction(List<Product> product, List<Integer> itemsPurchased) {
@@ -59,7 +56,8 @@ public class TransactionService {
         TransactionRecord generatedTransaction = new TransactionRecord();
         generatedTransaction.setTransactionID(transactionGenerator.getTransactionID());
         generatedTransaction.setProductID(productIDS);
-        generatedTransaction.setDate(LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG, FormatStyle.MEDIUM)));
+        generatedTransaction.setDate(
+                LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG, FormatStyle.MEDIUM)));
         generatedTransaction.setQuantity(quantity);
         generatedTransaction.setCustomerID("TestCustomer");
         generatedTransaction.setTotalSale(totalSales);
@@ -68,6 +66,7 @@ public class TransactionService {
         transactionRepository.save(generatedTransaction);
         return generatedTransaction;
     }
+
 //todo michael look at this
 /*    public TransactionRecord generateTransation(Map<Product, Integer> productsPurchased){
         List<String> productIDS = new ArrayList<>();
@@ -133,56 +132,22 @@ public class TransactionService {
 
         PaginatedQueryList<TransactionRecord> TransactionList = mapper.query(TransactionRecord.class, queryExpression);
         return TransactionList;
+
     }
 
-
-
-//    public PaginatedQueryList<TransactionRecord> transactionByDate(String date){
-//        DynamoDBMapper mapper = new DynamoDBMapper(dynamoDbConfig.defaultAmazonDynamoDb());
+//    public List<TransactionRecord> transactionByDate(String date){
+//        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
+//        PaginatedScanList<TransactionRecord> records =  mapper.scan(TransactionRecord.class, scanExpression);
 //
-//        Map<String, AttributeValue> valueMap = new HashMap<>();
-//        valueMap.put(":date", new AttributeValue().withS(date));
+//        List<TransactionRecord> transactionRecords = new ArrayList<>();
 //
-//        DynamoDBQueryExpression<TransactionRecord> queryExpression = new DynamoDBQueryExpression<TransactionRecord>()
-//                .withIndexName(TRANSACTION_BY_DATE)
-//                .withConsistentRead(false)
-//                .withKeyConditionExpression("date = :date")
-//                .withExpressionAttributeValues(valueMap);
-//
-//        PaginatedQueryList<TransactionRecord> TransactionList = mapper.query(TransactionRecord.class, queryExpression);
-//        return TransactionList;
+//        for(int i = 0; i < records.size(); i++){
+//            if(records.get(i).getDate().contains(date)){
+//                transactionRecords.add(records.get(i));
+//            }
+//        }
+//        return transactionRecords;
 //    }
-
-
-//    public PaginatedQueryList<TransactionRecord> transactionByDate(String date){
-//        DynamoDBMapper mapper = new DynamoDBMapper(dynamoDbConfig.defaultAmazonDynamoDb());
-//
-//        Map<String, AttributeValue> valueMap = new HashMap<>();
-//        valueMap.put(":date", new AttributeValue().withS(date));
-//
-//        DynamoDBQueryExpression<TransactionRecord> queryExpression = new DynamoDBQueryExpression<TransactionRecord>()
-//                .withIndexName(TRANSACTION_BY_DATE)
-//                .withConsistentRead(false)
-//                .withKeyConditionExpression("date = :date")
-//                .withExpressionAttributeValues(valueMap);
-//
-//        PaginatedQueryList<TransactionRecord> TransactionList = mapper.query(TransactionRecord.class, queryExpression);
-//        return TransactionList;
-//    }
-
-    public List<TransactionRecord> transactionByDate(String date){
-        DynamoDBScanExpression scanExpression = new DynamoDBScanExpression();
-        PaginatedScanList<TransactionRecord> records =  mapper.scan(TransactionRecord.class, scanExpression);
-        List<TransactionRecord> transactionRecords = new ArrayList<>();
-
-
-        for(int i = 0; i < records.size(); i++){
-            if(records.get(i).getDate().contains(date)){
-                transactionRecords.add(records.get(i));
-            }
-        }
-        return transactionRecords;
-    }
 
 
     public Transaction recordIntoTransaction(TransactionRecord record) {

@@ -1,26 +1,25 @@
 
 package com.kenzie.appserver.service;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedList;
 import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
-import com.kenzie.appserver.config.DynamoDbConfig;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.QueryResult;
 import com.kenzie.appserver.repositories.TransactionRepository;
-import com.kenzie.appserver.repositories.model.ProductRecord;
 import com.kenzie.appserver.repositories.model.TransactionRecord;
 import com.kenzie.appserver.service.model.Product;
 import com.kenzie.appserver.service.model.Transaction;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.MockitoAnnotations;
+import org.mockito.internal.stubbing.defaultanswers.ForwardsInvocations;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static java.util.UUID.randomUUID;
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,25 +27,21 @@ import static org.mockito.Mockito.*;
 
 public class TransactionServiceTest {
     private TransactionRepository transactionRepository;
-    private DynamoDbConfig dynamoDbConfig;
-
-    private DynamoDBMapper mapper;
-    private String TRANSACTION_CUSTOMER_ID = "TransactionsByCustomerID";
     private TransactionService transactionService;
     private TransactionRecord transactionRecord;
+
+    private DynamoDBMapper mapper;
 
     private Product product;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
+        mapper = mock(DynamoDBMapper.class);
         transactionRepository = mock(TransactionRepository.class);
-        dynamoDbConfig = mock(DynamoDbConfig.class);
         product = mock(Product.class);
         transactionRecord = mock(TransactionRecord.class);
-        transactionService = new TransactionService(transactionRepository, dynamoDbConfig);
-
-
+        transactionService = new TransactionService(transactionRepository, mapper);
     }
 //todo
 //    @Test
@@ -87,6 +82,29 @@ public class TransactionServiceTest {
 //        assertEquals(20.0, result.getTotalSale());
 //        assertEquals("1", result.getTransactionID());
 //    }
+
+    @Test
+    public void generateTransaction(){
+        Product product = new Product();
+        product.setProductName("Doritos");
+        product.setQuantity(30);
+        product.setPrice(7.99);
+        product.setCategory("Food");
+        product.setProductID(randomUUID().toString());
+        product.setDescription("Nacho your Business");
+
+        List<Product> productList = new ArrayList<>();
+        productList.add(product);
+
+        Integer quant = 3;
+        List<Integer> itemsPurchased = new ArrayList<>();
+        itemsPurchased.add(quant);
+
+        TransactionRecord transactionRecord1 =  transactionService.generateTransaction(productList, itemsPurchased);
+
+        assertEquals("TestCustomer", transactionRecord1.getCustomerID());
+        assertEquals(product.getProductID(), transactionRecord1.getProductID().get(0));
+    }
 
     @Test
     void findTransactionID() {
@@ -165,7 +183,7 @@ public class TransactionServiceTest {
         transaction1.setTransactionID(randomUUID().toString());
         transaction1.setAmountPurchasedPerProduct(itemsPurchased2);
 
-        List<TransactionRecord> transactions =new ArrayList<>();
+        List<TransactionRecord> transactions = new ArrayList<>();
         transactions.add(transaction1);
         transactions.add(transaction2);
 
@@ -202,6 +220,23 @@ public class TransactionServiceTest {
 
     @Test
     void transactionByCustomerID() {
+        TransactionRecord transaction1 = new TransactionRecord();
+        transaction1.setDate(LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG, FormatStyle.MEDIUM)));
+        transaction1.setCustomerID("Jerry");
+        transaction1.setProductID(Collections.singletonList(randomUUID().toString()));
+        transaction1.setQuantity(22);
+        transaction1.setTotalSale(100.00);
+        transaction1.setTransactionID(randomUUID().toString());
+        transaction1.setAmountPurchasedPerProduct(Collections.singletonList(11));
+
+        List<TransactionRecord> list = new ArrayList<>();
+        list.add(transaction1);
+
+        when(mapper.query(eq(TransactionRecord.class), any(DynamoDBQueryExpression.class)))
+                .thenReturn(mock(PaginatedQueryList.class, withSettings().defaultAnswer(new ForwardsInvocations(list))));
+
+        List<TransactionRecord> transactionRecords = transactionService.transactionByCustomerID(transaction1.getCustomerID());
+        assertEquals(transactionRecords.get(0).getCustomerID(), transaction1.getCustomerID());
 
     }
 //todo

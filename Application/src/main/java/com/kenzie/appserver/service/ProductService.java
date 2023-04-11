@@ -1,8 +1,6 @@
 package com.kenzie.appserver.service;
 
-import com.amazonaws.services.dynamodbv2.xspec.M;
 import com.kenzie.appserver.Exceptions.ProductNotFoundException;
-import com.kenzie.appserver.controller.TransactionController;
 import com.kenzie.appserver.repositories.TransactionRepository;
 import com.kenzie.appserver.repositories.model.ProductRecord;
 import com.kenzie.appserver.repositories.ProductRepository;
@@ -25,8 +23,6 @@ public class ProductService {
     private TransactionService transactionService;
 
     private TransactionRepository transactionRepository;
-
-
 
     @Autowired
     public ProductService(ProductRepository productRepository,
@@ -65,6 +61,8 @@ public class ProductService {
         if(productRepository.existsById(product.getProductID())){
             ProductRecord productRecord = productRecordHelperMethod(product);
             productRepository.save(productRecord);
+        } else{
+            throw new ProductNotFoundException("The product your looking for does not exist: " + product.getProductID());
         }
     }
 
@@ -87,6 +85,7 @@ public class ProductService {
                 }
             }
         }
+
         for(Map.Entry<Product, Integer> productIntegerMap : productPurchasedMap.entrySet()){
             if(productIntegerMap.getKey().getQuantity() >= productIntegerMap.getValue()){
                 ProductRecord productRecord = new ProductRecord();
