@@ -211,4 +211,3 @@ public class UserServiceTest {
         Assertions.assertFalse(updated, "The user should not be updated if not found");
     }
 }
-

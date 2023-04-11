@@ -1,5 +1,5 @@
 package com.kenzie.appserver.service;
-
+import com.kenzie.appserver.controller.model.ProductModels.ProductResponse;
 import com.kenzie.appserver.repositories.ProductRepository;
 import com.kenzie.appserver.repositories.TransactionRepository;
 import com.kenzie.appserver.repositories.model.ProductRecord;
@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
@@ -15,21 +16,22 @@ import java.util.List;
 import java.util.Optional;
 
 import static java.util.UUID.randomUUID;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class ProductServiceTest {
 
     private ProductRepository productRepository;
+    private TransactionService transactionService;
+    private TransactionRepository transactionRepository;
     private ProductService productService;
 
     @BeforeEach
     void setup() {
         MockitoAnnotations.initMocks(this);
         productRepository = mock(ProductRepository.class);
-        TransactionService transactionService = mock((TransactionService.class));
-        TransactionRepository transactionRepository = mock(TransactionRepository.class);
+        transactionService = mock((TransactionService.class));
+        transactionRepository = mock(TransactionRepository.class);
         productService = new ProductService(productRepository, transactionRepository, transactionService);
     }
 
@@ -230,9 +232,45 @@ public class ProductServiceTest {
         verify(productRepository).deleteById(product1.getProductID());
     }
 
+
+    //made by Michael A.
     @Test
     void buyProductsTest() {
+        Product product1 = new Product();
+        product1.setProductID(randomUUID().toString());
+        product1.setProductName("Frozen Burrito");
+        product1.setCategory("Food");
+        product1.setPrice(12.99);
+        product1.setQuantity(12);
+        product1.setDescription("Beef and cheese");
 
+        Product updateproduct1 = new Product();
+        product1.setProductID(randomUUID().toString());
+        updateproduct1.setProductName("Chili Burrito");
+        updateproduct1.setCategory("Food");
+        updateproduct1.setPrice(15.99);
+        updateproduct1.setQuantity(22);
+        updateproduct1.setDescription("Beef and chili cheese");
+
+        List<Product> productList = new ArrayList<>();
+        productList.add(product1);
+        productList.add(updateproduct1);
+
+        List<Integer> itemsPurchased = new ArrayList<>();
+        itemsPurchased.add(2);
+        itemsPurchased.add(2);
+
+        List<ProductRecord> productRecords = new ArrayList<>();
+        List<Product> productResponse = new ArrayList<>();
+
+        when(productRepository.existsById(product1.getProductID())).thenReturn(true);
+        when(productRepository.existsById(updateproduct1.getProductID())).thenReturn(true);
+
+
+        productService.buyProducts(productList, itemsPurchased);
+
+        verify(productRepository, times(1)).saveAll(anyObject());
+        verify(transactionService, times(1)).generateTransaction(productList, itemsPurchased);
 
 
     }

@@ -3,7 +3,7 @@ import DataStore from "../util/DataStore";
 import PurchaseHistoryClient from "../api/purchaseHistoryClient";
 
 /**
- * Logic needed for the view playlist page of the website.
+ * Logic for displaying the transactions for the current logged in customere.
  */
 class PurchaseHistoryPage extends BaseClass {
 
@@ -25,7 +25,9 @@ class PurchaseHistoryPage extends BaseClass {
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
-
+    /**
+     *renders the display for the Product history page
+     */
     async renderInventory() {
         let resultArea = document.getElementById("result-info");
 
@@ -36,15 +38,11 @@ class PurchaseHistoryPage extends BaseClass {
             for (let product of inventory){
                 items += `
              <div class="wrapper">
-
- 
-  <aside class="aside aside-1">${product.productID}</aside>
-   <aside class="aside aside-2">${product.productName}</aside>
-   <aside class="aside aside-3">${product.description}</aside>
-   <aside class="aside aside-4">${product.category}</aside>
-  <aside class="aside aside-5">${product.quantity}</aside>
-  
-
+  <aside class="aside aside-1">${product.customerID}</aside>
+   <aside class="aside aside-2">${product.transactionID}</aside>
+   <aside class="aside aside-3">${product.date}</aside>
+   <aside class="aside aside-4">${product.quantity}</aside>
+  <aside class="aside aside-5">${product.totalSale}</aside>
 </div>                              
                 `;
             }
@@ -63,7 +61,7 @@ class PurchaseHistoryPage extends BaseClass {
 
         this.dataStore.set("inventory", null);
 
-        let result = await this.client.getAllInventory(this.errorHandler);
+        let result = await this.client.transactionByCustomerID(this.errorHandler);
         this.dataStore.set("inventory", result);
         if (result) {
             this.showMessage(`refreshed!`)
@@ -74,7 +72,7 @@ class PurchaseHistoryPage extends BaseClass {
 
 
     async onLoad(){
-        let result = await this.client.getAllInventory(this.errorHandler);
+        let result = await this.client.transactionByCustomerID(this.errorHandler);
         this.dataStore.set("inventory", result);
     }
 /*    async onCreate(event) {
