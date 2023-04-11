@@ -46,12 +46,7 @@ export default class InventoryLevelsClient extends BaseClass {
     }
 
 
-// {
-//     "quantity": [
-//         1, 2, 3
-//     ]
-// }
-    async buyProducts(errorCallback, productsInCart, quantity){
+    async buyProducts(errorCallback, productsInCart, quantity, username){
         let url = "/products/"
         let quantityArr = [];
         // let quantityJson = `{"quantity": [`;
@@ -66,8 +61,10 @@ export default class InventoryLevelsClient extends BaseClass {
         try{
             console.log(newUrl);
             const response = await this.client.put(newUrl, {
-                quantity: quantityArr
+                quantity: quantityArr,
+                userName: username
             });
+            return response.data;
             console.log(response.data)
         } catch (error){
             this.handleError("buyProducts", error, errorCallback);
