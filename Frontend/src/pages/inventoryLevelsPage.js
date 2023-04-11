@@ -36,13 +36,10 @@ class InventoryLevelsPage extends BaseClass {
             for (let product of inventory){
                 items += `
              <div class="wrapper">
-
- 
-  <aside class="aside aside-left">${product.productID}</aside>
-   <aside class="aside aside-middle">${product.productName}</aside>
-  <aside class="aside aside-right">${product.quantity}</aside>
-
-</div>                              
+                <aside class="aside aside-left">${product.productID}</aside>
+                <aside class="aside aside-middle">${product.productName}</aside>
+                <aside class="aside aside-right">${product.quantity}</aside>
+            </div>                              
                 `;
             }
             resultArea.innerHTML = items;
