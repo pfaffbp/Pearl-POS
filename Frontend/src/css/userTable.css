@@ -1,0 +1,184 @@
+/* Global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #F9FAFB;
+    color: #2D3748;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin: 80px auto 50px;
+    text-align: center;
+}
+
+form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: #FFFFFF;
+}
+
+label {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px 20px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    border: 2px solid #189b9b;
+    font-size: 1rem;
+    color: #4A5568;
+    transition: border-color 0.2s ease-in-out;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #4FD1C5;
+}
+
+button[type="submit"] {
+    width: 100%;
+    background-color: #4FD1C5;
+    color: #FFFFFF;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+button[type="submit"]:hover {
+    background-color: #38B2AC;
+}
+
+#error-message {
+    color: #E53E3E;
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+#confirm-password {
+    background-color: #E8F0FE;
+    border-radius: 5px;
+    border: 2px solid #189b9b;
+    padding: 12px 20px;
+    margin-bottom: 30px;
+}
+
+/* Styles for tables */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th {
+    background-color: #4FD1C5;
+    color: #FFFFFF;
+    font-weight: 600;
+    padding: 12px 20px;
+    text-align: left;
+}
+
+td {
+    border: 2px solid #189b9b;
+    color: #4A5568;
+    padding: 12px 20px;
+    transition: border-color 0.2s ease-in-out;
+}
+
+td:hover {
+    background-color: #E8F0FE;
+    border-radius: 5px;
+}
+
+tr:hover {
+    background-color: #F9FAFB;
+}
+
+/* Styles for header and nav */
+header {
+
+    background-color: #189b9b;
+    color: #fff;
+    padding: 10px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Styles for footer */
+
+footer {
+    background-color: #189b9b;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+#logout-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #6180af;
+    color: #FFFFFF;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#logout-btn:hover {
+    background-color: #189b9b;
+}
+
+.delete-button {
+    background-color: #7094c7;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.delete-button:hover {
+    background-color: #189b9b;
+}
+
+
+

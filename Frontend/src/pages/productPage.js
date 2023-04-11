@@ -43,7 +43,6 @@ class ProductPage extends BaseClass {
             for (let product of inventory) {
                 items += `
              <div class="wrapper">
-
     
     <figure class="product-displayed">
    <h1 class = "product_Name">${product.productName}</h1>
@@ -74,8 +73,8 @@ class ProductPage extends BaseClass {
             itemCart = document.querySelectorAll('.add');
             itemCart.forEach(button => button.addEventListener('click', async function () {
                 event.preventDefault();
-                  combine(button.id, button.id + "qty");
-                  add(button.id, button.id + "qty");
+                combine(button.id, button.id + "qty");
+                add(button.id, button.id + "qty");
             }));
 
 
@@ -103,7 +102,7 @@ class ProductPage extends BaseClass {
         }
     }
 
-     addToCart(productId){
+    addToCart(productId){
         console.log(productId)
     }
 
@@ -150,9 +149,9 @@ function add(productID) {
         cartItems.push(productMap.get(productID));
         console.log("In methods")
     }
-        console.log(cartItems)
-        updateCartItems();
-        showSidebar();
+    console.log(cartItems)
+    updateCartItems();
+    showSidebar();
 }
 
 function updateCartItems() {
@@ -182,7 +181,7 @@ function updateCartItems() {
 `
         if(createdHtml !== true){
             createdHtml = true;
-        moneySale += `
+            moneySale += `
     <div id = "totalSale">0</div>
     `}
 

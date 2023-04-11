@@ -4,32 +4,33 @@ const CopyPlugin = require("copy-webpack-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-
-
     optimization: {
         usedExports: true
     },
     entry: {
-
-        // examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
-        loginPage: path.resolve(__dirname, 'src', 'pages', 'loginPage.js'),
+        examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
         addProductPage: path.resolve(__dirname, 'src', 'pages', 'addProductPage.js'),
-        inventoryLevelsPage: path.resolve(__dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
+        loginPage: path.resolve(__dirname, 'src', 'pages', 'loginPage.js'),
         productPage: path.resolve(__dirname, 'src', 'pages', 'productPage.js'),
+        inventoryLevelsPage: path.resolve(__dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
         createUserPage: path.resolve(__dirname, 'src', 'pages', 'createUserPage.js'),
         purchaseHistoryPage: path.resolve(__dirname, 'src', 'pages', 'purchaseHistoryPage.js'),
-        examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
+        userManagerConsole: path.resolve(__dirname, 'src', 'pages', 'userManagerConsole.js'),
+        forgotPassword: path.resolve(__dirname, 'src', 'pages', 'forgotPassword.js'),
+        generateReportPage: path.resolve(__dirname, 'src', 'pages', 'generateReportPage.js'),
+
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].js',
     },
     devServer: {
+        headers: {'Access-Control-Allow-Origin': '*'},
         https: false,
         port: 8080,
         open: true,
-        openPage: 'http://localhost:8080/createUser.html',
-        // diableHostChecks, otherwise we get an error about headers and the page won't render
+        openPage: 'http://localhost:8080/login.html',
+        // disableHostChecks, otherwise we get an error about headers and the page won't render
         disableHostCheck: true,
         contentBase: 'packaging_additional_published_artifacts',
         // overlay shows a full-screen overlay in the browser when there are compiler errors or warnings
@@ -39,9 +40,10 @@ module.exports = {
                 context: [
                     '/'
                 ],
-                target: 'http://localhost:5001'
+                target: 'http://localhost:5001/'
             }
         ]
+
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -74,6 +76,23 @@ module.exports = {
             filename: 'purchaseHistory.html',
             inject: false
         }),
+        new HtmlWebpackPlugin({
+            template: './src/userManagerConsole.html',
+            filename: 'userManagerConsole.html',
+            inject: false
+        }),
+        new HtmlWebpackPlugin({
+            template: './src/forgotPassword.html',
+            filename: 'forgotPassword.html',
+            inject: false
+        }),
+        new HtmlWebpackPlugin({
+            template: './src/generateReport.html',
+            filename: 'generateReport.html',
+            inject: false
+        }),
+
+
         new CopyPlugin({
             patterns: [
                 {

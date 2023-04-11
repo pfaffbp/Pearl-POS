@@ -42,7 +42,7 @@ export default class DataStore extends baseClass {
     }
 
     /**
-     * Set or update the state of a specific attribute. Then execute all of the registered listeners, so they can react
+     * Set or update the state of a specific attribute. Then execute all the registered listeners, so they can react
      * to any potential data updates.
      * @param attribute The attribute to set or update.
      * @param value The value to give the attribute.
@@ -53,10 +53,17 @@ export default class DataStore extends baseClass {
     }
 
     /**
-     * Add a listener. Whenever the state is changed in the DataStore all of the listeners will be executed.
+     * Add a listener. Whenever the state is changed in the DataStore all the listeners will be executed.
      */
     addChangeListener(listener) {
         this.listeners.push(listener);
     }
 
+    async getUsers() {
+        return JSON.parse(localStorage.getItem('users')) || [];
+    }
+
+    async saveUsers(users) {
+        localStorage.setItem('users', JSON.stringify(users));
+    }
 }

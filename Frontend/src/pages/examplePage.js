@@ -46,10 +46,8 @@ class ExamplePage extends BaseClass {
     async onGet(event) {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
-
         let id = document.getElementById("id-field").value;
         this.dataStore.set("example", null);
-
         let result = await this.client.getExample(id, this.errorHandler);
         this.dataStore.set("example", result);
         if (result) {
