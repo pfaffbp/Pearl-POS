@@ -1,55 +1,73 @@
 import baseClass from "../util/baseClass.js";
-import DataStore from "../util/DataStore.js";
+import userClient from "../bryanLoginTest/userClient.js";
 
 class LoginPage extends baseClass {
     constructor() {
         super();
-        this.bindClassMethods(['onLogin'], this);
-        this.dataStore = new DataStore();
+        // Bind class methods to the current instance
+        this.bindClassMethods(["onLogin", "checkLoggedInUser"], this);
+        // Initialize an empty array to store user data
         this.users = [];
+        this.userClient = new userClient();
     }
 
     async mount() {
-        document.getElementById('login-form').addEventListener('submit', this.onLogin);
+        // Add a "submit" event listener to the login form, calling the "onLogin" method when submitted
+        document.getElementById("login-form").addEventListener("submit", this.onLogin);
 
-        // Load users from local storage
-        const storedUsers = localStorage.getItem('users');
-        if (storedUsers) {
-            this.users = JSON.parse(storedUsers);
-        }
+        // Check if a user is already logged in
+        await this.checkLoggedInUser();
     }
 
     async onLogin(event) {
         event.preventDefault();
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
 
         try {
-            const user = this.users.find(u => u.email === email && u.password === password);
+            const user = await this.userClient.loginUser(email, password);
             if (user) {
-                alert(`Welcome, ${user.name}!`);
-                localStorage.setItem('user', JSON.stringify(user));
-                window.location.href = 'productPage.html'; // Redirect to product page
+                alert(`Welcome Back!`);
+                localStorage.setItem("user", JSON.stringify(user)); // Store the user data in the local storage
+                window.location.href = "productPage.html";
             } else {
-                alert('Incorrect email or password!');
+                alert("Incorrect email or password!");
             }
         } catch (error) {
-            alert('Error logging in!');
+            alert("Error logging in!");
+        }
+    }
+
+
+    async checkLoggedInUser() {
+        try {
+            const user = JSON.parse(localStorage.getItem("user"));
+            if (!user || !user.email) return;
+
+            const matchingUser = this.users.find((u) => u.email === user.email);
+            if (matchingUser && matchingUser.name) {
+                alert(`Welcome Back`);
+                window.location.href = "productPage.html";
+            } else {
+            }
+        } catch (error) {
+            console.error(error);
         }
     }
 }
+const forgotPasswordLink = document.getElementById('forgot-password-link');
+forgotPasswordLink.addEventListener('click', (event) => {
+    event.preventDefault();
+    window.location.href = './forgotPassword.html';
+});
+
 
 const main = async () => {
     const loginPage = new LoginPage();
-    loginPage.mount().then(r => console.log('Mounted login page'));
-
-    // Check if a user is already logged in
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-        const user = JSON.parse(storedUser);
-        alert(`Welcome back, ${user.name}!`);
-        window.location.href = 'login.html'; // Redirect to dashboard page
-    }
+    await loginPage.mount();
+    console.log("Mounted login page");
 };
 
-window.addEventListener('DOMContentLoaded', main);
+
+
+window.addEventListener("DOMContentLoaded", main);

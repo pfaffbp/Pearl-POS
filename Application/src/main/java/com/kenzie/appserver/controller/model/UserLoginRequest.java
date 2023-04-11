@@ -2,16 +2,19 @@ package com.kenzie.appserver.controller.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.validation.constraints.NotEmpty;
+public class UserLoginRequest {
 
-public class LoginRequest {
+    @JsonProperty("email")
 
     private String email;
+
+    @JsonProperty("password")
+
     private String password;
 
-    public LoginRequest() {}
+    public UserLoginRequest() {}
 
-    public LoginRequest(String email, String password) {
+    public UserLoginRequest(String email, String password) {
         this.email = email;
         this.password = password;
     }

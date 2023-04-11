@@ -2,19 +2,20 @@ package com.kenzie.appserver.controller.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class UserCreateRequest {
+public class UserUpdateRequest {
+
     @JsonProperty("email")
 
-    private String email;
+    private final String email;
 
     @JsonProperty("password")
 
-    private String password;
+    private final String password;
 
-    public UserCreateRequest() {}
-
-    public UserCreateRequest( String email, String password) {
+    public UserUpdateRequest(String email, String password) {
         this.email = email;
+
+
         this.password = password;
     }
 
@@ -22,17 +23,7 @@ public class UserCreateRequest {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPassword() {
         return password;
     }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
-
-

@@ -8,9 +8,12 @@ export default class BaseClass {
      */
     bindClassMethods(methods, classInstance) {
         methods.forEach(method => {
-            classInstance[method] = classInstance[method].bind(classInstance);
+            if (classInstance[method]) {
+                classInstance[method] = classInstance[method].bind(classInstance);
+            }
         });
     }
+
 
     formatCurrency(amount) {
         const formatter = new Intl.NumberFormat('en-US', {

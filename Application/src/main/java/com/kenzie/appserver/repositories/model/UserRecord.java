@@ -1,14 +1,16 @@
 package com.kenzie.appserver.repositories.model;
 
-import java.util.Objects;
-
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import org.springframework.data.annotation.Id;
+
+import java.util.Objects;
 
 @DynamoDBTable(tableName = "User")
 public class UserRecord {
 
+    @Id
     @DynamoDBHashKey(attributeName = "email")
     private String email;
 

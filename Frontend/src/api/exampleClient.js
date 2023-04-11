@@ -10,7 +10,6 @@ import axios from 'axios'
  * https://javascript.info/mixins
  */
 export default class ExampleClient extends BaseClass {
-
     constructor(props = {}){
         super();
         const methodsToBind = ['clientLoaded', 'getExample', 'createExample'];

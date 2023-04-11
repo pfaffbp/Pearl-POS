@@ -272,5 +272,6 @@ public class ProductServiceTest {
         verify(productRepository, times(1)).saveAll(anyObject());
         verify(transactionService, times(1)).generateTransaction(productList, itemsPurchased);
 
+
     }
 }
