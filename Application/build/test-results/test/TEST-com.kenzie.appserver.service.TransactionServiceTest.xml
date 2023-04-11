@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.kenzie.appserver.service.TransactionServiceTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-04-11T21:12:57" hostname="BLAKE-PC" time="0.206">
+  <properties/>
+  <testcase name="generateTransaction()" classname="com.kenzie.appserver.service.TransactionServiceTest" time="0.183"/>
+  <testcase name="findTransactionByID_isNull_Test()" classname="com.kenzie.appserver.service.TransactionServiceTest" time="0.001"/>
+  <testcase name="findTransactionID()" classname="com.kenzie.appserver.service.TransactionServiceTest" time="0.001"/>
+  <testcase name="transactionByCustomerID()" classname="com.kenzie.appserver.service.TransactionServiceTest" time="0.012"/>
+  <testcase name="getAllTransactions()" classname="com.kenzie.appserver.service.TransactionServiceTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
