@@ -11,7 +11,8 @@ let checkOutCart;
 const sidebar = document.getElementById(".sidebar");
 const cartItemsList = document.getElementById(".cart-items");
 const closeSidebarButton = document.getElementById("checkout");
-
+let user = localStorage.getItem("user").split(",")
+let anotherUser = user[1].substring(user[1].lastIndexOf(":") + 2, user[1].lastIndexOf(`"`))
 
 class ProductPage extends BaseClass {
     constructor() {
@@ -60,14 +61,12 @@ class ProductPage extends BaseClass {
    </figure> 
 </div>                    
 `;}
-            //current map of all items
             for(let product of inventory){
                 if(productMap.has(product.productID) != true){
                     productMap.set(product.productID, product);
                 }
             }
             console.log(productMap);
-
 
             resultArea.innerHTML = items;
             itemCart = document.querySelectorAll('.add');
@@ -77,16 +76,11 @@ class ProductPage extends BaseClass {
                 add(button.id, button.id + "qty");
             }));
 
-
-
         } else {
             resultArea.innerHTML = "No Item";
         }
     }
-
-
     // Event Handlers --------------------------------------------------------------------------------------------------
-
     async onRefresh(event) {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
@@ -96,19 +90,11 @@ class ProductPage extends BaseClass {
         let result = await this.client.getAllInventory(this.errorHandler);
         this.dataStore.set("inventory", result);
         if (result) {
-            this.showMessage(`refreshed!`)
+            this.showMessage("refreshed!")
         } else {
             this.errorHandler("Error doing GET ALL!  Try again...");
         }
     }
-
-    addToCart(productId){
-        console.log(productId)
-    }
-
-    // async updateCartItems() {
-    //
-    // }
 
     async onLoad(){
         let result = await this.client.getAllInventory(this.errorHandler);
@@ -121,8 +107,18 @@ class ProductPage extends BaseClass {
     async checkout(){
         const itemsToBuy = cartItems;
         const quantityOfItems = productAndQuantityMap;
+        const delay = ms => new Promise(res => setTimeout(res, ms));
 
-        const results = await this.client.buyProducts(this.errorHandler(), itemsToBuy, quantityOfItems);
+        const results = await this.client.buyProducts(this.errorHandler, itemsToBuy, quantityOfItems, anotherUser);
+
+        if(results){
+            this.showMessage("Purchase Successful!")
+        }
+        else{
+            this.errorHandler("Your Purchase Has Failed Please Try Again...")
+        }
+        await delay(3000);
+        location.reload();
     }
 
     async showSidebar() {
@@ -152,6 +148,7 @@ function add(productID) {
     console.log(cartItems)
     updateCartItems();
     showSidebar();
+    console.log(anotherUser);
 }
 
 function updateCartItems() {
