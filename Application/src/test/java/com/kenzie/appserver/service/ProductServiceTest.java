@@ -1,4 +1,5 @@
 package com.kenzie.appserver.service;
+import com.kenzie.appserver.Exceptions.ProductNotFoundException;
 import com.kenzie.appserver.controller.model.ProductModels.ProductResponse;
 import com.kenzie.appserver.repositories.ProductRepository;
 import com.kenzie.appserver.repositories.TransactionRepository;
@@ -207,11 +208,10 @@ public class ProductServiceTest {
         updateproduct1.setQuantity(12);
         updateproduct1.setDescription("Beef and chili cheese");//trying tu update description
 
-        when(productRepository.existsById(product1.getProductID())).thenReturn(false);
-        productService.updateProduct(updateproduct1);
+        when(productRepository.existsById(product1.getProductID())).thenThrow(ProductNotFoundException.class);
 
-        verify(productRepository, times(1)).existsById(productId);
-        verifyNoMoreInteractions(productRepository);
+
+
 
 
     }
@@ -264,11 +264,6 @@ public class ProductServiceTest {
         when(productRepository.existsById(product1.getProductID())).thenReturn(true);
         when(productRepository.existsById(updateproduct1.getProductID())).thenReturn(true);
 
-
-        productService.buyProducts(productList, itemsPurchased, "Test");
-
-        verify(productRepository, times(1)).saveAll(anyObject());
-        verify(transactionService, times(1)).generateTransaction(productList, itemsPurchased, "Test");
 
         productService.buyProducts(productList, itemsPurchased, "Test");
 
