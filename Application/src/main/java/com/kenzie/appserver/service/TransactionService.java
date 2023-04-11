@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 @Service
 public class TransactionService {
     private final TransactionRepository transactionRepository;
-//    private final DynamoDbConfig dynamoDbConfig;
+    //    private final DynamoDbConfig dynamoDbConfig;
     private final DynamoDBMapper mapper;
     private static final String TRANSACTION_CUSTOMER_ID = "TransactionsByCustomerID";
 
@@ -72,13 +72,11 @@ public class TransactionService {
         List<String> productIDS = new ArrayList<>();
         double totalSales = 0;
         Integer quantity = 0;
-
         for (Map.Entry<Product, Integer> productIntegerEntry : productsPurchased.entrySet()){
             productIDS.add(productIntegerEntry.getKey().getProductID());
             totalSales += productIntegerEntry.getValue() * productIntegerEntry.getKey().getPrice();
             quantity += productIntegerEntry.getValue();
         }
-
         TransactionRecord generatedTransaction = new TransactionRecord();
         generatedTransaction.setTransactionID(UUID.randomUUID().toString());
         generatedTransaction.setProductID(productIDS);
@@ -87,7 +85,6 @@ public class TransactionService {
         generatedTransaction.setCustomerID("TestCustomer");
         generatedTransaction.setTotalSale(totalSales);
         generatedTransaction.setAmountPurchasedPerProduct(productsPurchased.values().stream().collect(Collectors.toList()));
-
         transactionRepository.save(generatedTransaction);
         return generatedTransaction;
     }*/
