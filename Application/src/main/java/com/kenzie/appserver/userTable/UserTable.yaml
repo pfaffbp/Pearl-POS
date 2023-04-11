@@ -2,7 +2,7 @@ Resources:
   UserTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: User
+      TableName: UserTable
       AttributeDefinitions:
         - AttributeName: email
           AttributeType: S

@@ -1,66 +1,78 @@
 package com.kenzie.appserver.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kenzie.appserver.IntegrationTest;
 import com.kenzie.appserver.controller.model.UserCreateRequest;
+import com.kenzie.appserver.controller.model.UserLoginRequest;
 import com.kenzie.appserver.service.UserService;
-import com.kenzie.appserver.service.model.User;
-import org.junit.jupiter.api.BeforeEach;
+import net.andreinc.mockneat.MockNeat;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.hamcrest.Matchers.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+
+@IntegrationTest
 class UserControllerTest {
+    @Autowired
+    private MockMvc mvc;
 
-    private MockMvc mockMvc;
+    @Autowired
+    UserService userService;
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final MockNeat mockNeat = MockNeat.threadLocal();
 
-    @Mock
-    private UserService userService;
+    private final ObjectMapper mapper = new ObjectMapper();
 
-    @Captor
-    private ArgumentCaptor<UserCreateRequest> userCreateRequestCaptor;
+    @Test
+    public void createUser_CreateSuccessful() throws Exception {
+        String email = mockNeat.emails().val();
+        String password = mockNeat.passwords().val();
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-        this.mockMvc = MockMvcBuilders.standaloneSetup(new UserController(userService)).build();
+        UserCreateRequest userCreateRequest = new UserCreateRequest();
+        userCreateRequest.setEmail(email);
+        userCreateRequest.setPassword(password);
+
+        mvc.perform(post("/userTable/register")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(userCreateRequest)))
+                .andExpect(status().isOk());
     }
 
     @Test
-    void testCreateUser() throws Exception {
-        // Arrange
-        UserCreateRequest request = new UserCreateRequest("email@example.com", "password");
-        User user = new User(request.getEmail(), request.getPassword());
-        when(userService.createUser(any(UserCreateRequest.class))).thenReturn(user);
+    public void loginUser_LoginSuccessful() throws Exception {
+        String email = mockNeat.emails().val();
+        String password = mockNeat.passwords().val();
 
-        // Act
-        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/users/register")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request));
-        mockMvc.perform(builder)
-                .andExpect(status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.email").value(request.getEmail()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.password").value(request.getPassword()));
+        UserCreateRequest userCreateRequest = new UserCreateRequest();
+        userCreateRequest.setEmail(email);
+        userCreateRequest.setPassword(password);
 
-        // Assert
-        verify(userService).createUser(userCreateRequestCaptor.capture());
-        UserCreateRequest capturedRequest = userCreateRequestCaptor.getValue();
-        assertEquals(request.getEmail(), capturedRequest.getEmail());
-        assertEquals(request.getPassword(), capturedRequest.getPassword());
+        mvc.perform(post("/userTable/register")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(userCreateRequest)))
+                .andExpect(status().isOk());
+
+        UserLoginRequest userLoginRequest = new UserLoginRequest();
+        userLoginRequest.setEmail(email);
+        userLoginRequest.setPassword(password);
+
+        mvc.perform(post("/userTable/login")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(userLoginRequest)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.email", is(email)))
+                .andExpect(jsonPath("$.password", is(password)));
     }
+
+    // Write more test cases for the other UserController methods here
+
 }

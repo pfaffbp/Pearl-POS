@@ -14,13 +14,16 @@ module.exports = {
     productPage: path.resolve(__dirname, 'src', 'pages', 'productPage.js'),
     inventoryLevelsPage: path.resolve(__dirname, 'src', 'pages', 'inventoryLevelsPage.js'),
     createUserPage: path.resolve(__dirname, 'src', 'pages', 'createUserPage.js'),
-    purchaseHistoryPage: path.resolve(__dirname, 'src', 'pages', 'purchaseHistoryPage.js')
+    purchaseHistoryPage: path.resolve(__dirname, 'src', 'pages', 'purchaseHistoryPage.js'),
+    userManagerConsole: path.resolve(__dirname, 'src', 'pages', 'userManagerConsole.js'),
+    forgotPassword: path.resolve(__dirname, 'src', 'pages', 'forgotPassword.js')
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
   },
   devServer: {
+    headers: {'Access-Control-Allow-Origin': '*'},
     https: false,
     port: 8080,
     open: true,
@@ -71,6 +74,18 @@ module.exports = {
       filename: 'purchaseHistory.html',
       inject: false
     }),
+    new HtmlWebpackPlugin({
+        template: './src/userManagerConsole.html',
+        filename: 'userManagerConsole.html',
+        inject: false
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/forgotPassword.html',
+      filename: 'forgotPassword.html',
+      inject: false
+    }),
+
+
     new CopyPlugin({
       patterns: [
         {
