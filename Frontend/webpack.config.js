@@ -52,8 +52,8 @@ module.exports = {
             inject: false
         }),
         new HtmlWebpackPlugin({
-            template: './src/ManagerConsole.html',
-            filename: 'ManagerConsole.html',
+            template: './src/addProduct.html',
+            filename: 'addProduct.html',
             inject: false
         }),
         new HtmlWebpackPlugin({

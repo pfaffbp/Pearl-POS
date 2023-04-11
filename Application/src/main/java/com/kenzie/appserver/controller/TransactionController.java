@@ -65,6 +65,11 @@ public class TransactionController {
 
         //Returns A paginated transactionList for a specific customer
         PaginatedQueryList<TransactionRecord> transactions = transactionService.transactionByCustomerID(customerID);
+
+        if(transactions == null){
+            return ResponseEntity.notFound().build();
+        }
+
         List<TransactionResponse> transactionResponseList = new ArrayList<>();
 
         transactions.forEach(transaction -> transactionResponseList.add(transactionRecordToResponseEntity(transaction)));

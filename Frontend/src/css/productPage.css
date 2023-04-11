@@ -1,23 +1,27 @@
 *{
     padding: 0;
     margin: 0;
+    background-color: #333333;
 }
 
 #header{
     display: grid;
-    background-color: #101010
 }
+
 .header_bar{
     display: flex;
+    background-color: green;
 }
 
 #cart-icon{
     margin-left: 88vw;
+    background-color: green;
 }
 
 h1{
-    color: black;
+    color: white;
     align-self: center;
+    background-color: green;
 }
 
 h3{
@@ -40,7 +44,7 @@ img:hover{
 .product-displayed{
     border-style: solid;
     border-width: 1px;
-    border-radius: 5px;
+    border-radius: 10px;
     box-shadow: 0px 0px 10px black;
     margin-left: 50px;
     margin-top: 50px;
@@ -49,6 +53,8 @@ img:hover{
 .product_Name{
     text-align: center;
     font-size: 30px;
+    background-color: green;
+    color: white;
 }
 
 .product-displayed button{
@@ -65,6 +71,11 @@ img:hover{
 .product_Price{
     /*margin-left: 200px;*/
     /*font-size: 20px;*/
+    color: white;
+}
+
+.dollarSign{
+    color: white;
 }
 
 #sidebar {
@@ -92,10 +103,12 @@ img:hover{
 .shopping-cart{
     display: flex;
     border-style: solid;
-    border-width: 2px;
+    border-width: 3px;
     border-radius: 5px;
     box-shadow: 0px 0px 5px #101010;
+    border-color: green;
 }
+
 
 .add-cart-inline{
     display: flex;
@@ -110,7 +123,55 @@ img:hover{
 .inline{
     display: inline-list-item;
 }
+.product_Description{
+    color: white;
+}
+.dot{
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: red;
+    display: none;
+    position: absolute;
+    margin-left: 95%;
+    margin-top: 20px;
+    color: white;
+}
 
+button{
+    margin-right: 115px;
+}
+h2{
+    color: white;
+    background-color: green;
+}
+
+.current-price{
+    color: white;
+}
+
+.current-quantity{
+    color: white;
+}
+
+#result_area{
+    width: 85vw;
+}
+
+#checkout{
+    background-color: green;
+    color: white;
+    border-radius: 3px;
+    padding: 10px 10px 10px 10px;
+}
+
+input{
+    color: green;
+}
+
+#totalSale{
+    color: white;
+}
 .product-footer{
     display: flex;
     padding-bottom: 10px;

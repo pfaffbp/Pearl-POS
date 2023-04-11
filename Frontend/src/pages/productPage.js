@@ -16,7 +16,7 @@ const closeSidebarButton = document.getElementById("checkout");
 class ProductPage extends BaseClass {
     constructor() {
         super();
-        this.bindClassMethods(['renderInventory', 'onRefresh', 'onLoad', 'addToCart', 'addButton', 'checkout'], this);
+        this.bindClassMethods(['renderInventory', 'onRefresh', 'onLoad', 'addToCart', 'addButton', 'checkout', 'showSidebar'], this);
         this.dataStore = new DataStore();
     }
 
@@ -28,6 +28,7 @@ class ProductPage extends BaseClass {
         this.dataStore.addChangeListener(this.renderInventory)
         this.onLoad();
         document.getElementById('checkout').addEventListener('click', this.checkout)
+        document.getElementById('cart-icon').addEventListener('click', this.showSidebar)
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
@@ -54,9 +55,7 @@ class ProductPage extends BaseClass {
    <div class = "product_Description">${product.description}</div>
    <form class = "product-footer">
    <button class = "add" id = ${product.productID}>Add to Cart</button>
-   <button class = "minus-quantity">-</button>
    <input type ="text" class = "quantity" id = "${product.productID}qty" placeholder="QTY" maxlength="3" size="1" min="1" max="100" required></input> 
-   <button class = "add-quantity">+</button>
         </form>
    </figure> 
 </div>                    
@@ -77,6 +76,8 @@ class ProductPage extends BaseClass {
                 combine(button.id, button.id + "qty");
                 add(button.id, button.id + "qty");
             }));
+
+
 
         } else {
             resultArea.innerHTML = "No Item";
@@ -124,6 +125,16 @@ class ProductPage extends BaseClass {
         const results = await this.client.buyProducts(this.errorHandler(), itemsToBuy, quantityOfItems);
     }
 
+    async showSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        if(sidebar.style.display === "none") {
+            sidebar.style.display = "block";
+        } else{
+            sidebar.style.display = "none"
+        }
+    }
+
+
 }
 
 function combine(productID, qty){
@@ -151,6 +162,7 @@ function updateCartItems() {
     let allItems = ""
     let moneySale = ""
     let createdCheckout = false;
+
     cartItemsList.innerHTML = ""
     cartItems.forEach((item) => {
         const currentQuantity = productAndQuantityMap.get(item.productID);

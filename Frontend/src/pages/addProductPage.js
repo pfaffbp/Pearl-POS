@@ -36,6 +36,8 @@ class AddProductPage extends BaseClass {
 
         this.uploadImage(productName);
 
+        // if(productQuantity.length > 30)
+
         const createdProduct = await this.client.createProduct(productName, productPrice, productCategory,
             productQuantity, productDescription, this.errorHandler);
 

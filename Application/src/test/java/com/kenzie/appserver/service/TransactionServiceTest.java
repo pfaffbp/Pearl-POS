@@ -1,26 +1,25 @@
-/*
+
 package com.kenzie.appserver.service;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedList;
 import com.amazonaws.services.dynamodbv2.datamodeling.PaginatedQueryList;
-import com.kenzie.appserver.config.DynamoDbConfig;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.QueryResult;
 import com.kenzie.appserver.repositories.TransactionRepository;
-import com.kenzie.appserver.repositories.model.ProductRecord;
 import com.kenzie.appserver.repositories.model.TransactionRecord;
 import com.kenzie.appserver.service.model.Product;
 import com.kenzie.appserver.service.model.Transaction;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.MockitoAnnotations;
+import org.mockito.internal.stubbing.defaultanswers.ForwardsInvocations;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static java.util.UUID.randomUUID;
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,64 +27,83 @@ import static org.mockito.Mockito.*;
 
 public class TransactionServiceTest {
     private TransactionRepository transactionRepository;
-    private DynamoDbConfig dynamoDbConfig;
-
-    private DynamoDBMapper mapper;
-    private String TRANSACTION_CUSTOMER_ID = "TransactionsByCustomerID";
     private TransactionService transactionService;
     private TransactionRecord transactionRecord;
+
+    private DynamoDBMapper mapper;
 
     private Product product;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
+        mapper = mock(DynamoDBMapper.class);
         transactionRepository = mock(TransactionRepository.class);
-        dynamoDbConfig = mock(DynamoDbConfig.class);
         product = mock(Product.class);
         transactionRecord = mock(TransactionRecord.class);
-        transactionService = new TransactionService(transactionRepository, dynamoDbConfig);
-
-
+        transactionService = new TransactionService(transactionRepository, mapper);
     }
 //todo
+//    @Test
+//    public void testGenerateTransaction() {
+//        Transaction transaction = new Transaction();
+//        transaction.setTransactionID("1");
+//        transaction.setQuantity(2);
+//        transaction.setDate(LocalDateTime.now().toString());
+//        transaction.setProductID("1");
+//        transaction.setCustomerID("TestCustomer");
+//        transaction.setTotalSale(20.0);
+//
+//        TransactionRecord expectedTransactionRecord = new TransactionRecord();
+//        expectedTransactionRecord.setTransactionID("1");
+//        expectedTransactionRecord.setQuantity(2);
+//        expectedTransactionRecord.setDate(LocalDateTime.now().toString());
+//        expectedTransactionRecord.setProductID("1");
+//        expectedTransactionRecord.setCustomerID("TestCustomer");
+//        expectedTransactionRecord.setTotalSale(20.0);
+//
+//        ArgumentCaptor<TransactionRecord> captor = ArgumentCaptor.forClass(TransactionRecord.class);
+//
+//        when(transactionRepository.save(captor.capture())).thenReturn(expectedTransactionRecord);
+//
+//        TransactionRecord result = transactionService.generateTransaction(transaction);
+//
+//        verify(transactionRepository, times(1)).save(captor.capture());
+//
+//        assertEquals("TestCustomer", captor.getValue().getCustomerID());
+//        assertEquals("1", captor.getValue().getProductID());
+//        assertEquals(2, captor.getValue().getQuantity());
+//        assertEquals(20.0, captor.getValue().getTotalSale());
+//        assertEquals("1", captor.getValue().getTransactionID());
+//
+//        assertEquals("TestCustomer", result.getCustomerID());
+//        assertEquals("1", result.getProductID());
+//        assertEquals(2, result.getQuantity());
+//        assertEquals(20.0, result.getTotalSale());
+//        assertEquals("1", result.getTransactionID());
+//    }
+
     @Test
-    public void testGenerateTransaction() {
-        Transaction transaction = new Transaction();
-        transaction.setTransactionID("1");
-        transaction.setQuantity(2);
-        transaction.setDate(LocalDateTime.now().toString());
-        transaction.setProductID("1");
-        transaction.setCustomerID("TestCustomer");
-        transaction.setTotalSale(20.0);
+    public void generateTransaction(){
+        Product product = new Product();
+        product.setProductName("Doritos");
+        product.setQuantity(30);
+        product.setPrice(7.99);
+        product.setCategory("Food");
+        product.setProductID(randomUUID().toString());
+        product.setDescription("Nacho your Business");
 
-        TransactionRecord expectedTransactionRecord = new TransactionRecord();
-        expectedTransactionRecord.setTransactionID("1");
-        expectedTransactionRecord.setQuantity(2);
-        expectedTransactionRecord.setDate(LocalDateTime.now().toString());
-        expectedTransactionRecord.setProductID("1");
-        expectedTransactionRecord.setCustomerID("TestCustomer");
-        expectedTransactionRecord.setTotalSale(20.0);
+        List<Product> productList = new ArrayList<>();
+        productList.add(product);
 
-        ArgumentCaptor<TransactionRecord> captor = ArgumentCaptor.forClass(TransactionRecord.class);
+        Integer quant = 3;
+        List<Integer> itemsPurchased = new ArrayList<>();
+        itemsPurchased.add(quant);
 
-        when(transactionRepository.save(captor.capture())).thenReturn(expectedTransactionRecord);
+        TransactionRecord transactionRecord1 =  transactionService.generateTransaction(productList, itemsPurchased);
 
-        TransactionRecord result = transactionService.generateTransaction(transaction);
-
-        verify(transactionRepository, times(1)).save(captor.capture());
-
-        assertEquals("TestCustomer", captor.getValue().getCustomerID());
-        assertEquals("1", captor.getValue().getProductID());
-        assertEquals(2, captor.getValue().getQuantity());
-        assertEquals(20.0, captor.getValue().getTotalSale());
-        assertEquals("1", captor.getValue().getTransactionID());
-
-        assertEquals("TestCustomer", result.getCustomerID());
-        assertEquals("1", result.getProductID());
-        assertEquals(2, result.getQuantity());
-        assertEquals(20.0, result.getTotalSale());
-        assertEquals("1", result.getTransactionID());
+        assertEquals("TestCustomer", transactionRecord1.getCustomerID());
+        assertEquals(product.getProductID(), transactionRecord1.getProductID().get(0));
     }
 
     @Test
@@ -165,7 +183,7 @@ public class TransactionServiceTest {
         transaction1.setTransactionID(randomUUID().toString());
         transaction1.setAmountPurchasedPerProduct(itemsPurchased2);
 
-        List<TransactionRecord> transactions =new ArrayList<>();
+        List<TransactionRecord> transactions = new ArrayList<>();
         transactions.add(transaction1);
         transactions.add(transaction2);
 
@@ -202,34 +220,50 @@ public class TransactionServiceTest {
 
     @Test
     void transactionByCustomerID() {
+        TransactionRecord transaction1 = new TransactionRecord();
+        transaction1.setDate(LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG, FormatStyle.MEDIUM)));
+        transaction1.setCustomerID("Jerry");
+        transaction1.setProductID(Collections.singletonList(randomUUID().toString()));
+        transaction1.setQuantity(22);
+        transaction1.setTotalSale(100.00);
+        transaction1.setTransactionID(randomUUID().toString());
+        transaction1.setAmountPurchasedPerProduct(Collections.singletonList(11));
+
+        List<TransactionRecord> list = new ArrayList<>();
+        list.add(transaction1);
+
+        when(mapper.query(eq(TransactionRecord.class), any(DynamoDBQueryExpression.class)))
+                .thenReturn(mock(PaginatedQueryList.class, withSettings().defaultAnswer(new ForwardsInvocations(list))));
+
+        List<TransactionRecord> transactionRecords = transactionService.transactionByCustomerID(transaction1.getCustomerID());
+        assertEquals(transactionRecords.get(0).getCustomerID(), transaction1.getCustomerID());
 
     }
 //todo
-    @Test
-    public void testFindTransactionByDate() {
-        String date = LocalDateTime.now().toString();
-
-        TransactionRecord transactionRecord = new TransactionRecord();
-        transactionRecord.setTransactionID("1");
-        transactionRecord.setQuantity(2);
-        transactionRecord.setDate(date);
-        transactionRecord.setProductID("1");
-        transactionRecord.setCustomerID("TestCustomer");
-        transactionRecord.setTotalSale(20.0);
-
-        when(transactionRepository.findById(date)).thenReturn(Optional.of(transactionRecord));
-
-        Transaction result = transactionService.findTransactionByDate(date);
-
-        verify(transactionRepository, times(1)).findById(date);
-        assertEquals(date, result.getDate());
-        assertEquals("TestCustomer", result.getCustomerID());
-        assertEquals("1", result.getProductID());
-        assertEquals(2, result.getQuantity());
-        assertEquals(20.0, result.getTotalSale());
-        assertEquals("1", result.getTransactionID());
-    }
+//    @Test
+//    public void testFindTransactionByDate() {
+//        String date = LocalDateTime.now().toString();
+//
+//        TransactionRecord transactionRecord = new TransactionRecord();
+//        transactionRecord.setTransactionID("1");
+//        transactionRecord.setQuantity(2);
+//        transactionRecord.setDate(date);
+//        transactionRecord.setProductID("1");
+//        transactionRecord.setCustomerID("TestCustomer");
+//        transactionRecord.setTotalSale(20.0);
+//
+//        when(transactionRepository.findById(date)).thenReturn(Optional.of(transactionRecord));
+//
+//        Transaction result = transactionService.findTransactionByDate(date);
+//
+//        verify(transactionRepository, times(1)).findById(date);
+//        assertEquals(date, result.getDate());
+//        assertEquals("TestCustomer", result.getCustomerID());
+//        assertEquals("1", result.getProductID());
+//        assertEquals(2, result.getQuantity());
+//        assertEquals(20.0, result.getTotalSale());
+//        assertEquals("1", result.getTransactionID());
+//    }
 
 }
 
-*/

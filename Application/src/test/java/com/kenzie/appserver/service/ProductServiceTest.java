@@ -11,9 +11,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static java.util.UUID.randomUUID;
 import static org.junit.jupiter.api.Assertions.*;
@@ -272,6 +270,22 @@ public class ProductServiceTest {
         verify(productRepository, times(1)).saveAll(anyObject());
         verify(transactionService, times(1)).generateTransaction(productList, itemsPurchased);
 
+        productService.buyProducts(productList, itemsPurchased);
 
+        verify(productRepository, times(1)).saveAll(anyObject());
+        verify(transactionService, times(1)).generateTransaction(productList, itemsPurchased);
+
+        }
+
+    public Product recordToProductHelperMethod(ProductRecord product){
+        Product createNewProduct = new Product();
+        createNewProduct.setProductID(product.getProductID());
+        createNewProduct.setProductName(product.getProductName());
+        createNewProduct.setCategory(product.getCategory());
+        createNewProduct.setPrice(product.getPrice());
+        createNewProduct.setQuantity(product.getQuantity());
+        createNewProduct.setDescription(product.getDescription());
+
+        return createNewProduct;
     }
 }

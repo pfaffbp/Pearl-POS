@@ -1,4 +1,4 @@
-package com.kenzie.appserver.service;
+package com.kenzie.appserver.Exceptions;
 
 public class UserNotFoundException extends RuntimeException {
 
