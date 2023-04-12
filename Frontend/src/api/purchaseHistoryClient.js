@@ -1,5 +1,7 @@
 import BaseClass from "../util/baseClass";
 import axios from 'axios'
+let user = localStorage.getItem("user").split(",")
+let anotherUser = user[1].substring(user[1].lastIndexOf(":") + 2, user[1].lastIndexOf(`"`))
 
 /**
  * Client to call the Transaction DynamoDB table to populate all the items they have bought.
@@ -32,9 +34,9 @@ export default class PurchaseHistoryClient extends BaseClass {
      * @param errorCallback (Optional) A function to execute if the call fails.
      */
     async transactionByCustomerID(errorCallback) {
-      //  localStorage.getItem(TestCustomer)
+        //  localStorage.getItem(TestCustomer)
         try {
-            const response = await this.client.get(`/transaction/customer/TestCustomer`);
+            const response = await this.client.get(`/transaction/customer/${anotherUser}`);
             return response.data;
         } catch (error) {
             this.handleError("transactionByCustomerID", error, errorCallback)
