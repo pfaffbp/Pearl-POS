@@ -2,7 +2,3 @@
 <testsuite name="com.kenzie.appserver.service.ExampleServiceTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-04-12T20:34:19" hostname="DESKTOP-8SMMIEK" time="0.191">
   <properties/>
   <testcase name="findById()" classname="com.kenzie.appserver.service.ExampleServiceTest" time="0.188"/>
-  <testcase name="findByConcertId_invalid()" classname="com.kenzie.appserver.service.ExampleServiceTest" time="0.003"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

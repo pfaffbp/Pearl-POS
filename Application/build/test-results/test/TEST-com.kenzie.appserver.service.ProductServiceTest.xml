@@ -4,6 +4,7 @@
   <testcase name="buyProductsTest()" classname="com.kenzie.appserver.service.ProductServiceTest" time="0.057"/>
   <testcase name="addProduct_Test()" classname="com.kenzie.appserver.service.ProductServiceTest" time="0.003"/>
   <testcase name="deleteProduct_Test()" classname="com.kenzie.appserver.service.ProductServiceTest" time="0.002"/>
+
   <testcase name="getAllProducts_Test()" classname="com.kenzie.appserver.service.ProductServiceTest" time="0.002"/>
   <testcase name="updateProduct_Test()" classname="com.kenzie.appserver.service.ProductServiceTest" time="0.002"/>
   <testcase name="findProductsByID_Test()" classname="com.kenzie.appserver.service.ProductServiceTest" time="0.001"/>
