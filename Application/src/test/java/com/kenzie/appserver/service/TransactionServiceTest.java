@@ -102,7 +102,7 @@ public class TransactionServiceTest {
 
         TransactionRecord transactionRecord1 =  transactionService.generateTransaction(productList, itemsPurchased, "Test");
 
-        assertEquals("TestCustomer", transactionRecord1.getCustomerID());
+        assertEquals("Test", transactionRecord1.getCustomerID());
         assertEquals(product.getProductID(), transactionRecord1.getProductID().get(0));
     }
 
