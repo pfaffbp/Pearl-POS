@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.kenzie.appserver.service.UserServiceTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2023-04-11T21:12:57" hostname="BLAKE-PC" time="0.03">
+<testsuite name="com.kenzie.appserver.service.UserServiceTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2023-04-12T20:34:19" hostname="DESKTOP-8SMMIEK" time="0.022">
   <properties/>
-  <testcase name="checkEmailUniqueness_unique()" classname="com.kenzie.appserver.service.UserServiceTest" time="0.007"/>
-  <testcase name="login_invalid()" classname="com.kenzie.appserver.service.UserServiceTest" time="0.001"/>
-  <testcase name="createUser_valid()" classname="com.kenzie.appserver.service.UserServiceTest" time="0.002"/>
+  <testcase name="checkEmailUniqueness_unique()" classname="com.kenzie.appserver.service.UserServiceTest" time="0.006"/>
+  <testcase name="login_invalid()" classname="com.kenzie.appserver.service.UserServiceTest" time="0.0"/>
+  <testcase name="createUser_valid()" classname="com.kenzie.appserver.service.UserServiceTest" time="0.001"/>
   <testcase name="getAllUsers()" classname="com.kenzie.appserver.service.UserServiceTest" time="0.002"/>
-  <testcase name="getUser()" classname="com.kenzie.appserver.service.UserServiceTest" time="0.002"/>
-  <testcase name="checkEmailUniqueness_notUnique()" classname="com.kenzie.appserver.service.UserServiceTest" time="0.002"/>
-  <testcase name="testUpdateUserByEmail()" classname="com.kenzie.appserver.service.UserServiceTest" time="0.001"/>
-  <testcase name="testDeleteUserByEmailNotFound()" classname="com.kenzie.appserver.service.UserServiceTest" time="0.002"/>
-  <testcase name="createUser_invalid()" classname="com.kenzie.appserver.service.UserServiceTest" time="0.001"/>
-  <testcase name="login_valid()" classname="com.kenzie.appserver.service.UserServiceTest" time="0.003"/>
+  <testcase name="getUser()" classname="com.kenzie.appserver.service.UserServiceTest" time="0.0"/>
+  <testcase name="checkEmailUniqueness_notUnique()" classname="com.kenzie.appserver.service.UserServiceTest" time="0.001"/>
+  <testcase name="testUpdateUserByEmail()" classname="com.kenzie.appserver.service.UserServiceTest" time="0.0"/>
+  <testcase name="testDeleteUserByEmailNotFound()" classname="com.kenzie.appserver.service.UserServiceTest" time="0.0"/>
+  <testcase name="createUser_invalid()" classname="com.kenzie.appserver.service.UserServiceTest" time="0.0"/>
+  <testcase name="login_valid()" classname="com.kenzie.appserver.service.UserServiceTest" time="0.002"/>
   <testcase name="testUpdateUserByEmailNotFound()" classname="com.kenzie.appserver.service.UserServiceTest" time="0.001"/>
   <testcase name="testDeleteUserByEmail()" classname="com.kenzie.appserver.service.UserServiceTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>

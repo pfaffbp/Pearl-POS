@@ -11,6 +11,9 @@ let checkOutCart;
 const sidebar = document.getElementById(".sidebar");
 const cartItemsList = document.getElementById(".cart-items");
 const closeSidebarButton = document.getElementById("checkout");
+let user = localStorage.getItem("user").split(",");
+let anotherUser = user[1].substring(user[1].lastIndexOf(":") + 2, user[1].lastIndexOf(`"`));
+
 
 
 class ProductPage extends BaseClass {
@@ -46,7 +49,7 @@ class ProductPage extends BaseClass {
     
     <figure class="product-displayed">
    <h1 class = "product_Name">${product.productName}</h1>
-   <img src="Images/pickImage.png" width="272.5" height="272.5"/>
+   <img src= ${localStorage.getItem(product.productID)} width="272.5" height="272.5"/>
    <div class = "price-plus">
    <div class = "dollarSign">$</div>
    <div class = "product_Price"><strong>${product.price}</strong></div>
@@ -60,14 +63,12 @@ class ProductPage extends BaseClass {
    </figure> 
 </div>                    
 `;}
-            //current map of all items
             for(let product of inventory){
                 if(productMap.has(product.productID) != true){
                     productMap.set(product.productID, product);
                 }
             }
             console.log(productMap);
-
 
             resultArea.innerHTML = items;
             itemCart = document.querySelectorAll('.add');
@@ -77,16 +78,11 @@ class ProductPage extends BaseClass {
                 add(button.id, button.id + "qty");
             }));
 
-
-
         } else {
             resultArea.innerHTML = "No Item";
         }
     }
-
-
     // Event Handlers --------------------------------------------------------------------------------------------------
-
     async onRefresh(event) {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
@@ -96,19 +92,11 @@ class ProductPage extends BaseClass {
         let result = await this.client.getAllInventory(this.errorHandler);
         this.dataStore.set("inventory", result);
         if (result) {
-            this.showMessage(`refreshed!`)
+            this.showMessage("refreshed!")
         } else {
             this.errorHandler("Error doing GET ALL!  Try again...");
         }
     }
-
-    addToCart(productId){
-        console.log(productId)
-    }
-
-    // async updateCartItems() {
-    //
-    // }
 
     async onLoad(){
         let result = await this.client.getAllInventory(this.errorHandler);
@@ -121,8 +109,18 @@ class ProductPage extends BaseClass {
     async checkout(){
         const itemsToBuy = cartItems;
         const quantityOfItems = productAndQuantityMap;
+        const delay = ms => new Promise(res => setTimeout(res, ms));
 
-        const results = await this.client.buyProducts(this.errorHandler(), itemsToBuy, quantityOfItems);
+        const results = await this.client.buyProducts(this.errorHandler, itemsToBuy, quantityOfItems, anotherUser);
+
+        if(results){
+            this.showMessage("Purchase Successful!")
+        }
+        else{
+            this.errorHandler("Your Purchase Has Failed Please Try Again...")
+        }
+        await delay(3000);
+        location.reload();
     }
 
     async showSidebar() {
@@ -152,6 +150,7 @@ function add(productID) {
     console.log(cartItems)
     updateCartItems();
     showSidebar();
+    console.log(anotherUser);
 }
 
 function updateCartItems() {
@@ -168,16 +167,16 @@ function updateCartItems() {
         const currentQuantity = productAndQuantityMap.get(item.productID);
         totalSale += totalSales(currentQuantity, item.price)
         allItems += `
-<div class = "shopping-cart">
-    <div class = "add-cart-inline">
-    <img src="Images/pickImage.png" width="80" height="80"/>
-        <div class = "inline">
+    <div class = "shopping-cart">
+        <div class = "add-cart-inline">
+    <img src=${localStorage.getItem(item.productID)} width="80" height="80"/>
+            <div class = "inline">
     <h3 class = "test">${item.productName}</h3>
     <div class = "current-price"><strong>Price:$${item.price}</strong></div>
     <div class = "current-quantity"><strong>Quantity:${currentQuantity}</strong></div>
+            </div>
         </div>
     </div>
-</div>
 `
         if(createdHtml !== true){
             createdHtml = true;
@@ -192,7 +191,7 @@ function updateCartItems() {
         cartItemsList.innerHTML += moneySale;
     });
     const currentTotalSale = document.getElementById("totalSale");
-    currentTotalSale.innerHTML = totalSale;
+    currentTotalSale.innerHTML = `Total Price: ${totalSale}`;
     console.log(cartItemsList);
 }
 
