@@ -1,5 +1,9 @@
+import {Cloudinary} from '@cloudinary/url-gen'
+import {Resize} from '@cloudinary/url-gen/actions'
 import BaseClass from "../util/baseClass";
 import axios from 'axios'
+
+const cldInstance = new Cloudinary({cloud: {cloudName: 'devbshzwb'}});
 
 /**
  * Client to call the MusicPlaylistService.

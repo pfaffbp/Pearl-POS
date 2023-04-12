@@ -95,7 +95,9 @@ public class ProductController {
             itemsPurchased.add(productCreateRequest.getQuantity().get(i));
         }
 
-        List<Product> updateProduct = productService.buyProducts(productList, itemsPurchased);
+        List<Product> updateProduct = productService.buyProducts(productList,
+                itemsPurchased, productCreateRequest.getUserName());
+
         for(int i = 0; i < productList.size(); i++){
              productResponses.add(productResponseHelper(updateProduct.get(i)));
         }

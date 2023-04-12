@@ -40,7 +40,7 @@ public class TransactionService {
         this.mapper = mapper;
     }
 
-    public TransactionRecord generateTransaction(List<Product> product, List<Integer> itemsPurchased) {
+    public TransactionRecord generateTransaction(List<Product> product, List<Integer> itemsPurchased, String username) {
         List<String> productIDS = new ArrayList<>();
         double totalSales = 0;
         Integer quantity = 0;
@@ -59,7 +59,7 @@ public class TransactionService {
         generatedTransaction.setDate(
                 LocalDateTime.now().format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG, FormatStyle.MEDIUM)));
         generatedTransaction.setQuantity(quantity);
-        generatedTransaction.setCustomerID("TestCustomer");
+        generatedTransaction.setCustomerID(username);
         generatedTransaction.setTotalSale(totalSales);
         generatedTransaction.setAmountPurchasedPerProduct(itemsPurchased);
 

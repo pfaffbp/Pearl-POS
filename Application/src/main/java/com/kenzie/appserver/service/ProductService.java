@@ -1,5 +1,6 @@
 package com.kenzie.appserver.service;
 
+import com.kenzie.appserver.Exceptions.FailedPurchaseException;
 import com.kenzie.appserver.Exceptions.ProductNotFoundException;
 import com.kenzie.appserver.repositories.TransactionRepository;
 import com.kenzie.appserver.repositories.model.ProductRecord;
@@ -69,7 +70,7 @@ public class ProductService {
     public void deleteProduct(String productID){
         productRepository.deleteById(productID);
     }
-    public List<Product> buyProducts(List<Product> product, List<Integer> itemsPurchased){
+    public List<Product> buyProducts(List<Product> product, List<Integer> itemsPurchased, String username){
         Map<Product, Integer> productPurchasedMap = new HashMap<>();
         List<Product> productList = new ArrayList<>();
         List<Product> productResponse = new ArrayList<>();
@@ -83,6 +84,12 @@ public class ProductService {
                 } else {
                     throw new ProductNotFoundException("This product does not exist: " + product.get(i).getProductID());
                 }
+            }
+        }
+
+        for(Map.Entry<Product, Integer> productIntegerEntry: productPurchasedMap.entrySet()){
+            if(productIntegerEntry.getKey().getQuantity()< productIntegerEntry.getValue()){
+                throw new FailedPurchaseException("Failed to purchase product, out of stock");
             }
         }
 
@@ -101,7 +108,7 @@ public class ProductService {
             }
         }
         productRepository.saveAll(productRecords);
-        transactionService.generateTransaction(productList, itemsPurchased);
+        transactionService.generateTransaction(productList, itemsPurchased, username);
 
         return productResponse;
     }

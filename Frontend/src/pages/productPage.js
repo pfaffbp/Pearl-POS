@@ -11,8 +11,10 @@ let checkOutCart;
 const sidebar = document.getElementById(".sidebar");
 const cartItemsList = document.getElementById(".cart-items");
 const closeSidebarButton = document.getElementById("checkout");
-let user = localStorage.getItem("user").split(",")
-let anotherUser = user[1].substring(user[1].lastIndexOf(":") + 2, user[1].lastIndexOf(`"`))
+let user = localStorage.getItem("user").split(",");
+let anotherUser = user[1].substring(user[1].lastIndexOf(":") + 2, user[1].lastIndexOf(`"`));
+
+
 
 class ProductPage extends BaseClass {
     constructor() {
@@ -47,7 +49,7 @@ class ProductPage extends BaseClass {
     
     <figure class="product-displayed">
    <h1 class = "product_Name">${product.productName}</h1>
-   <img src="Images/pickImage.png" width="272.5" height="272.5"/>
+   <img src= ${localStorage.getItem(product.productID)} width="272.5" height="272.5"/>
    <div class = "price-plus">
    <div class = "dollarSign">$</div>
    <div class = "product_Price"><strong>${product.price}</strong></div>
@@ -165,16 +167,16 @@ function updateCartItems() {
         const currentQuantity = productAndQuantityMap.get(item.productID);
         totalSale += totalSales(currentQuantity, item.price)
         allItems += `
-<div class = "shopping-cart">
-    <div class = "add-cart-inline">
-    <img src="Images/pickImage.png" width="80" height="80"/>
-        <div class = "inline">
+    <div class = "shopping-cart">
+        <div class = "add-cart-inline">
+    <img src=${localStorage.getItem(item.productID)} width="80" height="80"/>
+            <div class = "inline">
     <h3 class = "test">${item.productName}</h3>
     <div class = "current-price"><strong>Price:$${item.price}</strong></div>
     <div class = "current-quantity"><strong>Quantity:${currentQuantity}</strong></div>
+            </div>
         </div>
     </div>
-</div>
 `
         if(createdHtml !== true){
             createdHtml = true;
@@ -189,7 +191,7 @@ function updateCartItems() {
         cartItemsList.innerHTML += moneySale;
     });
     const currentTotalSale = document.getElementById("totalSale");
-    currentTotalSale.innerHTML = totalSale;
+    currentTotalSale.innerHTML = `Total Price: ${totalSale}`;
     console.log(cartItemsList);
 }
 

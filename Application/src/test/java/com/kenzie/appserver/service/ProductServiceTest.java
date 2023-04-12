@@ -265,15 +265,15 @@ public class ProductServiceTest {
         when(productRepository.existsById(updateproduct1.getProductID())).thenReturn(true);
 
 
-        productService.buyProducts(productList, itemsPurchased);
+        productService.buyProducts(productList, itemsPurchased, "Test");
 
         verify(productRepository, times(1)).saveAll(anyObject());
-        verify(transactionService, times(1)).generateTransaction(productList, itemsPurchased);
+        verify(transactionService, times(1)).generateTransaction(productList, itemsPurchased, "Test");
 
-        productService.buyProducts(productList, itemsPurchased);
+        productService.buyProducts(productList, itemsPurchased, "Test");
 
         verify(productRepository, times(1)).saveAll(anyObject());
-        verify(transactionService, times(1)).generateTransaction(productList, itemsPurchased);
+        verify(transactionService, times(1)).generateTransaction(productList, itemsPurchased, "Test");
 
         }
 

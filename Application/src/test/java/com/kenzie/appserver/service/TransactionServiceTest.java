@@ -100,7 +100,7 @@ public class TransactionServiceTest {
         List<Integer> itemsPurchased = new ArrayList<>();
         itemsPurchased.add(quant);
 
-        TransactionRecord transactionRecord1 =  transactionService.generateTransaction(productList, itemsPurchased);
+        TransactionRecord transactionRecord1 =  transactionService.generateTransaction(productList, itemsPurchased, "Test");
 
         assertEquals("TestCustomer", transactionRecord1.getCustomerID());
         assertEquals(product.getProductID(), transactionRecord1.getProductID().get(0));
