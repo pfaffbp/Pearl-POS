@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.kenzie.appserver.service.ProductServiceTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2023-04-11T21:12:57" hostname="BLAKE-PC" time="0.077">
+<testsuite name="com.kenzie.appserver.service.ProductServiceTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2023-04-12T20:25:07" hostname="DESKTOP-8SMMIEK" time="0.064">
   <properties/>
-  <testcase name="buyProductsTest()" classname="com.kenzie.appserver.service.ProductServiceTest" time="0.061"/>
-  <testcase name="addProduct_Test()" classname="com.kenzie.appserver.service.ProductServiceTest" time="0.003"/>
+  <testcase name="buyProductsTest()" classname="com.kenzie.appserver.service.ProductServiceTest" time="0.048"/>
+  <testcase name="addProduct_Test()" classname="com.kenzie.appserver.service.ProductServiceTest" time="0.005"/>
   <testcase name="deleteProduct_Test()" classname="com.kenzie.appserver.service.ProductServiceTest" time="0.001"/>
-  <testcase name="getAllProducts_Test()" classname="com.kenzie.appserver.service.ProductServiceTest" time="0.002"/>
-  <testcase name="updateProduct_Test()" classname="com.kenzie.appserver.service.ProductServiceTest" time="0.002"/>
+  <testcase name="getAllProducts_Test()" classname="com.kenzie.appserver.service.ProductServiceTest" time="0.001"/>
+  <testcase name="updateProduct_Test()" classname="com.kenzie.appserver.service.ProductServiceTest" time="0.001"/>
   <testcase name="findProductsByID_Test()" classname="com.kenzie.appserver.service.ProductServiceTest" time="0.001"/>
   <testcase name="updateProduct_noProduct_Test()" classname="com.kenzie.appserver.service.ProductServiceTest" time="0.002"/>
   <testcase name="findProductsByID_isNull_Test()" classname="com.kenzie.appserver.service.ProductServiceTest" time="0.001"/>
