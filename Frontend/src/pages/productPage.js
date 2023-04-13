@@ -150,7 +150,6 @@ function add(productID) {
     console.log(cartItems)
     updateCartItems();
     showSidebar();
-    console.log(anotherUser);
 }
 
 function updateCartItems() {
